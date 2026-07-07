@@ -2,7 +2,7 @@
 
 从异构数据源（RDB DDL、文本文档、对话日志）自动构建领域本体的 Python 项目。
 
-原版作者：刘焕勇，https://liuhuanyong.github.io
+原版作者：https://liuhuanyong.github.io
 修改版作者：whyseu
 
 ## 架构概览
@@ -58,6 +58,12 @@
 │  本体→LLM 上下文序列化  →  有本体 vs 无本体 推理效果对比         │
 └─────────────────────────────────────────────────────────────┘
 ```
+## 测试效果
+bare_llm      : accuracy=0.283  completeness=0.285  hallucination=0.899  avg_latency=3158ms
+ontology_llm  : accuracy=0.431  completeness=0.417  hallucination=0.458  avg_latency=2150ms
+symbolic      : accuracy=0.267  completeness=0.262  hallucination=0.785  avg_latency=0ms
+
+
 
 ## 快速开始
 
