@@ -59,11 +59,9 @@
 └─────────────────────────────────────────────────────────────┘
 ```
 ## 测试效果
-bare_llm      : accuracy=0.283  completeness=0.285  hallucination=0.899  avg_latency=3158ms
-ontology_llm  : accuracy=0.431  completeness=0.417  hallucination=0.458  avg_latency=2150ms
-symbolic      : accuracy=0.267  completeness=0.262  hallucination=0.785  avg_latency=0ms
-
-
+bare_llm      : accuracy=0.283  completeness=0.285  hallucination=0.899  avg_latency=3158ms\n
+ontology_llm  : accuracy=0.431  completeness=0.417  hallucination=0.458  avg_latency=2150ms\n
+symbolic      : accuracy=0.267  completeness=0.262  hallucination=0.785  avg_latency=0ms\n
 
 ## 快速开始
 
