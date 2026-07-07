@@ -1,0 +1,12 @@
+{"sql": "SELECT * FROM customer WHERE customer_id = ?", "frequency": 150}
+{"sql": "SELECT c.*, o.order_id FROM customer c JOIN order_main o ON c.customer_id = o.customer_id WHERE c.customer_id = ?", "frequency": 80}
+{"sql": "SELECT product_name, price FROM product WHERE category_id = ? AND status = 'active'", "frequency": 120}
+{"sql": "SELECT order_id, total_amount, status FROM order_main WHERE customer_id = ? AND created_at > ?", "frequency": 95}
+{"sql": "SELECT SUM(total_amount) as total_sales, COUNT(*) as order_count FROM order_main WHERE created_at BETWEEN ? AND ? GROUP BY customer_id", "frequency": 45}
+{"sql": "SELECT AVG(price) as avg_price, MAX(price) as max_price, MIN(price) as min_price FROM product GROUP BY category_id", "frequency": 30}
+{"sql": "SELECT p.*, c.category_name FROM product p JOIN category c ON p.category_id = c.category_id WHERE p.stock_quantity > 0", "frequency": 60}
+{"sql": "UPDATE order_main SET status = 'shipped' WHERE order_id = ? AND status = 'paid'", "frequency": 40}
+{"sql": "SELECT * FROM customer WHERE phone IS NOT NULL AND COALESCE(email, '') != ''", "frequency": 25}
+{"sql": "DELETE FROM shopping_cart WHERE customer_id = ? AND product_id = ?", "frequency": 35}
+{"sql": "INSERT INTO order_item (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)", "frequency": 90}
+{"sql": "SELECT order_id, tracking_number FROM logistics WHERE status = 'in_transit' ORDER BY created_at DESC", "frequency": 55}

@@ -1,0 +1,24 @@
+{
+  "is_consistent": true,
+  "violations": [],
+  "warnings": [
+    {
+      "check": "domain_range_consistency",
+      "severity": "warning",
+      "message": "Domain axiom says 'hasDiscount' domain is '客户', but relation defines domain as 'VIP客户'"
+    },
+    {
+      "check": "domain_range_consistency",
+      "severity": "warning",
+      "message": "Domain axiom says 'hasSpecialService' domain is '客户', but relation defines domain as 'VIP客户'"
+    }
+  ],
+  "checks_run": [
+    "taxonomy_cycle",
+    "subclass_transitivity",
+    "domain_range_consistency",
+    "disjoint_violations",
+    "rule_chain_cycles",
+    "swrl_variable_binding"
+  ]
+}

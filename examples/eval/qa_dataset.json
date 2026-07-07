@@ -1,0 +1,164 @@
+[
+  {
+    "id": "q01",
+    "question": "VIP客户是客户的一种吗？",
+    "category": "subclass",
+    "ground_truth": "是。VIP客户是客户的子类（VIP客户 ⊑ 客户）。",
+    "difficulty": "easy",
+    "requires_ontology": true,
+    "ontology_evidence": ["subClassOf: VIP客户 ⊑ 客户"]
+  },
+  {
+    "id": "q02",
+    "question": "iPhone是商品吗？",
+    "category": "subclass_transitive",
+    "ground_truth": "是。iPhone ⊑ 智能手机 ⊑ 电子产品 ⊑ 商品，通过传递闭包可推出 iPhone 是商品。",
+    "difficulty": "medium",
+    "requires_ontology": true,
+    "ontology_evidence": ["subClassOf: iPhone ⊑ 智能手机 ⊑ 电子产品 ⊑ 商品 (3跳传递)"]
+  },
+  {
+    "id": "q03",
+    "question": "VIP客户有哪些关系？",
+    "category": "relation_inheritance",
+    "ground_truth": "VIP客户通过继承获得客户的全部关系：hasOrder(→订单)、canBrowse(→商品)、canPlaceOrder(→下单)、canCheck/can查询(→物流状态)、registerWith(→手机号/邮箱)、hasAccount(→账户)等。自身直接关系：hasSpecialService(→专属客服)、hasDiscount(→折扣优惠)。",
+    "difficulty": "medium",
+    "requires_ontology": true,
+    "ontology_evidence": ["relation_inheritance: VIP客户 ⊑ 客户 → 继承客户的所有关系"]
+  },
+  {
+    "id": "q04",
+    "question": "如果客户在24小时内未支付订单，会发生什么？",
+    "category": "trigger_rule",
+    "ground_truth": "订单将自动取消。这是由ECA触发规则「超时取消」驱动的：事件=超过24小时，条件=未支付，动作=取消订单。",
+    "difficulty": "easy",
+    "requires_ontology": true,
+    "ontology_evidence": ["trigger: 超时取消 - 如果客户在24小时内未支付，订单将自动取消"]
+  },
+  {
+    "id": "q05",
+    "question": "订单总金额是如何计算的？",
+    "category": "derived_property",
+    "ground_truth": "total_amount = SUM(price * stock)，这是一个聚合类型的派生属性，依赖源属性为price和stock。",
+    "difficulty": "medium",
+    "requires_ontology": true,
+    "ontology_evidence": ["derived: total_amount = SUM(price * stock), type=aggregation"]
+  },
+  {
+    "id": "q06",
+    "question": "如果客户的年消费额是12万元，该客户是什么类型？",
+    "category": "classification",
+    "ground_truth": "该客户为VIP客户。因为customer_type是派生属性，公式为IF(annual_spend > 100000, 'VIP', ...)，120000 > 100000 满足条件。",
+    "difficulty": "medium",
+    "requires_ontology": true,
+    "ontology_evidence": ["derived: customer_type = IF(annual_spend > 100000, 'VIP', ...)"]
+  },
+  {
+    "id": "q07",
+    "question": "从客户到物流状态有哪些可达的路径？",
+    "category": "multi_hop_path",
+    "ground_truth": "客户→[canCheck/can查询]→物流状态；客户→[canPlaceOrder/下单]→订单→[状态]→物流状态。",
+    "difficulty": "hard",
+    "requires_ontology": true,
+    "ontology_evidence": ["path: 客户 --[canCheck]--> 物流状态; 客户 --[canPlaceOrder]--> 订单 --[状态]--> ..."]
+  },
+  {
+    "id": "q08",
+    "question": "客户手机号的格式要求是什么？",
+    "category": "validation_rule",
+    "ground_truth": "手机号必须为11位数字，格式为1开头，正则表达式为^1\\d{10}$，最大长度11位。",
+    "difficulty": "easy",
+    "requires_ontology": true,
+    "ontology_evidence": ["property: phone, regex=^1\\d{10}$, max_length=11"]
+  },
+  {
+    "id": "q09",
+    "question": "VIP客户能享受哪些特权？",
+    "category": "relation_inheritance",
+    "ground_truth": "VIP客户直接享有：专属客服（hasSpecialService）和折扣优惠（hasDiscount）。通过继承还享有客户的：下单、浏览商品、查看物流、注册账户等。",
+    "difficulty": "easy",
+    "requires_ontology": true,
+    "ontology_evidence": ["hasSpecialService: VIP客户→专属客服", "hasDiscount: VIP客户→折扣优惠"]
+  },
+  {
+    "id": "q10",
+    "question": "企业客户可以使用对公转账吗？",
+    "category": "subclass_relation",
+    "ground_truth": "可以。企业客户是客户的子类，本体中有关系「使用支付方式」从企业客户指向对公转账/待支付状态。",
+    "difficulty": "medium",
+    "requires_ontology": true,
+    "ontology_evidence": ["relation: 企业客户 --[使用支付方式]--> 待支付/对公转账"]
+  },
+  {
+    "id": "q11",
+    "question": "订单状态有哪些可能的取值？",
+    "category": "enum_property",
+    "ground_truth": "订单状态的枚举值为：pending(待支付)、paid(已支付)、shipped(已发货)、completed(已完成)、cancelled(已取消)。",
+    "difficulty": "easy",
+    "requires_ontology": true,
+    "ontology_evidence": ["property: status, enum_values=[pending, paid, shipped, completed, cancelled]"]
+  },
+  {
+    "id": "q12",
+    "question": "男装是商品的子类吗？",
+    "category": "subclass_transitive",
+    "ground_truth": "是。男装 ⊑ 服装 ⊑ 商品，通过传递闭包可推出男装是商品的子类。",
+    "difficulty": "medium",
+    "requires_ontology": true,
+    "ontology_evidence": ["subClassOf: 男装 ⊑ 服装 ⊑ 商品 (2跳传递)"]
+  },
+  {
+    "id": "q13",
+    "question": "如果客户在48小时内未确认收货，系统会怎样？",
+    "category": "trigger_rule",
+    "ground_truth": "系统将自动确认收货。这是由ECA触发规则「超时确认收货」驱动的。",
+    "difficulty": "easy",
+    "requires_ontology": true,
+    "ontology_evidence": ["trigger: 超时确认收货 - 48小时未确认→自动确认"]
+  },
+  {
+    "id": "q14",
+    "question": "从订单到商品有什么关系路径？",
+    "category": "multi_hop_path",
+    "ground_truth": "订单→[包含]→商品。订单通过「包含」关系直接关联商品。",
+    "difficulty": "easy",
+    "requires_ontology": true,
+    "ontology_evidence": ["relation: 订单 --[包含]--> 商品"]
+  },
+  {
+    "id": "q15",
+    "question": "订单金额的有效范围是什么？",
+    "category": "validation_rule",
+    "ground_truth": "订单金额（total_amount）最小值为0.01元，最大值为999999.99元。",
+    "difficulty": "easy",
+    "requires_ontology": true,
+    "ontology_evidence": ["property: total_amount, min_value=0.01, max_value=999999.99"]
+  },
+  {
+    "id": "q16",
+    "question": "关系hasOrder的domain和range分别是什么？",
+    "category": "domain_range",
+    "ground_truth": "domain(hasOrder) = 客户，range(hasOrder) = 订单。即只有客户才能有订单，订单是客户的订单。",
+    "difficulty": "medium",
+    "requires_ontology": true,
+    "ontology_evidence": ["domain(hasOrder)=客户", "range(hasOrder)=订单"]
+  },
+  {
+    "id": "q17",
+    "question": "企业客户能否删除已完成的订单？",
+    "category": "permission",
+    "ground_truth": "不能。本体中存在关系「不能删除」从客户指向已完成的订单记录，企业客户作为客户的子类也受此约束。",
+    "difficulty": "medium",
+    "requires_ontology": true,
+    "ontology_evidence": ["relation: 企业客户 --[不能删除]--> 已完成的订单记录"]
+  },
+  {
+    "id": "q18",
+    "question": "VIP客户能查看什么专属信息？",
+    "category": "relation_inheritance",
+    "ground_truth": "VIP客户可以查看专属商品目录和历史消费记录。",
+    "difficulty": "easy",
+    "requires_ontology": true,
+    "ontology_evidence": ["relation: VIP客户 --[查看]--> 专属商品目录", "VIP客户 --[查看]--> 历史消费记录"]
+  }
+]

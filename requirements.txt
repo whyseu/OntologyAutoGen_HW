@@ -1,0 +1,16 @@
+# LLM & Embedding
+openai>=1.0
+sentence-transformers>=2.2
+
+# Numerical
+numpy>=1.24
+
+# String matching
+Levenshtein>=0.21
+
+# Config & utils
+pyyaml>=6.0
+python-dotenv>=1.0
+
+# Testing
+pytest>=7.0

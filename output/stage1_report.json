@@ -1,0 +1,392 @@
+{
+  "ddl_text": "-- E-commerce DDL for ontology auto-generation testing\n-- Contains: high-quality tables, low-quality table, system table, M:N relation table\n\n-- High quality: customer table (has comments, has FK-referenced columns)\nCREATE TABLE customer (\n    customer_id BIGINT PRIMARY KEY COMMENT '客户ID',\n    customer_name VARCHAR(100) COMMENT '客户姓名',\n    customer_type ENUM('individual', 'enterprise') COMMENT '客户类型: 个人/企业',\n    phone VARCHAR(20) COMMENT '手机号',\n    email VARCHAR(100) COMMENT '邮箱',\n    register_time DATETIME COMMENT '注册时间',\n    annual_spend DECIMAL(12,2) COMMENT '年消费额'\n) COMMENT '客户信息表';\n\n-- High quality: product table\nCREATE TABLE product (\n    product_id BIGINT PRIMARY KEY COMMENT '商品ID',\n    product_name VARCHAR(200) COMMENT '商品名称',\n    category_id BIGINT COMMENT '分类ID',\n    price DECIMAL(10,2) COMMENT '单价',\n    stock INT COMMENT '库存数量',\n    description TEXT COMMENT '商品描述'\n) COMMENT '商品信息表';\n\n-- High quality: order table (has FK to customer)\nCREATE TABLE `order` (\n    order_id BIGINT PRIMARY KEY COMMENT '订单ID',\n    customer_id BIGINT COMMENT '客户ID',\n    order_time DATETIME COMMENT '下单时间',\n    total_amount DECIMAL(12,2) COMMENT '订单总金额',\n    status ENUM('pending', 'paid', 'shipped', 'completed', 'cancelled') COMMENT '订单状态',\n    FOREIGN KEY (customer_id) REFERENCES customer(customer_id)\n) COMMENT '订单表';\n\n-- High quality: order_item table (has FKs to order and product)\nCREATE TABLE order_item (\n    item_id BIGINT PRIMARY KEY COMMENT '订单项ID',\n    order_id BIGINT COMMENT '订单ID',\n    product_id BIGINT COMMENT '商品ID',\n    quantity INT COMMENT '购买数量',\n    unit_price DECIMAL(10,2) COMMENT '成交单价',\n    FOREIGN KEY (order_id) REFERENCES `order`(order_id),\n    FOREIGN KEY (product_id) REFERENCES product(product_id)\n) COMMENT '订单明细表';\n\n-- Low quality: temp table (no comments, meaningless column names) -- tests DDL completion\nCREATE TABLE tmp_2024 (\n    c1 INT,\n    c2 VARCHAR(50),\n    c3 DATE,\n    c4 DECIMAL(10,2)\n);\n\n-- System table: should NOT produce business relations -- tests FK filter\nCREATE TABLE system_log (\n    log_id BIGINT PRIMARY KEY,\n    user_id BIGINT,\n    action VARCHAR(100),\n    log_time DATETIME,\n    FOREIGN KEY (user_id) REFERENCES customer(customer_id)\n) COMMENT '系统操作日志表';\n\n-- M:N relation table: tests reification\nCREATE TABLE product_tag (\n    product_id BIGINT,\n    tag_id BIGINT,\n    PRIMARY KEY (product_id, tag_id)\n) COMMENT '商品-标签关联表';\n",
+  "parsed_tables": [
+    {
+      "table_name": "customer",
+      "comment": "客户信息表",
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "BIGINT",
+          "comment": "客户ID",
+          "enum_values": [],
+          "is_primary_key": true
+        },
+        {
+          "name": "customer_name",
+          "type": "VARCHAR(100)",
+          "comment": "客户姓名",
+          "enum_values": [],
+          "is_primary_key": false
+        },
+        {
+          "name": "customer_type",
+          "type": "ENUM('individual', 'enterprise')",
+          "comment": "客户类型: 个人/企业",
+          "enum_values": [
+            "individual",
+            "enterprise"
+          ],
+          "is_primary_key": false
+        },
+        {
+          "name": "phone",
+          "type": "VARCHAR(20)",
+          "comment": "手机号",
+          "enum_values": [],
+          "is_primary_key": false
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR(100)",
+          "comment": "邮箱",
+          "enum_values": [],
+          "is_primary_key": false
+        },
+        {
+          "name": "register_time",
+          "type": "DATETIME",
+          "comment": "注册时间",
+          "enum_values": [],
+          "is_primary_key": false
+        },
+        {
+          "name": "annual_spend",
+          "type": "DECIMAL(12,2)",
+          "comment": "年消费额",
+          "enum_values": [],
+          "is_primary_key": false
+        }
+      ],
+      "foreign_keys": []
+    },
+    {
+      "table_name": "product",
+      "comment": "商品信息表",
+      "columns": [
+        {
+          "name": "product_id",
+          "type": "BIGINT",
+          "comment": "商品ID",
+          "enum_values": [],
+          "is_primary_key": true
+        },
+        {
+          "name": "product_name",
+          "type": "VARCHAR(200)",
+          "comment": "商品名称",
+          "enum_values": [],
+          "is_primary_key": false
+        },
+        {
+          "name": "category_id",
+          "type": "BIGINT",
+          "comment": "分类ID",
+          "enum_values": [],
+          "is_primary_key": false
+        },
+        {
+          "name": "price",
+          "type": "DECIMAL(10,2)",
+          "comment": "单价",
+          "enum_values": [],
+          "is_primary_key": false
+        },
+        {
+          "name": "stock",
+          "type": "INT",
+          "comment": "库存数量",
+          "enum_values": [],
+          "is_primary_key": false
+        },
+        {
+          "name": "description",
+          "type": "TEXT",
+          "comment": "商品描述",
+          "enum_values": [],
+          "is_primary_key": false
+        }
+      ],
+      "foreign_keys": []
+    },
+    {
+      "table_name": "order",
+      "comment": "订单表",
+      "columns": [
+        {
+          "name": "order_id",
+          "type": "BIGINT",
+          "comment": "订单ID",
+          "enum_values": [],
+          "is_primary_key": true
+        },
+        {
+          "name": "customer_id",
+          "type": "BIGINT",
+          "comment": "客户ID",
+          "enum_values": [],
+          "is_primary_key": false
+        },
+        {
+          "name": "order_time",
+          "type": "DATETIME",
+          "comment": "下单时间",
+          "enum_values": [],
+          "is_primary_key": false
+        },
+        {
+          "name": "total_amount",
+          "type": "DECIMAL(12,2)",
+          "comment": "订单总金额",
+          "enum_values": [],
+          "is_primary_key": false
+        },
+        {
+          "name": "status",
+          "type": "ENUM('pending', 'paid', 'shipped', 'completed', 'cancelled')",
+          "comment": "订单状态",
+          "enum_values": [
+            "pending",
+            "paid",
+            "shipped",
+            "completed",
+            "cancelled"
+          ],
+          "is_primary_key": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "fk_column": "customer_id",
+          "ref_table": "customer",
+          "ref_column": "customer_id"
+        }
+      ]
+    },
+    {
+      "table_name": "order_item",
+      "comment": "订单明细表",
+      "columns": [
+        {
+          "name": "item_id",
+          "type": "BIGINT",
+          "comment": "订单项ID",
+          "enum_values": [],
+          "is_primary_key": true
+        },
+        {
+          "name": "order_id",
+          "type": "BIGINT",
+          "comment": "订单ID",
+          "enum_values": [],
+          "is_primary_key": false
+        },
+        {
+          "name": "product_id",
+          "type": "BIGINT",
+          "comment": "商品ID",
+          "enum_values": [],
+          "is_primary_key": false
+        },
+        {
+          "name": "quantity",
+          "type": "INT",
+          "comment": "购买数量",
+          "enum_values": [],
+          "is_primary_key": false
+        },
+        {
+          "name": "unit_price",
+          "type": "DECIMAL(10,2)",
+          "comment": "成交单价",
+          "enum_values": [],
+          "is_primary_key": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "fk_column": "order_id",
+          "ref_table": "order",
+          "ref_column": "order_id"
+        },
+        {
+          "fk_column": "product_id",
+          "ref_table": "product",
+          "ref_column": "product_id"
+        }
+      ]
+    },
+    {
+      "table_name": "tmp_2024",
+      "comment": "",
+      "columns": [
+        {
+          "name": "c1",
+          "type": "INT",
+          "comment": "",
+          "enum_values": [],
+          "is_primary_key": false
+        },
+        {
+          "name": "c2",
+          "type": "VARCHAR(50)",
+          "comment": "",
+          "enum_values": [],
+          "is_primary_key": false
+        },
+        {
+          "name": "c3",
+          "type": "DATE",
+          "comment": "",
+          "enum_values": [],
+          "is_primary_key": false
+        },
+        {
+          "name": "c4",
+          "type": "DECIMAL(10,2)",
+          "comment": "",
+          "enum_values": [],
+          "is_primary_key": false
+        }
+      ],
+      "foreign_keys": []
+    },
+    {
+      "table_name": "system_log",
+      "comment": "系统操作日志表",
+      "columns": [
+        {
+          "name": "log_id",
+          "type": "BIGINT",
+          "comment": "",
+          "enum_values": [],
+          "is_primary_key": true
+        },
+        {
+          "name": "user_id",
+          "type": "BIGINT",
+          "comment": "",
+          "enum_values": [],
+          "is_primary_key": false
+        },
+        {
+          "name": "action",
+          "type": "VARCHAR(100)",
+          "comment": "",
+          "enum_values": [],
+          "is_primary_key": false
+        },
+        {
+          "name": "log_time",
+          "type": "DATETIME",
+          "comment": "",
+          "enum_values": [],
+          "is_primary_key": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "fk_column": "user_id",
+          "ref_table": "customer",
+          "ref_column": "customer_id"
+        }
+      ]
+    },
+    {
+      "table_name": "product_tag",
+      "comment": "商品-标签关联表",
+      "columns": [
+        {
+          "name": "product_id",
+          "type": "BIGINT",
+          "comment": "",
+          "enum_values": [],
+          "is_primary_key": false
+        },
+        {
+          "name": "tag_id",
+          "type": "BIGINT",
+          "comment": "",
+          "enum_values": [],
+          "is_primary_key": false
+        }
+      ],
+      "foreign_keys": []
+    }
+  ],
+  "quality_scores": [
+    {
+      "table_name": "customer",
+      "score": 8,
+      "should_process": true,
+      "has_fk": false,
+      "column_count": 7,
+      "reason": ""
+    },
+    {
+      "table_name": "product",
+      "score": 8,
+      "should_process": true,
+      "has_fk": false,
+      "column_count": 6,
+      "reason": ""
+    },
+    {
+      "table_name": "order",
+      "score": 9,
+      "should_process": true,
+      "has_fk": true,
+      "column_count": 5,
+      "reason": ""
+    },
+    {
+      "table_name": "order_item",
+      "score": 9,
+      "should_process": true,
+      "has_fk": true,
+      "column_count": 5,
+      "reason": ""
+    },
+    {
+      "table_name": "tmp_2024",
+      "score": 1,
+      "should_process": false,
+      "has_fk": false,
+      "column_count": 4,
+      "reason": "Score 1 < 5, needs data remediation"
+    },
+    {
+      "table_name": "system_log",
+      "score": 7,
+      "should_process": true,
+      "has_fk": true,
+      "column_count": 4,
+      "reason": ""
+    },
+    {
+      "table_name": "product_tag",
+      "score": 6,
+      "should_process": true,
+      "has_fk": false,
+      "column_count": 2,
+      "reason": ""
+    }
+  ],
+  "docs_text": "# 电商系统产品介绍\n\n## 客户体系\n\n我们的平台服务于两类客户：个人客户和企业客户。个人客户是指以自然人身份注册的用户，企业客户是指以法人身份注册的用户。\n\nVIP客户是一种特殊的客户类型，指年消费额超过10万元的客户群体。VIP客户享有专属客服和折扣优惠。\n\n客户可以通过手机号或邮箱注册账户。注册后，客户可以浏览商品、下单购买、查看物流状态。\n\n## 商品分类\n\n商品分为多个类别：电子产品、服装、食品等。每个类别下有多个子类别。\n\n智能手机是一种电子产品，属于数码产品的大类。iPhone是我们热销的智能手机品牌之一。\n\n服装分为男装、女装、童装三个子类别。每个子类别下又分为上装、下装、配饰等。\n\n## 订单流程\n\n客户下单后，订单包含一个或多个商品。每个订单项记录了商品和购买数量。\n\n订单支付后进入发货流程。订单状态包括：待支付、已支付、已发货、已完成、已取消。\n\n如果客户在24小时内未支付，订单将自动取消。\n\n## 物流配送\n\n订单完成后由物流公司配送。每个物流公司有自己的配送范围和时效标准。\n\n物流状态包括：已揽收、运输中、已到达、已签收。客户可以通过订单号查询物流状态。\n\n## 支付方式\n\n我们支持多种支付方式：微信支付、支付宝、银行卡支付。企业客户还可以使用对公转账。\n\n支付完成后，系统会自动更新订单状态为已支付，并通知商家发货。\n\n## 权限管理\n\n管理员可以查看和修改所有订单信息。客服人员可以查看订单详情，但不能修改价格。\n\n普通客户只能查看自己的订单。VIP客户有权查看专属商品目录和历史消费记录。\n\n企业客户不能删除已完成的订单记录。\n\n## 数据规范\n\n客户手机号必须为11位数字，格式为1开头。邮箱地址必须包含@符号。\n\n订单金额最小值为0.01元，最大值为999999.99元。商品名称长度不超过200个字符。\n\n收货地址最长不超过500个字符。\n\n## 业务操作流程\n\n完整的下单流程如下：浏览商品 → 加入购物车 → 确认订单 → 选择支付方式 → 完成支付。\n\n支付成功后，系统会自动更新库存数量，并通知仓库进行拣货。\n\n退款流程：客户提交退款申请 → 客服审核 → 财务退款 → 退款到账。\n\n如果客户在48小时内未确认收货，系统将自动确认收货。\n",
+  "query_log": [
+    "SELECT * FROM customer WHERE customer_id = ?",
+    "SELECT c.*, o.order_id FROM customer c JOIN order_main o ON c.customer_id = o.customer_id WHERE c.customer_id = ?",
+    "SELECT product_name, price FROM product WHERE category_id = ? AND status = 'active'",
+    "SELECT order_id, total_amount, status FROM order_main WHERE customer_id = ? AND created_at > ?",
+    "SELECT SUM(total_amount) as total_sales, COUNT(*) as order_count FROM order_main WHERE created_at BETWEEN ? AND ? GROUP BY customer_id",
+    "SELECT AVG(price) as avg_price, MAX(price) as max_price, MIN(price) as min_price FROM product GROUP BY category_id",
+    "SELECT p.*, c.category_name FROM product p JOIN category c ON p.category_id = c.category_id WHERE p.stock_quantity > 0",
+    "UPDATE order_main SET status = 'shipped' WHERE order_id = ? AND status = 'paid'",
+    "SELECT * FROM customer WHERE phone IS NOT NULL AND COALESCE(email, '') != ''",
+    "DELETE FROM shopping_cart WHERE customer_id = ? AND product_id = ?",
+    "INSERT INTO order_item (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)",
+    "SELECT order_id, tracking_number FROM logistics WHERE status = 'in_transit' ORDER BY created_at DESC"
+  ],
+  "business_terms": [],
+  "system_table_tags": {}
+}

@@ -1,0 +1,98 @@
+# E-commerce domain configuration for ontology auto-generation
+
+domain: ecommerce
+
+# Business terms -- used for FK business semantic filtering (Algorithm 4.3)
+business_terms:
+  - 客户
+  - 顾客
+  - 订单
+  - 商品
+  - 产品
+  - 供应商
+  - 物流
+  - 配送
+  - 支付
+  - 标签
+
+# Concept synonyms -- used for concept merging (Algorithm 2.3)
+concept_synonyms:
+  - standard: 客户
+    aliases: [顾客, 消费者, 买家, 用户]
+  - standard: 商品
+    aliases: [产品, 货品]
+  - standard: 订单
+    aliases: [订单记录, 订单信息]
+  - standard: 物流
+    aliases: [配送, 快递, 运输]
+
+# Relation synonyms -- used for relation normalization
+relation_synonyms:
+  - standard_name: hasOrder
+    aliases: [下单, 创建订单, 提交订单, 购买]
+    domain: customer
+    range: order
+    inverse: isOrderOf
+  - standard_name: containsProduct
+    aliases: [包含商品, 包含产品, 含有商品]
+    domain: order_item
+    range: product
+    inverse: isContainedIn
+  - standard_name: hasCustomer
+    aliases: [属于客户, 关联客户]
+    domain: order
+    range: customer
+    inverse: isCustomerOf
+
+# System table tags -- used for FK filtering (Algorithm 4.3, Rule 1)
+system_table_tags:
+  system_log: system
+  tmp_2024: system
+
+# Taxonomy configuration
+max_taxonomy_depth: 4
+
+# Specialization dimensions -- which dimensions to split concepts by
+specialization_dimensions:
+  customer: [type, value]
+  product: [category]
+  order: [status]
+
+# External system mappings (Category 3.3) -- for cross-system term alignment
+external_mappings:
+  - internal_term: 客户
+    external_system: SAP
+    external_term: Business Partner
+    external_code: BP
+    mapping_type: equivalent
+  - internal_term: 订单
+    external_system: Salesforce
+    external_term: Order
+    mapping_type: equivalent
+  - internal_term: 商品
+    external_system: SAP
+    external_term: Material
+    external_code: MATNR
+    mapping_type: equivalent
+
+# Permission subjects (Category 6) -- role definitions
+permission_subjects:
+  - name: 管理员
+    type: role
+    description: 系统管理员，拥有全部权限
+  - name: 客服人员
+    type: role
+    description: 客服团队成员
+    parent: 管理员
+  - name: 普通客户
+    type: role
+    description: 注册客户
+  - name: VIP客户
+    type: role
+    description: 年消费超10万的高级客户
+    parent: 普通客户
+
+# Governance conventions (Category 2.7)
+governance_conventions:
+  concept_naming: 中文名称，2-6个汉字
+  property_naming: 英文小写下划线命名
