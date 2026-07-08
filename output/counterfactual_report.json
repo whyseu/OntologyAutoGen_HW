@@ -1,0 +1,182 @@
+{
+  "title": "反事实推理报告",
+  "description": "通过假设性修改本体结构，分析因果影响",
+  "ontology": "/root/OntologyAutoGen/output/ontology.json",
+  "scenarios": [
+    {
+      "id": "cf_scenario_1",
+      "title": "移除子类：VIP客户 ⊑ 客户",
+      "hypothesis": "如果 VIP客户 不是 客户 的子类",
+      "type": "remove_subclass",
+      "result": {
+        "query": "反事实：如果 VIP客户 不是 客户 的子类，会有什么影响？",
+        "answer": "## 反事实分析：移除 VIP客户 ⊑ 客户\n\n**影响概要**：\n- 失去祖先：1 个 (客户)\n- 失去继承关系：12 个 (canBrowse, canCheck, canPlaceOrder, hasAccount, registerWith, 下单, 不能删除, 提交, 未支付, 查看, 查看和修改, 查询)\n- 失去继承属性：7 个 (annual_spend, customer_name, customer_type, email, phone, register_time, 确认收货时间)\n- 级联影响后代：0 个 (无)",
+        "confidence": 1.0,
+        "method": "counterfactual",
+        "found": true,
+        "proof_chain": [
+          {
+            "rule": "counterfactual_hypothesis",
+            "premise": "假设移除公理：VIP客户 ⊑ 客户",
+            "conclusion": "构建反事实本体（deep copy + 移除公理 + 重建索引）",
+            "evidence_id": ""
+          },
+          {
+            "rule": "lost_ancestors",
+            "premise": "VIP客户 原有祖先 1 个",
+            "conclusion": "失去祖先关系：客户",
+            "evidence_id": ""
+          },
+          {
+            "rule": "lost_relations",
+            "premise": "VIP客户 原有关系 15 个",
+            "conclusion": "失去继承关系：canBrowse, canCheck, canPlaceOrder, hasAccount, registerWith, 下单, 不能删除, 提交, 未支付, 查看, 查看和修改, 查询",
+            "evidence_id": ""
+          },
+          {
+            "rule": "lost_properties",
+            "premise": "VIP客户 原有属性 8 个",
+            "conclusion": "失去继承属性：annual_spend, customer_name, customer_type, email, phone, register_time, 确认收货时间",
+            "evidence_id": ""
+          }
+        ],
+        "supporting_facts": []
+      }
+    },
+    {
+      "id": "cf_scenario_2",
+      "title": "移除关系：canPlaceOrder",
+      "hypothesis": "如果移除 canPlaceOrder（客户→订单）关系",
+      "type": "remove_relation",
+      "result": {
+        "query": "反事实：如果移除关系 canPlaceOrder，会有什么影响？",
+        "answer": "## 反事实分析：移除关系 canPlaceOrder\n\n**原始定义**：客户 --[canPlaceOrder]--> 订单\n**受影响概念**（含继承）：3 个\n  - 客户\n  - 企业客户\n  - VIP客户",
+        "confidence": 1.0,
+        "method": "counterfactual",
+        "found": true,
+        "proof_chain": [
+          {
+            "rule": "counterfactual_hypothesis",
+            "premise": "假设移除关系：canPlaceOrder (domain=客户, range=订单)",
+            "conclusion": "构建反事实本体",
+            "evidence_id": ""
+          },
+          {
+            "rule": "impact_analysis",
+            "premise": "关系 canPlaceOrder 被 3 个概念使用（含继承）",
+            "conclusion": "受影响概念：客户, 企业客户, VIP客户",
+            "evidence_id": ""
+          },
+          {
+            "rule": "remaining_relations",
+            "premise": "客户 当前有 16 个关系",
+            "conclusion": "移除后剩余 15 个关系：isType, registerWith, registerWith, hasAccount, canBrowse, canCheck, 下单, 未支付, 查询, 查看和修改, 查看, 查看, 查看, 不能删除, 提交",
+            "evidence_id": ""
+          }
+        ],
+        "supporting_facts": []
+      }
+    },
+    {
+      "id": "cf_scenario_3",
+      "title": "添加子类：订单 ⊑ 商品",
+      "hypothesis": "如果 订单 成为 商品 的子类（荒谬假设）",
+      "type": "add_subclass",
+      "result": {
+        "query": "反事实：如果 订单 成为 商品 的子类，会获得什么？",
+        "answer": "## 反事实分析：添加 订单 ⊑ 商品\n\n**新增祖先**：1 个 (商品)\n**新增继承关系**：3 个 (分为, 属于, 是)\n**新增继承属性**：5 个 (category_id, description, price, product_name, stock)",
+        "confidence": 1.0,
+        "method": "counterfactual",
+        "found": true,
+        "proof_chain": [
+          {
+            "rule": "counterfactual_hypothesis",
+            "premise": "假设添加公理：订单 ⊑ 商品",
+            "conclusion": "构建反事实本体（deep copy + 添加公理 + 重建索引）",
+            "evidence_id": ""
+          },
+          {
+            "rule": "gained_ancestors",
+            "premise": "订单 原有祖先 0 个",
+            "conclusion": "新增祖先：商品",
+            "evidence_id": ""
+          },
+          {
+            "rule": "gained_relations",
+            "premise": "订单 原有关系 5 个",
+            "conclusion": "新增继承关系：分为, 属于, 是",
+            "evidence_id": ""
+          },
+          {
+            "rule": "gained_properties",
+            "premise": "订单 原有属性 6 个",
+            "conclusion": "新增继承属性：category_id, description, price, product_name, stock",
+            "evidence_id": ""
+          }
+        ],
+        "supporting_facts": []
+      }
+    },
+    {
+      "id": "cf_scenario_4",
+      "title": "移除概念：客户",
+      "hypothesis": "如果完全移除客户概念",
+      "type": "remove_concept",
+      "result": {
+        "query": "反事实：如果完全移除概念 客户，会有什么影响？",
+        "answer": "## 反事实分析：移除概念 客户\n\n**直接影响**：\n- 孤立子类：2 个 (企业客户, VIP客户)\n- 断裂关系：18 条\n  - 客户 --[isType]--> CustomerType\n  - 客户 --[registerWith]--> 手机号\n  - 客户 --[registerWith]--> 邮箱\n  - 客户 --[hasAccount]--> 账户\n  - 客户 --[canBrowse]--> 商品\n  - 客户 --[canPlaceOrder]--> 订单\n  - 客户 --[canCheck]--> 物流状态\n  - 客户 --[下单]--> 订单\n  - 客户 --[未支付]--> 订单\n  - 客户 --[查询]--> 订单\n  - 客户 --[查看和修改]--> 订单\n  - 客户 --[查看]--> 订单\n  - 客户 --[查看]--> 专属商品目录\n  - 客户 --[查看]--> 历史消费记录\n  - 客户 --[不能删除]--> 已完成的订单记录\n  - 客户 --[提交]--> 订单\n  - 订单 --[hasCustomer]--> 客户\n  - VIP客户 --[isType]--> 客户\n- 丢失属性：7 个\n- 受影响公理：6 条\n**级联影响**：\n- 受影响后代：2 个\n- 失去继承的后代：2 个",
+        "confidence": 1.0,
+        "method": "counterfactual",
+        "found": true,
+        "proof_chain": [
+          {
+            "rule": "counterfactual_hypothesis",
+            "premise": "假设完全移除概念：客户（id=concept_da1c28cc）",
+            "conclusion": "分析级联影响",
+            "evidence_id": ""
+          },
+          {
+            "rule": "orphaned_children",
+            "premise": "客户 有 2 个直接子类",
+            "conclusion": "子类将失去父类：企业客户, VIP客户",
+            "evidence_id": ""
+          },
+          {
+            "rule": "broken_relations",
+            "premise": "客户 参与 18 个关系",
+            "conclusion": "将断裂的关系：客户 --[isType]--> CustomerType；客户 --[registerWith]--> 手机号；客户 --[registerWith]--> 邮箱；客户 --[hasAccount]--> 账户；客户 --[canBrowse]--> 商品；客户 --[canPlaceOrder]--> 订单；客户 --[canCheck]--> 物流状态；客户 --[下单]--> 订单；客户 --[未支付]--> 订单；客户 --[查询]--> 订单；客户 --[查看和修改]--> 订单；客户 --[查看]--> 订单；客户 --[查看]--> 专属商品目录；客户 --[查看]--> 历史消费记录；客户 --[不能删除]--> 已完成的订单记录；客户 --[提交]--> 订单；订单 --[hasCustomer]--> 客户；VIP客户 --[isType]--> 客户",
+            "evidence_id": ""
+          },
+          {
+            "rule": "lost_properties",
+            "premise": "客户 定义了 7 个属性",
+            "conclusion": "将丢失的属性：customer_name, customer_type, phone, email, register_time, annual_spend, 确认收货时间",
+            "evidence_id": ""
+          },
+          {
+            "rule": "broken_axioms",
+            "premise": "共有 6 条公理引用 客户",
+            "conclusion": "这些公理将被移除",
+            "evidence_id": ""
+          },
+          {
+            "rule": "inheritance_cascade",
+            "premise": "2 个后代概念通过继承获得了 客户 的关系",
+            "conclusion": "这些概念也将失去继承来的关系",
+            "evidence_id": ""
+          }
+        ],
+        "supporting_facts": []
+      }
+    }
+  ],
+  "summary": {
+    "total_scenarios": 4,
+    "scenario_types": [
+      "remove_subclass",
+      "remove_relation",
+      "add_subclass",
+      "remove_concept"
+    ]
+  }
+}

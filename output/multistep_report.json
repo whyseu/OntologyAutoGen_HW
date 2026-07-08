@@ -1,0 +1,251 @@
+{
+  "summary": {
+    "total_steps": 7,
+    "passed": 7,
+    "failed": 0,
+    "all_ok": true,
+    "steps": [
+      {
+        "name": "step_add_concepts",
+        "description": "新增 4 个概念",
+        "ok": true
+      },
+      {
+        "name": "step_build_taxonomy",
+        "description": "建立 3 条 subClassOf 边",
+        "ok": true
+      },
+      {
+        "name": "step_add_relations",
+        "description": "新增 3 个关系",
+        "ok": true
+      },
+      {
+        "name": "step_verify_inheritance",
+        "description": "验证关系继承",
+        "ok": true
+      },
+      {
+        "name": "step_multi_hop_reasoning",
+        "description": "执行 2 个多跳路径查询",
+        "ok": true
+      },
+      {
+        "name": "step_subclass_closure",
+        "description": "验证传递闭包",
+        "ok": true
+      },
+      {
+        "name": "step_trigger_firing",
+        "description": "触发 2 个 ECA 查询",
+        "ok": true
+      }
+    ]
+  },
+  "steps": [
+    {
+      "name": "step_add_concepts",
+      "description": "新增 4 个概念",
+      "ok": true,
+      "output": {
+        "added": [
+          {
+            "id": "concept_c8787df6",
+            "name": "直播商品"
+          },
+          {
+            "id": "concept_f737d170",
+            "name": "直播间"
+          },
+          {
+            "id": "concept_bcff65f6",
+            "name": "主播"
+          },
+          {
+            "id": "concept_513486ea",
+            "name": "直播订单"
+          }
+        ]
+      },
+      "detail": ""
+    },
+    {
+      "name": "step_build_taxonomy",
+      "description": "建立 3 条 subClassOf 边",
+      "ok": true,
+      "output": {
+        "axioms": [
+          "axiom_dd6ee656",
+          "axiom_864fe44b",
+          "axiom_965d7f5b"
+        ],
+        "edges": [
+          [
+            "直播商品",
+            "商品"
+          ],
+          [
+            "直播订单",
+            "订单"
+          ],
+          [
+            "主播",
+            "客户"
+          ]
+        ]
+      },
+      "detail": ""
+    },
+    {
+      "name": "step_add_relations",
+      "description": "新增 3 个关系",
+      "ok": true,
+      "output": {
+        "relations": [
+          "relation_4d915e72",
+          "relation_46bf7fc6",
+          "relation_97c3c203"
+        ]
+      },
+      "detail": ""
+    },
+    {
+      "name": "step_verify_inheritance",
+      "description": "验证关系继承",
+      "ok": true,
+      "output": {
+        "checks": [
+          {
+            "concept": "主播",
+            "expected_relation": "canPlaceOrder",
+            "expected": true,
+            "inherited": true,
+            "ok": true,
+            "all_relations": [
+              "canBrowse",
+              "canCheck",
+              "canPlaceOrder",
+              "hasAccount",
+              "hostsLive",
+              "isType",
+              "placesLiveOrder",
+              "registerWith",
+              "下单",
+              "不能删除",
+              "提交",
+              "未支付",
+              "查看",
+              "查看和修改",
+              "查询"
+            ]
+          },
+          {
+            "concept": "直播订单",
+            "expected_relation": "canPlaceOrder",
+            "expected": false,
+            "inherited": false,
+            "ok": true,
+            "all_relations": [
+              "hasCustomer",
+              "包含",
+              "状态",
+              "自动取消",
+              "记录"
+            ]
+          }
+        ]
+      },
+      "detail": ""
+    },
+    {
+      "name": "step_multi_hop_reasoning",
+      "description": "执行 2 个多跳路径查询",
+      "ok": true,
+      "output": {
+        "queries": [
+          {
+            "src": "客户",
+            "dst": "直播商品",
+            "found": false,
+            "answer": "未找到路径",
+            "proof_steps": 0
+          },
+          {
+            "src": "主播",
+            "dst": "直播商品",
+            "found": false,
+            "answer": "未找到路径",
+            "proof_steps": 0
+          }
+        ]
+      },
+      "detail": ""
+    },
+    {
+      "name": "step_subclass_closure",
+      "description": "验证传递闭包",
+      "ok": true,
+      "output": {
+        "checks": [
+          {
+            "child": "直播商品",
+            "parent": "商品",
+            "expected": true,
+            "answer": "是",
+            "found": true,
+            "ok": true,
+            "proof_steps": 2
+          },
+          {
+            "child": "直播订单",
+            "parent": "订单",
+            "expected": true,
+            "answer": "是",
+            "found": true,
+            "ok": true,
+            "proof_steps": 2
+          },
+          {
+            "child": "主播",
+            "parent": "客户",
+            "expected": true,
+            "answer": "是",
+            "found": true,
+            "ok": true,
+            "proof_steps": 2
+          },
+          {
+            "child": "直播商品",
+            "parent": "订单",
+            "expected": false,
+            "answer": "否",
+            "found": false,
+            "ok": true,
+            "proof_steps": 0
+          }
+        ]
+      },
+      "detail": ""
+    },
+    {
+      "name": "step_trigger_firing",
+      "description": "触发 2 个 ECA 查询",
+      "ok": true,
+      "output": {
+        "queries": [
+          {
+            "query": "直播订单未支付",
+            "answer": "• 超时取消：如果客户在24小时内未支付，订单将自动取消\n  → 动作：update_field - 取消\n• 支付后更新订单状态为已支付：支付完成后，系统会自动更新订单状态为已支付\n  → 动作：invoke_service - 更新订单状态为已支付\n• 支付后更新库存数量：支付成功后，系统会自动更新库存数量\n  → 动作：invoke_service - 更新库存数量\n• 订单自动取消：如果客",
+            "fired": true
+          },
+          {
+            "query": "客户超时未确认收货",
+            "answer": "• 超时取消：如果客户在24小时内未支付，订单将自动取消\n  → 动作：update_field - 取消\n• 超时确认收货：如果客户在48小时内未确认收货，系统将自动确认收货\n  → 动作：update_field - 确认收货\n• 订单自动取消：如果客户在24小时内未支付，订单将自动取消。\n  → 动作：update_field - 将订单状态更新为已取消\n• 自动确认收货：如果客户在48小时",
+            "fired": true
+          }
+        ]
+      },
+      "detail": ""
+    }
+  ]
+}

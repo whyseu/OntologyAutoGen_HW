@@ -160,5 +160,49 @@
     "difficulty": "easy",
     "requires_ontology": true,
     "ontology_evidence": ["relation: VIP客户 --[查看]--> 专属商品目录", "VIP客户 --[查看]--> 历史消费记录"]
+  },
+  {
+    "id": "q19",
+    "question": "如果VIP客户不是客户的子类，VIP客户会失去哪些继承来的关系？",
+    "category": "counterfactual",
+    "ground_truth": "VIP客户将失去从客户继承的所有关系，包括canBrowse、canPlaceOrder、canCheck、hasAccount、isType、registerWith、下单、查询、查看和修改、查看、不能删除、提交等12个关系。同时失去继承的属性：customer_name、customer_type、phone、email、register_time、annual_spend。",
+    "difficulty": "hard",
+    "requires_ontology": true,
+    "ontology_evidence": ["subClassOf: VIP客户 ⊑ 客户", "VIP客户通过继承获得客户的全部关系和属性"],
+    "counterfactual_type": "remove_subclass",
+    "counterfactual_args": {"child": "VIP客户", "parent": "客户"}
+  },
+  {
+    "id": "q20",
+    "question": "如果移除canPlaceOrder关系，哪些概念会受到影响？",
+    "category": "counterfactual",
+    "ground_truth": "客户、企业客户、VIP客户3个概念会受到影响。客户直接失去canPlaceOrder关系，企业客户和VIP客户作为客户的子类通过继承也会失去该关系。移除后客户剩余14个关系。",
+    "difficulty": "hard",
+    "requires_ontology": true,
+    "ontology_evidence": ["relation: canPlaceOrder domain=客户 range=订单", "subClassOf: 企业客户 ⊑ 客户", "subClassOf: VIP客户 ⊑ 客户"],
+    "counterfactual_type": "remove_relation",
+    "counterfactual_args": {"relation": "canPlaceOrder"}
+  },
+  {
+    "id": "q21",
+    "question": "如果订单成为商品的子类，订单会获得哪些新的关系和属性？",
+    "category": "counterfactual",
+    "ground_truth": "订单将获得商品的祖先（商品），新增继承关系3个（分为、属于、是），新增继承属性5个（category_id、description、price、product_name、stock）。这是一个荒谬的假设，但可以通过符号推理验证其级联影响。",
+    "difficulty": "hard",
+    "requires_ontology": true,
+    "ontology_evidence": ["商品拥有关系: 分为, 属于, 是", "商品拥有属性: category_id, description, price, product_name, stock"],
+    "counterfactual_type": "add_subclass",
+    "counterfactual_args": {"child": "订单", "parent": "商品"}
+  },
+  {
+    "id": "q22",
+    "question": "如果完全移除客户概念，会对本体产生什么级联影响？",
+    "category": "counterfactual",
+    "ground_truth": "移除客户概念将导致：2个子类（企业客户、VIP客户）变为孤立；17条关系断裂（包括客户作为domain的15条和作为range的2条）；6个属性丢失（customer_name、customer_type、phone、email、register_time、annual_spend）；7条公理被移除；2个后代概念失去所有继承的关系和属性。",
+    "difficulty": "hard",
+    "requires_ontology": true,
+    "ontology_evidence": ["客户有子类: 企业客户, VIP客户", "客户定义了15+条关系", "客户定义了6个属性", "7条公理引用客户"],
+    "counterfactual_type": "remove_concept",
+    "counterfactual_args": {"concept": "客户"}
   }
 ]

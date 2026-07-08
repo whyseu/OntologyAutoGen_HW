@@ -54,7 +54,13 @@ erDiagram
         string 介绍
     }
     VIP客户 {
-        string annualConsumption
+        int annualConsumption
+    }
+    订单 {
+        string 时效标准
+    }
+    待支付 {
+        string 支持的方式
     }
     手机号 {
         string 格式
@@ -71,8 +77,12 @@ erDiagram
     收货地址 {
         string 长度
     }
+    客户 {
+        string 确认收货时间
+    }
     订单 ||--o{ 客户 : "hasCustomer"
     客户 ||--o{ CustomerType : "isType"
+    VIP客户 ||--o{ 客户 : "isType"
     VIP客户 ||--o{ 专属客服 : "hasSpecialService"
     VIP客户 ||--o{ 折扣优惠 : "hasDiscount"
     客户 ||--o{ 手机号 : "registerWith"
@@ -81,17 +91,18 @@ erDiagram
     客户 ||--o{ 商品 : "canBrowse"
     客户 ||--o{ 订单 : "canPlaceOrder"
     客户 ||--o{ 物流状态 : "canCheck"
-    商品 ||--o{ Category : "属于"
+    商品 ||--o{ 商品 : "属于"
     商品 ||--o{ 商品 : "是"
-    商品 ||--o{ Category : "分为"
+    商品 ||--o{ 商品 : "分为"
     客户 ||--o{ 订单 : "下单"
     订单 ||--o{ 商品 : "包含"
     订单 ||--o{ 购买数量 : "记录"
     订单 ||--o{ 订单 : "状态"
+    客户 ||--o{ 订单 : "未支付"
     订单 ||--o{ 订单 : "自动取消"
     物流状态 ||--o{ 商品 : "配送范围"
-    物流状态 ||--o{ 物流状态 : "包括"
-    客户 ||--o{ 物流状态 : "查询"
+    物流状态 ||--o{ 物流状态 : "包含"
+    客户 ||--o{ 订单 : "查询"
     企业客户 ||--o{ 待支付 : "使用支付方式"
     客户 ||--o{ 订单 : "查看和修改"
     客户 ||--o{ 订单 : "查看"
@@ -99,6 +110,4 @@ erDiagram
     客户 ||--o{ 历史消费记录 : "查看"
     客户 ||--o{ 已完成的订单记录 : "不能删除"
     客户 ||--o{ 订单 : "提交"
-    专属客服 ||--o{ 订单 : "审核"
-    订单 ||--o{ 客户 : "到账"
 ```

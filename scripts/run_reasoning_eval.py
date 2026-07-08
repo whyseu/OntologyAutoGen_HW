@@ -290,6 +290,27 @@ class SymbolicCondition:
             concept = self._extract_concept(question, item)
             if concept:
                 return r.relations_of(concept)
+        if category == "counterfactual":
+            cf_type = item.get("counterfactual_type", "")
+            cf_args = item.get("counterfactual_args", {})
+            if cf_type == "remove_subclass":
+                child = cf_args.get("child", "")
+                parent = cf_args.get("parent", "")
+                if child and parent:
+                    return r.counterfactual_remove_subclass(child, parent)
+            elif cf_type == "remove_relation":
+                rel = cf_args.get("relation", "")
+                if rel:
+                    return r.counterfactual_remove_relation(rel)
+            elif cf_type == "add_subclass":
+                child = cf_args.get("child", "")
+                parent = cf_args.get("parent", "")
+                if child and parent:
+                    return r.counterfactual_add_subclass(child, parent)
+            elif cf_type == "remove_concept":
+                concept = cf_args.get("concept", "")
+                if concept:
+                    return r.counterfactual_remove_concept(concept)
         # generic fallback
         concept = self._extract_concept(question, item)
         if concept:

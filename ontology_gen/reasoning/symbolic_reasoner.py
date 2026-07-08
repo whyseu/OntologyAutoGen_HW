@@ -29,12 +29,14 @@ reasoning is fully auditable (the opposite of a black-box LLM).
 """
 from __future__ import annotations
 
+import copy
+import json
 import logging
 import re
 from dataclasses import dataclass, field
 from typing import Optional
 
-from .ontology_loader import OntologyIndex
+from .ontology_loader import OntologyIndex, _build_indexes, _build_subclass_graph
 
 logger = logging.getLogger("ontology_gen.reasoning.symbolic")
 
@@ -605,3 +607,417 @@ class SymbolicReasoner:
         if not concept_id:
             return "?"
         return self.idx.concept_name(concept_id)
+
+    # ================================================================
+    # 9. Counterfactual reasoning
+    # ================================================================
+
+    def _clone_index(self) -> OntologyIndex:
+        """Create a deep copy of the current OntologyIndex with fresh indexes."""
+        new_idx = OntologyIndex()
+        new_idx.raw_concepts = copy.deepcopy(self.idx.raw_concepts)
+        new_idx.raw_properties = copy.deepcopy(self.idx.raw_properties)
+        new_idx.raw_relations = copy.deepcopy(self.idx.raw_relations)
+        new_idx.raw_axioms = copy.deepcopy(self.idx.raw_axioms)
+        new_idx.raw_rules = copy.deepcopy(self.idx.raw_rules)
+        new_idx.raw_triggers = copy.deepcopy(self.idx.raw_triggers)
+        new_idx.raw_operations = copy.deepcopy(self.idx.raw_operations)
+        new_idx.raw_service_compositions = copy.deepcopy(self.idx.raw_service_compositions)
+        new_idx.raw_permissions = copy.deepcopy(self.idx.raw_permissions)
+        new_idx.raw_glossary = copy.deepcopy(self.idx.raw_glossary)
+        new_idx.raw_external_mappings = copy.deepcopy(self.idx.raw_external_mappings)
+        new_idx.raw_taxonomy = copy.deepcopy(self.idx.raw_taxonomy)
+        new_idx.metadata = copy.deepcopy(self.idx.metadata)
+        new_idx.domain = self.idx.domain
+        _build_indexes(new_idx)
+        _build_subclass_graph(new_idx)
+        return new_idx
+
+    def counterfactual_remove_subclass(self, child_ref: str, parent_ref: str
+                                       ) -> InferenceResult:
+        """What if child_ref were NOT a subclass of parent_ref?
+
+        Compares the original and modified ontologies to show:
+          - lost ancestor relationships
+          - lost inherited relations
+          - lost inherited properties
+          - affected descendants (they also lose the grandparent chain)
+        """
+        child_id = self.idx.resolve_concept_id(child_ref)
+        parent_id = self.idx.resolve_concept_id(parent_ref)
+        query = (f"反事实：如果 {child_ref} 不是 {parent_ref} 的子类，"
+                 f"会有什么影响？")
+        if not child_id or not parent_id:
+            return InferenceResult(query, "无法解析概念引用", 0.0, found=False)
+
+        child_name = self._name(child_id)
+        parent_name = self._name(parent_id)
+        chain: list[ProofStep] = []
+
+        # ---- original state ----
+        orig_ancestors = set(self.idx.get_ancestors(child_id))
+        orig_rels = self.idx.get_relations_of(child_id, include_inherited=True)
+        orig_props = self.idx.get_properties_of(child_id, include_inherited=True)
+        orig_rel_names = {r.get("name") for r in orig_rels}
+        orig_prop_names = {p.get("name") for p in orig_props}
+        orig_descendants = set(self.idx.get_descendants(child_id))
+
+        chain.append(ProofStep(
+            "counterfactual_hypothesis",
+            f"假设移除公理：{child_name} ⊑ {parent_name}",
+            f"构建反事实本体（deep copy + 移除公理 + 重建索引）",
+        ))
+
+        # ---- build counterfactual index ----
+        cf_idx = self._clone_index()
+        # Remove the subClassOf axiom
+        cf_idx.raw_axioms = [
+            a for a in cf_idx.raw_axioms
+            if not (a.get("axiom_type") == "subClassOf"
+                    and cf_idx.resolve_concept_id(a.get("subject")) == child_id
+                    and cf_idx.resolve_concept_id(a.get("obj")) == parent_id)
+        ]
+        # Clear and rebuild
+        for attr in ("axioms_by_type", "subclass_parents", "subclass_children",
+                     "ancestors_cache", "descendants_cache"):
+            getattr(cf_idx, attr).clear()
+        # Re-parse axioms
+        for a in cf_idx.raw_axioms:
+            atype = a.get("axiom_type") or "unknown"
+            cf_idx.axioms_by_type.setdefault(atype, []).append(a)
+        _build_subclass_graph(cf_idx)
+
+        # ---- counterfactual state ----
+        cf_ancestors = set(cf_idx.get_ancestors(child_id))
+        cf_rels = cf_idx.get_relations_of(child_id, include_inherited=True)
+        cf_props = cf_idx.get_properties_of(child_id, include_inherited=True)
+        cf_rel_names = {r.get("name") for r in cf_rels}
+        cf_prop_names = {p.get("name") for p in cf_props}
+
+        # ---- diff ----
+        lost_ancestors = orig_ancestors - cf_ancestors
+        lost_rels = orig_rel_names - cf_rel_names
+        lost_props = orig_prop_names - cf_prop_names
+
+        # Ancestors lost
+        if lost_ancestors:
+            names = [self._name(a) for a in lost_ancestors]
+            chain.append(ProofStep(
+                "lost_ancestors",
+                f"{child_name} 原有祖先 {len(orig_ancestors)} 个",
+                f"失去祖先关系：{', '.join(names)}",
+            ))
+
+        # Relations lost
+        if lost_rels:
+            chain.append(ProofStep(
+                "lost_relations",
+                f"{child_name} 原有关系 {len(orig_rel_names)} 个",
+                f"失去继承关系：{', '.join(sorted(lost_rels))}",
+            ))
+
+        # Properties lost
+        if lost_props:
+            chain.append(ProofStep(
+                "lost_properties",
+                f"{child_name} 原有属性 {len(orig_prop_names)} 个",
+                f"失去继承属性：{', '.join(sorted(lost_props))}",
+            ))
+
+        # Cascade: descendants are also affected
+        affected_descs = []
+        for desc_id in orig_descendants:
+            desc_orig_anc = set(self.idx.get_ancestors(desc_id))
+            desc_cf_anc = set(cf_idx.get_ancestors(desc_id))
+            desc_lost = desc_orig_anc - desc_cf_anc
+            if desc_lost:
+                affected_descs.append((desc_id, desc_lost))
+        if affected_descs:
+            desc_info = "; ".join(
+                f"{self._name(d)}: 失去 {', '.join(self._name(a) for a in lost)}"
+                for d, lost in affected_descs
+            )
+            chain.append(ProofStep(
+                "cascade_effect",
+                f"{child_name} 有 {len(orig_descendants)} 个后代",
+                f"级联影响：{desc_info}",
+            ))
+
+        # Build answer text
+        lines = [f"## 反事实分析：移除 {child_name} ⊑ {parent_name}"]
+        lines.append("")
+        lines.append(f"**影响概要**：")
+        lines.append(f"- 失去祖先：{len(lost_ancestors)} 个 "
+                     f"({', '.join(self._name(a) for a in lost_ancestors) or '无'})")
+        lines.append(f"- 失去继承关系：{len(lost_rels)} 个 "
+                     f"({', '.join(sorted(lost_rels)) or '无'})")
+        lines.append(f"- 失去继承属性：{len(lost_props)} 个 "
+                     f"({', '.join(sorted(lost_props)) or '无'})")
+        lines.append(f"- 级联影响后代：{len(affected_descs)} 个 "
+                     f"({', '.join(self._name(d) for d, _ in affected_descs) or '无'})")
+        answer = "\n".join(lines)
+        return InferenceResult(query, answer, 1.0, chain,
+                               method="counterfactual", found=True)
+
+    def counterfactual_remove_relation(self, relation_ref: str,
+                                       domain_ref: str = ""
+                                       ) -> InferenceResult:
+        """What if a specific relation were removed from the ontology?
+
+        Shows which concepts lose the relation (both direct and inherited).
+        """
+        rid = self.idx.resolve_relation_id(relation_ref)
+        query = (f"反事实：如果移除关系 {relation_ref}"
+                 + (f"（限 {domain_ref}）" if domain_ref else "")
+                 + "，会有什么影响？")
+        if not rid:
+            return InferenceResult(query, "关系未找到", 0.0, found=False)
+
+        r = self.idx.relation_by_id[rid]
+        rel_name = r.get("name", relation_ref)
+        dom_id = r.get("domain_concept_id")
+        rng_id = r.get("range_concept_id")
+        chain: list[ProofStep] = []
+
+        chain.append(ProofStep(
+            "counterfactual_hypothesis",
+            f"假设移除关系：{rel_name} (domain={self._name(dom_id)}, range={self._name(rng_id)})",
+            f"构建反事实本体",
+        ))
+
+        # Find all concepts that currently have this relation (direct + inherited)
+        affected = []
+        for cid in self.idx.all_concept_ids():
+            rels = self.idx.get_relations_of(cid, include_inherited=True)
+            for cr in rels:
+                if cr.get("id") == rid:
+                    affected.append(cid)
+                    break
+
+        chain.append(ProofStep(
+            "impact_analysis",
+            f"关系 {rel_name} 被 {len(affected)} 个概念使用（含继承）",
+            f"受影响概念：{', '.join(self._name(c) for c in affected)}",
+        ))
+
+        # For the domain concept, show what other relations remain
+        if dom_id:
+            other_rels = [
+                or_ for or_ in self.idx.get_relations_of(dom_id, include_inherited=True)
+                if or_.get("id") != rid
+            ]
+            chain.append(ProofStep(
+                "remaining_relations",
+                f"{self._name(dom_id)} 当前有 "
+                f"{len(self.idx.get_relations_of(dom_id, include_inherited=True))} 个关系",
+                f"移除后剩余 {len(other_rels)} 个关系："
+                f"{', '.join(or_.get('name') for or_ in other_rels)}",
+            ))
+
+        lines = [f"## 反事实分析：移除关系 {rel_name}"]
+        lines.append("")
+        lines.append(f"**原始定义**：{self._name(dom_id)} --[{rel_name}]--> {self._name(rng_id)}")
+        lines.append(f"**受影响概念**（含继承）：{len(affected)} 个")
+        for cid in affected:
+            lines.append(f"  - {self._name(cid)}")
+        answer = "\n".join(lines)
+        return InferenceResult(query, answer, 1.0, chain,
+                               method="counterfactual", found=True)
+
+    def counterfactual_add_subclass(self, child_ref: str, new_parent_ref: str
+                                    ) -> InferenceResult:
+        """What if child_ref WERE a subclass of new_parent_ref (but it isn't)?
+
+        Shows what new relations/properties/ancestors would be gained.
+        """
+        child_id = self.idx.resolve_concept_id(child_ref)
+        parent_id = self.idx.resolve_concept_id(new_parent_ref)
+        query = (f"反事实：如果 {child_ref} 成为 {new_parent_ref} 的子类，"
+                 f"会获得什么？")
+        if not child_id or not parent_id:
+            return InferenceResult(query, "无法解析概念引用", 0.0, found=False)
+
+        child_name = self._name(child_id)
+        parent_name = self._name(parent_id)
+        chain: list[ProofStep] = []
+
+        # Check if already a subclass
+        if self.idx.is_subclass_of(child_id, parent_id):
+            return InferenceResult(
+                query,
+                f"{child_name} 已经是 {parent_name} 的子类，无需假设。",
+                1.0, chain, method="counterfactual", found=True,
+            )
+
+        chain.append(ProofStep(
+            "counterfactual_hypothesis",
+            f"假设添加公理：{child_name} ⊑ {parent_name}",
+            f"构建反事实本体（deep copy + 添加公理 + 重建索引）",
+        ))
+
+        # Original state
+        orig_ancestors = set(self.idx.get_ancestors(child_id))
+        orig_rels = {r.get("name") for r in self.idx.get_relations_of(child_id, True)}
+        orig_props = {p.get("name") for p in self.idx.get_properties_of(child_id, True)}
+
+        # Build counterfactual
+        cf_idx = self._clone_index()
+        cf_idx.raw_axioms.append({
+            "id": f"cf_axiom_{child_id}_{parent_id}",
+            "axiom_type": "subClassOf",
+            "subject": child_id,
+            "obj": parent_id,
+            "description": f"反事实假设：{child_name} ⊑ {parent_name}",
+        })
+        # Rebuild axiom index + subclass graph
+        cf_idx.axioms_by_type.clear()
+        cf_idx.subclass_parents.clear()
+        cf_idx.subclass_children.clear()
+        cf_idx.ancestors_cache.clear()
+        cf_idx.descendants_cache.clear()
+        for a in cf_idx.raw_axioms:
+            atype = a.get("axiom_type") or "unknown"
+            cf_idx.axioms_by_type.setdefault(atype, []).append(a)
+        _build_subclass_graph(cf_idx)
+
+        cf_ancestors = set(cf_idx.get_ancestors(child_id))
+        cf_rels = {r.get("name") for r in cf_idx.get_relations_of(child_id, True)}
+        cf_props = {p.get("name") for p in cf_idx.get_properties_of(child_id, True)}
+
+        new_ancestors = cf_ancestors - orig_ancestors
+        new_rels = cf_rels - orig_rels
+        new_props = cf_props - orig_props
+
+        if new_ancestors:
+            chain.append(ProofStep(
+                "gained_ancestors",
+                f"{child_name} 原有祖先 {len(orig_ancestors)} 个",
+                f"新增祖先：{', '.join(self._name(a) for a in new_ancestors)}",
+            ))
+        if new_rels:
+            chain.append(ProofStep(
+                "gained_relations",
+                f"{child_name} 原有关系 {len(orig_rels)} 个",
+                f"新增继承关系：{', '.join(sorted(new_rels))}",
+            ))
+        if new_props:
+            chain.append(ProofStep(
+                "gained_properties",
+                f"{child_name} 原有属性 {len(orig_props)} 个",
+                f"新增继承属性：{', '.join(sorted(new_props))}",
+            ))
+
+        lines = [f"## 反事实分析：添加 {child_name} ⊑ {parent_name}"]
+        lines.append("")
+        lines.append(f"**新增祖先**：{len(new_ancestors)} 个 "
+                     f"({', '.join(self._name(a) for a in new_ancestors) or '无'})")
+        lines.append(f"**新增继承关系**：{len(new_rels)} 个 "
+                     f"({', '.join(sorted(new_rels)) or '无'})")
+        lines.append(f"**新增继承属性**：{len(new_props)} 个 "
+                     f"({', '.join(sorted(new_props)) or '无'})")
+        answer = "\n".join(lines)
+        return InferenceResult(query, answer, 1.0, chain,
+                               method="counterfactual", found=True)
+
+    def counterfactual_remove_concept(self, concept_ref: str
+                                      ) -> InferenceResult:
+        """What if a concept were completely removed from the ontology?
+
+        Shows cascading impact: broken relations, orphaned sub-concepts, etc.
+        """
+        cid = self.idx.resolve_concept_id(concept_ref)
+        query = f"反事实：如果完全移除概念 {concept_ref}，会有什么影响？"
+        if not cid:
+            return InferenceResult(query, "概念未找到", 0.0, found=False)
+
+        name = self._name(cid)
+        chain: list[ProofStep] = []
+
+        chain.append(ProofStep(
+            "counterfactual_hypothesis",
+            f"假设完全移除概念：{name}（id={cid}）",
+            f"分析级联影响",
+        ))
+
+        # Direct children become orphans
+        children = self.idx.subclass_children.get(cid, [])
+        if children:
+            chain.append(ProofStep(
+                "orphaned_children",
+                f"{name} 有 {len(children)} 个直接子类",
+                f"子类将失去父类：{', '.join(self._name(c) for c in children)}",
+            ))
+
+        # Relations where this concept is domain or range
+        as_domain = self.idx.relations_by_domain.get(cid, [])
+        as_range = self.idx.relations_by_range.get(cid, [])
+        broken_rels = []
+        for rid in as_domain:
+            r = self.idx.relation_by_id.get(rid, {})
+            broken_rels.append(f"{name} --[{r.get('name')}]--> {self._name(r.get('range_concept_id'))}")
+        for rid in as_range:
+            r = self.idx.relation_by_id.get(rid, {})
+            broken_rels.append(f"{self._name(r.get('domain_concept_id'))} --[{r.get('name')}]--> {name}")
+        if broken_rels:
+            chain.append(ProofStep(
+                "broken_relations",
+                f"{name} 参与 {len(as_domain) + len(as_range)} 个关系",
+                f"将断裂的关系：{'；'.join(broken_rels)}",
+            ))
+
+        # Properties defined on this concept
+        props = self.idx.properties_by_domain.get(cid, [])
+        if props:
+            pnames = [self.idx.property_by_id[pid].get("name", pid) for pid in props]
+            chain.append(ProofStep(
+                "lost_properties",
+                f"{name} 定义了 {len(props)} 个属性",
+                f"将丢失的属性：{', '.join(pnames)}",
+            ))
+
+        # Axioms mentioning this concept
+        broken_axioms = [
+            a for a in self.idx.raw_axioms
+            if (self.idx.resolve_concept_id(a.get("subject")) == cid
+                or self.idx.resolve_concept_id(a.get("obj")) == cid)
+        ]
+        if broken_axioms:
+            chain.append(ProofStep(
+                "broken_axioms",
+                f"共有 {len(broken_axioms)} 条公理引用 {name}",
+                f"这些公理将被移除",
+            ))
+
+        # All concepts that inherited from this concept
+        all_descendants = self.idx.get_descendants(cid)
+        inheritors = []
+        for desc_id in all_descendants:
+            lost_rels = []
+            for rid in self.idx.relations_by_domain.get(cid, []):
+                r = self.idx.relation_by_id.get(rid, {})
+                lost_rels.append(r.get("name", ""))
+            if lost_rels:
+                inheritors.append((desc_id, lost_rels))
+        if inheritors:
+            chain.append(ProofStep(
+                "inheritance_cascade",
+                f"{len(all_descendants)} 个后代概念通过继承获得了 {name} 的关系",
+                f"这些概念也将失去继承来的关系",
+            ))
+
+        lines = [f"## 反事实分析：移除概念 {name}"]
+        lines.append("")
+        lines.append(f"**直接影响**：")
+        lines.append(f"- 孤立子类：{len(children)} 个 "
+                     f"({', '.join(self._name(c) for c in children) or '无'})")
+        lines.append(f"- 断裂关系：{len(broken_rels)} 条")
+        for br in broken_rels:
+            lines.append(f"  - {br}")
+        lines.append(f"- 丢失属性：{len(props)} 个")
+        lines.append(f"- 受影响公理：{len(broken_axioms)} 条")
+        lines.append(f"**级联影响**：")
+        lines.append(f"- 受影响后代：{len(all_descendants)} 个")
+        lines.append(f"- 失去继承的后代：{len(inheritors)} 个")
+        answer = "\n".join(lines)
+        return InferenceResult(query, answer, 1.0, chain,
+                               method="counterfactual", found=True)

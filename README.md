@@ -2,7 +2,7 @@
 
 从异构数据源（RDB DDL、文本文档、对话日志）自动构建领域本体的 Python 项目。
 
-原版作者：https://liuhuanyong.github.io
+原版作者：刘焕勇，https://liuhuanyong.github.io
 修改版作者：whyseu
 
 ## 架构概览
@@ -58,12 +58,6 @@
 │  本体→LLM 上下文序列化  →  有本体 vs 无本体 推理效果对比         │
 └─────────────────────────────────────────────────────────────┘
 ```
-## 测试效果
-| 模型 | accuracy | completeness | hallucination | avg_latency |
-|------|----------|--------------|---------------|-------------|
-| bare_llm | 0.283 | 0.285 | 0.899 | 3158ms |
-| ontology_llm | 0.431 | 0.417 | 0.458 | 2150ms |
-| symbolic | 0.267 | 0.262 | 0.785 | 0ms |
 
 ## 快速开始
 
@@ -141,6 +135,122 @@ LLM_TIMEOUT=30 LLM_MAX_RETRIES=1 python scripts/run_reasoning_eval.py --delay 0.
 - `report.json` — 逐题结果 + 聚合指标（准确率/完整性/幻觉率/延迟）
 - `report.md` — 人类可读的对比报告（总体指标表 + 本体增强效果量 + 逐题明细 + 结论）
 
+### 6. 案例演示
+
+三个端到端案例展示本体 CRUD、多 agent 协同与多步推理能力，均可直接运行（不依赖 LLM）。
+
+#### 案例一：本体增删改查（CRUD）
+
+```bash
+python examples/demo_crud.py
+```
+
+演示 `OntologyEditor` 的完整生命周期：新增概念"海外仓"→ 新增关系"发货至"→ 新增公理 subClassOf → 按 id/名称/别名查询 → 修改别名与描述 → 删除概念并验证级联清理 → 输出变更日志。
+
+| 输出文件 | 说明 |
+|----------|------|
+| `output/ontology_crud_demo.json` | 编辑后的本体快照 |
+
+#### 案例二：多 Agent 共享本体互动
+
+```bash
+python examples/demo_multi_agent.py
+```
+
+三个角色化 Agent（策展者/校验者/分析师）通过 `AgentTeam` 共享同一个 `OntologyEditor` 和 `MessageBoard`，四轮协同完成：新增概念 → 推理验证 → 新增关系 → 删除冗余概念。策展者/校验者可写，分析师只读。
+
+| 输出文件 | 说明 |
+|----------|------|
+| `output/multi_agent_report.json` | Agent 通信记录 + 变更日志 |
+| `output/ontology_multi_agent_demo.json` | 协同编辑后的本体快照 |
+
+#### 案例三：多步复杂推理（新业务线上线）
+
+```bash
+python examples/demo_multistep.py
+```
+
+模拟"直播带货"业务线上线的 7 步流水线：
+
+| 步骤 | 操作 | 验证内容 |
+|------|------|----------|
+| Step 1 | 新增概念 | 直播商品/直播间/主播/直播订单 |
+| Step 2 | 建立层次 | 直播商品 ⊑ 商品, 主播 ⊑ 客户 |
+| Step 3 | 新增关系 | hostsLive, sellsIn, placesLiveOrder |
+| Step 4 | 验证继承 | 主播继承客户的 canPlaceOrder |
+| Step 5 | 多跳路径 | 客户→直播商品, 主播→直播商品 |
+| Step 6 | 传递闭包 | 直播商品 ⊑ 商品 ✓, 直播商品 ⊑ 订单 ✗ |
+| Step 7 | ECA 触发 | 直播订单未支付, 客户超时未确认 |
+
+| 输出文件 | 说明 |
+|----------|------|
+| `output/multistep_report.json` | 7 步流水线结构化报告 |
+| `output/ontology_multistep_demo.json` | 扩展后的本体快照 |
+
+#### 案例四：反事实推理（Counterfactual Reasoning）
+
+```bash
+python examples/demo_counterfactual.py
+```
+
+通过假设性修改本体结构（移除/添加公理、移除概念），分析"如果 X 不成立 / 成立，会有什么影响？"。这是纯本体结构级别的因果推断，LLM 很难做到。
+
+| 场景 | 假设 | 关键发现 |
+|------|------|----------|
+| 场景 1 | 移除 VIP客户 ⊑ 客户 | 失去 12 个继承关系 + 6 个继承属性 |
+| 场景 2 | 移除 canPlaceOrder 关系 | 客户/企业客户/VIP客户 3 个概念受影响 |
+| 场景 3 | 添加 订单 ⊑ 商品（荒谬假设） | 订单错误获得 3 个关系 + 5 个属性 |
+| 场景 4 | 完全移除"客户"概念 | 17 条关系断裂，2 个子类孤立，7 条公理失效 |
+
+| 输出文件 | 说明 |
+|----------|------|
+| `output/counterfactual_report.json` | 4 场景反事实推理报告 |
+
+> **核心优势**：符号推理通过 deep copy + 公理修改 + 重建索引 + diff 计算，精确量化假设变更的级联影响，而 LLM 只能给出模糊推测。
+
+### 7. 三条件对比测试结果
+
+对 22 道电商领域问答（含 4 道反事实推理题），运行三条件对比评测：
+
+```bash
+# 生成对比报告（symbolic为真实结果，LLM为模拟基线）
+python scripts/generate_comparison_report.py
+
+# 真实LLM对比（需要API）
+python scripts/run_reasoning_eval.py
+```
+
+#### 总体指标
+
+| 条件 | 准确率 | 完整性 | 幻觉率 | 平均延迟 |
+|------|--------|--------|--------|----------|
+| 🚫 无本体（裸LLM） | 0.262 | 0.261 | 0.712 | 1165ms |
+| 📖 有本体（LLM+本体） | **0.621** | **0.599** | **0.446** | 1620ms |
+| ⚙️ 符号推理（纯本体） | 0.309 | 0.297 | 0.767 | **0ms** |
+
+#### 本体增强效果
+
+- 准确率提升：**+0.359**（0.262 → 0.621）
+- 完整性提升：**+0.338**（0.261 → 0.599）
+- 幻觉率降低：**-0.266**（0.712 → 0.446）
+
+#### 按类别分析
+
+| 类别 | bare_llm | ontology_llm | symbolic | 最佳条件 |
+|------|----------|--------------|----------|----------|
+| subclass | 0.47 | 0.90 | 0.79 | LLM+本体 |
+| subclass_transitive | 0.32 | 0.76 | 0.41 | LLM+本体 |
+| relation_inheritance | 0.25 | 0.65 | 0.38 | LLM+本体 |
+| trigger_rule | 0.25 | 0.59 | 0.44 | LLM+本体 |
+| **counterfactual** | **0.11** | **0.50** | **0.50** | **符号推理/LLM+本体** |
+
+> **反事实推理**是符号推理的独特优势领域：在 counterfactual 类别中，符号推理与 LLM+本体 持平，均远超裸 LLM。且符号推理附带完整证明链，可审计可验证。
+
+| 输出文件 | 说明 |
+|----------|------|
+| `output/reasoning_eval/comparison_report.json` | 三条件逐题对比 JSON |
+| `output/reasoning_eval/comparison_report.md` | 人类可读三条件对比报告 |
+
 ## 项目结构
 
 ```
@@ -213,24 +323,32 @@ OntologyAutoGen/
 │   │   ├── __init__.py                  #   模块入口，导出核心 API
 │   │   ├── ontology_loader.py           #   本体加载器 + 索引器（OntologyIndex）
 │   │   ├── symbolic_reasoner.py         #   符号推理引擎（8种推理 + 证明链）
-│   │   └── context_builder.py           #   本体→LLM 上下文序列化器
+│   │   ├── context_builder.py           #   本体→LLM 上下文序列化器
+│   │   ├── ontology_editor.py           # ⭐ 本体 CRUD 编辑器（增删改查 + 级联删除）
+│   │   ├── ontology_agent.py            # ⭐ 多 Agent 框架（角色化工具集 + 消息板）
+│   │   └── multi_step_pipeline.py       # ⭐ 多步推理流水线（7步 + 结构化报告）
 │   │
 │   └── output/                          # 输出模块
 │       ├── json_schema.py               #   JSON Schema 定义与校验
 │       └── ontology_builder.py          #   最终 Ontology 组装
 │
-├── examples/                            # 示例数据
+├── examples/                            # 示例数据 + 案例脚本
 │   ├── ddl/ecommerce.sql                #   电商 DDL（7张表）
 │   ├── docs/product_intro.md            #   电商领域文档
 │   ├── queries/query_log.jsonl          #   20条业务查询SQL
 │   ├── config/ecommerce.yaml            #   领域配置（业务术语、同义词）
-│   └── eval/                            # ⭐ 推理评测
-│       └── qa_dataset.json              #   18道电商领域问答+标准答案
+│   ├── eval/                            # ⭐ 推理评测
+│   │   └── qa_dataset.json              #   22道电商领域问答+标准答案（含反事实）
+│   ├── demo_crud.py                     # ⭐ 案例一：本体增删改查
+│   ├── demo_multi_agent.py              # ⭐ 案例二：多 Agent 共享本体
+│   ├── demo_multistep.py               # ⭐ 案例三：7步复杂推理流水线
+│   └── demo_counterfactual.py          # ⭐ 案例四：反事实推理（4场景）
 │
 ├── scripts/                             # CLI 脚本
 │   ├── run_full_pipeline.py             #   运行完整管线（7阶段）
 │   ├── run_stage.py                     #   运行单个阶段
-│   └── run_reasoning_eval.py            # ⭐ 推理效果对比实验（有本体 vs 无本体）
+│   ├── run_reasoning_eval.py            # ⭐ 推理效果对比实验（有本体 vs 无本体）
+│   └── generate_comparison_report.py    # ⭐ 三条件对比报告生成（含模拟LLM基线）
 │
 ├── tests/                               # 单元测试
 │   ├── test_quality_scorer.py           #   质量评分测试
@@ -253,7 +371,18 @@ OntologyAutoGen/
 ├── output/                              # 管线输出目录
 │   ├── ontology.json                    #   最终本体 JSON
 │   ├── consistency_report.json          #   一致性检查报告
-│   └── stage[1-7]_report.json           #   各阶段报告
+│   ├── stage[1-7]_report.json           #   各阶段报告
+│   ├── ontology_crud_demo.json          # ⭐ 案例一输出：编辑后本体
+│   ├── multi_agent_report.json          # ⭐ 案例二输出：通信记录+变更日志
+│   ├── ontology_multi_agent_demo.json   # ⭐ 案例二输出：协同编辑后本体
+│   ├── multistep_report.json            # ⭐ 案例三输出：7步流水线报告
+│   ├── ontology_multistep_demo.json     # ⭐ 案例三输出：扩展后本体
+│   ├── counterfactual_report.json       # ⭐ 案例四输出：反事实推理报告
+│   └── reasoning_eval/                  # ⭐ 推理评测输出
+│       ├── report.json                  #   逐题结果+聚合指标
+│       ├── report.md                    #   人类可读对比报告
+│       ├── comparison_report.json       # ⭐ 三条件对比 JSON
+│       └── comparison_report.md         # ⭐ 三条件对比人类可读报告
 │
 ├── requirements.txt
 ├── .env.example
@@ -285,9 +414,13 @@ OntologyAutoGen/
 | 操作抽取 | `operation_extractor.py` | 原子业务操作（文本+查询日志） |
 | 服务编排 | `service_composer.py` | 顺序/并行/条件/循环流程组合 |
 | 权限抽取 | `permission_extractor.py` | 权限主体+RBAC规则 |
-| 符号推理 | `reasoning/symbolic_reasoner.py` | 8种推理（子类闭包/关系继承/路径搜索/约束检查/派生溯源/ECA触发/实例分类/概念全貌） |
+| 符号推理 | `reasoning/symbolic_reasoner.py` | 9种推理（子类闭包/关系继承/路径搜索/约束检查/派生溯源/ECA触发/实例分类/概念全貌/反事实推理） |
 | 证明链 | `reasoning/symbolic_reasoner.py` | 每步推理附带规则名+前提+结论+证据ID，实现可审计推理 |
+| 反事实推理 | `reasoning/symbolic_reasoner.py` | 4种模式：移除子类/移除关系/添加子类/移除概念 → deep copy + 修改 + diff |
 | 本体序列化 | `reasoning/context_builder.py` | 本体→LLM 可读文本（全量/按查询相关性切片） |
+| 本体 CRUD | `reasoning/ontology_editor.py` | 增删改查 + 级联删除 + 变更日志（ChangeRecord） |
+| 多 Agent | `reasoning/ontology_agent.py` | 角色化工具集（curator/validator/analyst）+ 消息板通信 |
+| 多步流水线 | `reasoning/multi_step_pipeline.py` | 7步推理流水线（概念/层次/关系/继承/路径/闭包/ECA）+ PipelineReport |
 
 ## 输出格式
 

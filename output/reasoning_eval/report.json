@@ -1,10 +1,10 @@
 {
   "meta": {
-    "ontology": "/root/OntologyAutoGen/OntologyAutoGen/output/ontology.json",
-    "dataset": "/root/OntologyAutoGen/OntologyAutoGen/examples/eval/qa_dataset.json",
+    "ontology": "/root/OntologyAutoGen/output/ontology.json",
+    "dataset": "/root/OntologyAutoGen/examples/eval/qa_dataset.json",
     "llm_model": "gpt-4o-mini-ssvip",
     "llm_available": true,
-    "question_count": 18,
+    "question_count": 22,
     "conditions": [
       "bare_llm",
       "ontology_llm",
@@ -13,28 +13,28 @@
   },
   "summary": {
     "bare_llm": {
-      "accuracy": 0.283,
-      "completeness": 0.285,
-      "hallucination": 0.899,
-      "avg_latency_ms": 3157.9,
-      "answered": 18,
-      "total": 18
+      "accuracy": 0.263,
+      "completeness": 0.267,
+      "hallucination": 0.905,
+      "avg_latency_ms": 3074.3,
+      "answered": 22,
+      "total": 22
     },
     "ontology_llm": {
-      "accuracy": 0.431,
-      "completeness": 0.417,
-      "hallucination": 0.458,
-      "avg_latency_ms": 2150.2,
-      "answered": 18,
-      "total": 18
+      "accuracy": 0.392,
+      "completeness": 0.383,
+      "hallucination": 0.529,
+      "avg_latency_ms": 2024.5,
+      "answered": 22,
+      "total": 22
     },
     "symbolic": {
-      "accuracy": 0.267,
-      "completeness": 0.262,
-      "hallucination": 0.785,
-      "avg_latency_ms": 0.1,
-      "answered": 18,
-      "total": 18
+      "accuracy": 0.324,
+      "completeness": 0.314,
+      "hallucination": 0.789,
+      "avg_latency_ms": 0.6,
+      "answered": 22,
+      "total": 22
     }
   },
   "questions": [
@@ -49,44 +49,44 @@
       ],
       "conditions": {
         "bare_llm": {
-          "answer": "是的，VIP客户是客户的一种，通常指的是那些在消费金额、购买频率或忠诚度等方面表现突出的客户。商家通常会为VIP客户提供特殊的优惠、服务或待遇，以增强客户的忠诚度和满意度。",
-          "latency_ms": 2813.3,
+          "answer": "是的，VIP客户是客户的一种，通常指的是那些在消费金额、购买频率或忠诚度上表现突出的客户。商家通常会为VIP客户提供特殊的优惠、服务或待遇，以增强客户的忠诚度和满意度。",
+          "latency_ms": 2709.3,
           "available": true,
           "error": "",
           "scores": {
             "accuracy": 0.579,
             "completeness": 0.556,
-            "hallucination": 0.906,
+            "hallucination": 0.903,
             "hallucinated_terms": [
-              "的优",
-              "些在",
-              "常指",
-              "务或",
-              "意度",
-              "遇以",
-              "一种",
-              "待遇",
               "供特",
-              "面表"
+              "会为",
+              "或待",
+              "务或",
+              "的忠",
+              "度上",
+              "度和",
+              "突出",
+              "服务",
+              "表现"
             ],
             "covered_terms": [
               "vip",
               "客户",
-              "户的",
+              "户是",
               "是客",
-              "户是"
+              "户的"
             ],
             "missing_terms": [
-              "子类",
+              "的子",
               "类客",
-              "户客",
-              "的子"
+              "子类",
+              "户客"
             ]
           }
         },
         "ontology_llm": {
-          "answer": "是的，VIP客户是客户的一种。根据本体结构，VIP客户是客户的子类。",
-          "latency_ms": 1972.7,
+          "answer": "是的，VIP客户是客户的一种。根据本体信息，VIP客户是客户的子类。",
+          "latency_ms": 1649.9,
           "available": true,
           "error": "",
           "scores": {
@@ -94,25 +94,25 @@
             "completeness": 0.778,
             "hallucination": 0.556,
             "hallucinated_terms": [
-              "结构",
-              "体结",
-              "的一",
-              "据本",
-              "构客",
-              "一种",
-              "根据",
               "的客",
+              "信息",
+              "据本",
               "本体",
-              "种根"
+              "体信",
+              "息客",
+              "种根",
+              "的一",
+              "根据",
+              "一种"
             ],
             "covered_terms": [
               "vip",
-              "子类",
               "客户",
-              "户的",
               "的子",
+              "户是",
+              "子类",
               "是客",
-              "户是"
+              "户的"
             ],
             "missing_terms": [
               "类客",
@@ -130,25 +130,25 @@
             "completeness": 0.778,
             "hallucination": 0.619,
             "hallucinated_terms": [
-              "由公",
               "出客",
               "是推",
-              "公理",
+              "链由",
+              "结论",
               "类结",
               "理链",
-              "链由",
               "推理",
+              "推出",
               "transitive_closure",
-              "推出"
+              "理推"
             ],
             "covered_terms": [
               "vip",
-              "子类",
               "客户",
-              "户的",
               "的子",
+              "户是",
+              "子类",
               "是客",
-              "户是"
+              "户的"
             ],
             "missing_terms": [
               "类客",
@@ -170,7 +170,7 @@
       "conditions": {
         "bare_llm": {
           "answer": "是的，iPhone是一种商品。它是由苹果公司生产的智能手机，属于消费电子产品。",
-          "latency_ms": 2130.0,
+          "latency_ms": 1755.8,
           "available": true,
           "error": "",
           "scores": {
@@ -178,90 +178,90 @@
             "completeness": 0.364,
             "hallucination": 0.69,
             "hallucinated_terms": [
-              "是一",
-              "一种",
-              "种商",
               "由苹",
-              "于消",
+              "产的",
+              "司生",
+              "属于",
               "果公",
-              "它是",
               "公司",
-              "品它",
-              "是由"
+              "苹果",
+              "费电",
+              "的智",
+              "的是"
             ],
             "covered_terms": [
               "iphone",
-              "能手",
-              "智能",
-              "产品",
-              "商品",
-              "手机",
               "电子",
-              "子产"
+              "手机",
+              "子产",
+              "智能",
+              "商品",
+              "产品",
+              "能手"
             ],
             "missing_terms": [
-              "闭包",
-              "可推",
+              "传递",
+              "是智",
               "通过",
               "是商",
-              "出是",
-              "是智",
+              "品商",
               "包可",
-              "品通",
-              "递闭",
-              "品商"
+              "过传",
+              "闭包",
+              "可推",
+              "递闭"
             ]
           }
         },
         "ontology_llm": {
-          "answer": "是的，iPhone是商品。根据本体结构，iPhone属于智能手机，而智能手机又属于电子产品，电子产品是商品的一种。",
-          "latency_ms": 2318.1,
+          "answer": "是的，iPhone是商品。根据本体结构，iPhone属于智能手机，而智能手机又是电子产品的一种，电子产品属于商品。",
+          "latency_ms": 1915.7,
           "available": true,
           "error": "",
           "scores": {
             "accuracy": 0.435,
             "completeness": 0.409,
-            "hallucination": 0.667,
+            "hallucination": 0.677,
             "hallucinated_terms": [
-              "结构",
-              "一种",
-              "机又",
-              "而智",
-              "本体",
+              "品根",
+              "是电",
+              "属于",
               "的一",
-              "构属",
-              "品电",
-              "体结",
-              "于智"
+              "根据",
+              "结构",
+              "的是",
+              "又是",
+              "机而",
+              "本体"
             ],
             "covered_terms": [
               "iphone",
-              "能手",
-              "智能",
-              "产品",
               "是商",
-              "商品",
-              "手机",
               "电子",
-              "子产"
+              "手机",
+              "子产",
+              "智能",
+              "商品",
+              "产品",
+              "能手"
             ],
             "missing_terms": [
+              "传递",
+              "是智",
+              "通过",
+              "品商",
+              "包可",
+              "过传",
               "闭包",
               "可推",
-              "通过",
-              "出是",
-              "是智",
-              "包可",
-              "品通",
               "递闭",
-              "品商",
-              "机电"
+              "推出"
             ]
           }
         },
         "symbolic": {
           "answer": "是\n推理链：\n  1. [subClassOf] 由公理 subClassOf 推出：iPhone 是 智能手机 的子类\n  2. [subClassOf] 由公理 subClassOf 推出：智能手机 是 电子产品 的子类\n  3. [transitive_closure] 结论：iPhone 是 电子产品 的子类",
-          "latency_ms": 0.1,
+          "latency_ms": 0.2,
           "available": true,
           "error": "",
           "scores": {
@@ -269,40 +269,40 @@
             "completeness": 0.455,
             "hallucination": 0.633,
             "hallucinated_terms": [
-              "子类",
-              "机是",
-              "理推",
-              "由公",
-              "类由",
-              "机的",
+              "出智",
               "是推",
-              "公理",
+              "机的",
+              "是电",
+              "链由",
+              "类由",
+              "结论",
               "类结",
-              "理链"
+              "理链",
+              "品的"
             ],
             "covered_terms": [
               "iphone",
-              "能手",
-              "智能",
-              "产品",
-              "出是",
               "是智",
-              "手机",
-              "推出",
               "电子",
-              "子产"
+              "手机",
+              "子产",
+              "推出",
+              "智能",
+              "出是",
+              "产品",
+              "能手"
             ],
             "missing_terms": [
-              "闭包",
-              "可推",
+              "传递",
               "通过",
               "是商",
-              "商品",
-              "包可",
-              "品通",
-              "递闭",
               "品商",
-              "机电"
+              "包可",
+              "过传",
+              "闭包",
+              "可推",
+              "递闭",
+              "品通"
             ]
           }
         }
@@ -319,36 +319,37 @@
       ],
       "conditions": {
         "bare_llm": {
-          "answer": "VIP客户通常与企业之间存在以下几种关系：\n\n1. **忠诚关系**：VIP客户通常是品牌的忠实用户，愿意重复购买并推荐给他人。\n2. **优先关系**：企业会为VIP客户提供优先服务，如专属客服、优先发货等。\n3. **增值关系**：VIP客户可能享有额外的优惠、折扣或独特的产品体验。\n4. **反馈关系**：企业可能会邀请VIP客户参与产品测试或市场调研，以获取宝贵的反馈。\n5. **社交关系**：VIP客户可能会参与品牌的社交活动或社区，增强与品牌的互动。\n\n这些关系有助于企业提升客户满意度和忠诚度，从而促进销售增长。",
-          "latency_ms": 3268.2,
+          "answer": "VIP客户通常与企业之间存在以下几种关系：\n\n1. **忠诚关系**：VIP客户通常是品牌的忠实支持者，愿意重复购买并推荐给他人。\n2. **优先服务关系**：企业会为VIP客户提供优先的服务和支持，例如专属客服、快速响应等。\n3. **个性化关系**：企业会根据VIP客户的购买历史和偏好，提供个性化的产品推荐和营销活动。\n4. **增值关系**：VIP客户可能享有额外的优惠、折扣、赠品或独特的体验，以增强客户的满意度和忠诚度。\n5. **反馈关系**：企业可能会邀请VIP客户参与产品测试或市场调研，以获取宝贵的反馈和建议。\n\n这些关系有助于企业提升客户满意度和品牌忠诚度。",
+          "latency_ms": 3514.9,
           "available": true,
           "error": "",
           "scores": {
-            "accuracy": 0.146,
-            "completeness": 0.161,
+            "accuracy": 0.162,
+            "completeness": 0.179,
             "hallucination": 0.94,
             "hallucinated_terms": [
-              "市场",
-              "系企",
-              "以下",
-              "与品",
-              "反馈",
-              "社区",
-              "或独",
-              "社交",
-              "特的",
-              "系客"
+              "和建",
+              "会为",
+              "务和",
+              "值关",
+              "间存",
+              "度和",
+              "速响",
+              "之间",
+              "验以",
+              "通常"
             ],
             "covered_terms": [
               "vip",
               "客户",
+              "关系",
+              "折扣",
               "专属",
               "客服",
-              "折扣",
-              "优惠",
-              "关系",
+              "属客",
               "户通",
-              "属客"
+              "优惠",
+              "户的"
             ],
             "missing_terms": [
               "hasspecialservice",
@@ -360,44 +361,44 @@
               "hasorder",
               "cancheck",
               "can",
-              "单商"
+              "流状"
             ]
           }
         },
         "ontology_llm": {
-          "answer": "VIP客户的关系包括：\n\n1. VIP客户 --[hasSpecialService(1:N)]--> 专属客服\n2. VIP客户 --[hasDiscount(1:N)]--> 折扣优惠\n3. VIP客户 --[查看(1:N)]--> 专属商品目录\n4. VIP客户 --[查看(1:N)]--> 历史消费记录",
-          "latency_ms": 3328.3,
+          "answer": "VIP客户的关系包括：\n\n1. VIP客户 --[isType(1:N)]--> 客户  说明: VIP客户属于客户。\n2. VIP客户 --[hasSpecialService(1:N)]--> 专属客服  说明: VIP客户享有专属客服服务。\n3. VIP客户 --[hasDiscount(1:N)]--> 折扣优惠  说明: VIP客户享有折扣优惠。\n4. VIP客户 --[查看(1:N)]--> 专属商品目录  说明: VIP客户可以查看专属商品目录。\n5. VIP客户 --[查看(1:N)]--> 历史消费记录  说明: VIP客户可以查看历史消费记录。",
+          "latency_ms": 3995.1,
           "available": true,
           "error": "",
           "scores": {
             "accuracy": 0.238,
             "completeness": 0.232,
-            "hallucination": 0.618,
+            "hallucination": 0.722,
             "hallucinated_terms": [
+              "括客",
+              "享有",
+              "录客",
+              "属于",
+              "服务",
+              "目录",
+              "有专",
               "惠客",
-              "史消",
-              "查看",
-              "包括",
-              "系包",
-              "看历",
-              "户折",
-              "户专",
               "看专",
-              "括客"
+              "说明"
             ],
             "covered_terms": [
               "hasspecialservice",
               "hasdiscount",
               "vip",
               "客户",
+              "关系",
+              "折扣",
+              "扣优",
               "专属",
               "客服",
-              "扣优",
-              "折扣",
+              "属客",
               "商品",
               "优惠",
-              "关系",
-              "属客",
               "户的"
             ],
             "missing_terms": [
@@ -408,32 +409,32 @@
               "hasorder",
               "cancheck",
               "can",
-              "单商",
-              "获得",
-              "自身"
+              "流状",
+              "承获",
+              "接关"
             ]
           }
         },
         "symbolic": {
-          "answer": "VIP客户 --[hasSpecialService]--> 专属客服\nVIP客户 --[hasDiscount]--> 折扣优惠\n客户 --[isType]--> CustomerType\n客户 --[registerWith]--> 手机号\n客户 --[registerWith]--> 邮箱\n客户 --[hasAccount]--> 账户\n客户 --[canBrowse]--> 商品\n客户 --[canPlaceOrder]--> 订单\n客户 --[canCheck]--> 物流状态\n客户 --[下单]--> 订单\n客户 --[查询]--> 物流状态\n客户 --[查看和修改]--> 订单\n客户 --[查看]--> 订单\n客户 --[查看]--> 专属商品目录\n客户 --[查看]--> 历史消费记录\n客户 --[不能删除]--> 已完成的订单记录\n客户 --[提交]--> 订单\n推理链：\n  1. [direct_relation] VIP客户 --[hasSpecialService]--> 专属客服\n  2. [direct_relation] VIP客户 --[hasDiscount]--> 折扣优惠\n  3. [relation_inheritance] VIP客户 通过继承获得关系：isType → CustomerType\n  4. [relation_inheritance] VIP客户 通过继承获得关系：registerWith → 手机号\n  5. [relation_inheritance] VIP客户 通过继承获得关系：registerWith → 邮箱\n  6. [relation_inheritance] VIP客户 通过继承获得关系：hasAccount → 账户\n  7. [relation_inheritance] VIP客户 通过继承获得关系：canBrowse → 商品\n  8. [relation_inheritance] VIP客户 通过继承获得关系：canPlaceOrder → 订单\n  9. [relation_inheritance] VIP客户 通过继承获得关系：canCheck → 物流状态\n  10. [relation_inheritance] VIP客户 通过继承获得关系：下单 → 订单\n  11. [relation_inheritance] VIP客户 通过继承获得关系：查询 → 物流状态\n  12. [relation_inheritance] VIP客户 通过继承获得关系：查看和修改 → 订单\n  13. [relation_inheritance] VIP客户 通过继承获得关系：查看 → 订单\n  14. [relation_inheritance] VIP客户 通过继承获得关系：查看 → 专属商品目录\n  15. [relation_inheritance] VIP客户 通过继承获得关系：查看 → 历史消费记录\n  16. [relation_inheritance] VIP客户 通过继承获得关系：不能删除 → 已完成的订单记录\n  17. [relation_inheritance] VIP客户 通过继承获得关系：提交 → 订单",
+          "answer": "VIP客户 --[isType]--> 客户\nVIP客户 --[hasSpecialService]--> 专属客服\nVIP客户 --[hasDiscount]--> 折扣优惠\n客户 --[isType]--> CustomerType\n客户 --[registerWith]--> 手机号\n客户 --[registerWith]--> 邮箱\n客户 --[hasAccount]--> 账户\n客户 --[canBrowse]--> 商品\n客户 --[canPlaceOrder]--> 订单\n客户 --[canCheck]--> 物流状态\n客户 --[下单]--> 订单\n客户 --[未支付]--> 订单\n客户 --[查询]--> 订单\n客户 --[查看和修改]--> 订单\n客户 --[查看]--> 订单\n客户 --[查看]--> 专属商品目录\n客户 --[查看]--> 历史消费记录\n客户 --[不能删除]--> 已完成的订单记录\n客户 --[提交]--> 订单\n推理链：\n  1. [direct_relation] VIP客户 --[isType]--> 客户\n  2. [direct_relation] VIP客户 --[hasSpecialService]--> 专属客服\n  3. [direct_relation] VIP客户 --[hasDiscount]--> 折扣优惠\n  4. [relation_inheritance] VIP客户 通过继承获得关系：isType → CustomerType\n  5. [relation_inheritance] VIP客户 通过继承获得关系：registerWith → 手机号\n  6. [relation_inheritance] VIP客户 通过继承获得关系：registerWith → 邮箱\n  7. [relation_inheritance] VIP客户 通过继承获得关系：hasAccount → 账户\n  8. [relation_inheritance] VIP客户 通过继承获得关系：canBrowse → 商品\n  9. [relation_inheritance] VIP客户 通过继承获得关系：canPlaceOrder → 订单\n  10. [relation_inheritance] VIP客户 通过继承获得关系：canCheck → 物流状态\n  11. [relation_inheritance] VIP客户 通过继承获得关系：下单 → 订单\n  12. [relation_inheritance] VIP客户 通过继承获得关系：未支付 → 订单\n  13. [relation_inheritance] VIP客户 通过继承获得关系：查询 → 订单\n  14. [relation_inheritance] VIP客户 通过继承获得关系：查看和修改 → 订单\n  15. [relation_inheritance] VIP客户 通过继承获得关系：查看 → 订单\n  16. [relation_inheritance] VIP客户 通过继承获得关系：查看 → 专属商品目录\n  17. [relation_inheritance] VIP客户 通过继承获得关系：查看 → 历史消费记录\n  18. [relation_inheritance] VIP客户 通过继承获得关系：不能删除 → 已完成的订单记录\n  19. [relation_inheritance] VIP客户 通过继承获得关系：提交 → 订单",
           "latency_ms": 0.2,
           "available": true,
           "error": "",
           "scores": {
-            "accuracy": 0.654,
-            "completeness": 0.625,
-            "hallucination": 0.667,
+            "accuracy": 0.638,
+            "completeness": 0.607,
+            "hallucination": 0.695,
             "hallucinated_terms": [
-              "号客",
-              "不能",
-              "查看",
-              "istype",
-              "户账",
-              "户手",
-              "系客",
-              "看专",
-              "品目",
-              "得关"
+              "customertype",
+              "11",
+              "15",
+              "录客",
+              "目录",
+              "完成",
+              "态客",
+              "户折",
+              "未支",
+              "户商"
             ],
             "covered_terms": [
               "hasspecialservice",
@@ -444,25 +445,25 @@
               "canbrowse",
               "cancheck",
               "vip",
-              "获得",
+              "流状",
+              "承获",
               "客户",
-              "查询",
-              "专属",
+              "关系",
               "邮箱",
-              "客服",
-              "物流"
+              "订单",
+              "折扣"
             ],
             "missing_terms": [
               "hasorder",
               "can",
-              "单商",
-              "自身",
-              "号邮",
-              "得客",
+              "接关",
+              "户等",
+              "箱账",
+              "身直",
+              "单查",
               "全部",
-              "系专",
-              "态手",
-              "单查"
+              "部关",
+              "号邮"
             ]
           }
         }
@@ -479,53 +480,53 @@
       ],
       "conditions": {
         "bare_llm": {
-          "answer": "如果客户在24小时内未支付订单，通常会发生以下几种情况：\n\n1. **订单自动取消**：许多电商平台会在设定的时间内（如24小时）未支付的订单自动取消，以释放库存。\n2. **提醒通知**：一些平台会向客户发送支付提醒邮件或短信，提醒他们尽快完成支付。\n3. **保留购物车**：在某些情况下，商品可能会被保留在购物车中，客户可以在稍后时间继续支付。\n\n具体情况可能因不同电商平台的政策而异。",
-          "latency_ms": 2940.4,
+          "answer": "如果客户在24小时内未支付订单，通常会发生以下几种情况：\n\n1. **订单自动取消**：许多电商平台会在设定的时间内（如24小时）未支付的订单自动取消，以释放库存。\n2. **提醒通知**：一些平台会向客户发送支付提醒邮件或短信，提醒他们尽快完成支付。\n3. **保留购物车**：在某些情况下，商品可能会被保留在购物车中，客户可以在后续时间内完成支付。\n\n具体情况可能因不同电商平台的政策而异。",
+          "latency_ms": 2836.0,
           "available": true,
           "error": "",
           "scores": {
             "accuracy": 0.219,
             "completeness": 0.222,
-            "hallucination": 0.861,
+            "hallucination": 0.858,
             "hallucinated_terms": [
-              "以下",
-              "因不",
-              "内如",
-              "短信",
-              "商品",
-              "在稍",
-              "保留",
-              "平台",
+              "提醒",
+              "定的",
+              "购物",
+              "送支",
+              "释放",
+              "库存",
               "完成",
-              "策而"
+              "通常",
+              "能因",
+              "们尽"
             ],
             "covered_terms": [
-              "小时",
               "取消",
-              "动取",
-              "未支",
               "自动",
+              "小时",
               "24",
-              "订单",
-              "支付"
+              "未支",
+              "支付",
+              "动取",
+              "订单"
             ],
             "missing_terms": [
               "eca",
-              "超过",
-              "由触",
-              "事件",
-              "件超",
-              "规则",
-              "条件",
-              "将自",
+              "发规",
               "超时",
-              "驱动"
+              "动作",
+              "的事",
+              "消这",
+              "将自",
+              "由触",
+              "条件",
+              "事件"
             ]
           }
         },
         "ontology_llm": {
           "answer": "如果客户在24小时内未支付订单，订单将自动取消。",
-          "latency_ms": 1940.2,
+          "latency_ms": 1862.6,
           "available": true,
           "error": "",
           "scores": {
@@ -536,80 +537,80 @@
               "单订"
             ],
             "covered_terms": [
-              "小时",
               "取消",
-              "动取",
-              "将自",
-              "未支",
               "自动",
+              "将自",
+              "小时",
+              "单将",
               "24",
-              "订单",
+              "未支",
               "支付",
-              "单将"
+              "动取",
+              "订单"
             ],
             "missing_terms": [
               "eca",
-              "超过",
-              "由触",
-              "事件",
-              "件超",
-              "规则",
-              "条件",
+              "发规",
               "超时",
-              "驱动",
-              "这是"
+              "动作",
+              "的事",
+              "消这",
+              "由触",
+              "条件",
+              "事件",
+              "触发"
             ]
           }
         },
         "symbolic": {
-          "answer": "• 超时取消：如果客户在24小时内未支付，订单将自动取消\n  → 动作：update_field - 取消\n• 超时确认收货：如果客户在48小时内未确认收货，系统将自动确认收货\n  → 动作：update_field - 确认收货\n• 支付后更新订单状态为已支付：支付完成后，系统会自动更新订单状态为已支付\n  → 动作：invoke_service - 更新订单状态为已支付\n• 支付后更新库存数量：支付成功后，系统会自动更新库存数量\n  → 动作：invoke_service - 更新库存数量\n• 订单自动取消：如果客户在24小时内未支付，订单将自动取消。\n  → 动作：update_field - 将订单状态更新为已取消\n• 订单状态更新：支付完成后，系统会自动更新订单状态为已支付，并通知商家发货。\n  → 动作：update_field - 将订单状态更新为已支付并通知商家发货\n• 自动确认收货：如果客户在48小时内未确认收货，系统将自动确认收货。\n  → 动作：update_field - 将订单状态更新为已完成\n推理链：\n  1. [trigger_match] 动作：update_field - 取消\n  2. [trigger_match] 动作：update_field - 确认收货\n  3. [trigger_match] 动作：invoke_service - 更新订单状态为已支付\n  4. [trigger_match] 动作：invoke_service - 更新库存数量\n  5. [trigger_match] 动作：update_field - 将订单状态更新为已取消\n  6. [trigger_match] 动作：update_field - 将订单状态更新为已支付并通知商家发货\n  7. [trigger_match] 动作：update_field - 将订单状态更新为已完成",
+          "answer": "• 超时取消：如果客户在24小时内未支付，订单将自动取消\n  → 动作：update_field - 取消\n• 超时确认收货：如果客户在48小时内未确认收货，系统将自动确认收货\n  → 动作：update_field - 确认收货\n• 支付后更新订单状态为已支付：支付完成后，系统会自动更新订单状态为已支付\n  → 动作：invoke_service - 更新订单状态为已支付\n• 支付后更新库存数量：支付成功后，系统会自动更新库存数量\n  → 动作：invoke_service - 更新库存数量\n• 订单自动取消：如果客户在24小时内未支付，订单将自动取消。\n  → 动作：update_field - 将订单状态更新为已取消\n• 订单状态更新：支付完成后，系统会自动更新订单状态为已支付，并通知商家发货。\n  → 动作：update_field - 将订单状态更新为已支付，并通知商家发货\n• 自动确认收货：如果客户在48小时内未确认收货，系统将自动确认收货。\n  → 动作：update_field - 将订单状态更新为已完成\n• 库存更新：支付成功后，系统会自动更新库存数量，并通知仓库进行拣货。\n  → 动作：update_field - 更新库存数量，并通知仓库进行拣货\n推理链：\n  1. [trigger_match] 动作：update_field - 取消\n  2. [trigger_match] 动作：update_field - 确认收货\n  3. [trigger_match] 动作：invoke_service - 更新订单状态为已支付\n  4. [trigger_match] 动作：invoke_service - 更新库存数量\n  5. [trigger_match] 动作：update_field - 将订单状态更新为已取消\n  6. [trigger_match] 动作：update_field - 将订单状态更新为已支付，并通知商家发货\n  7. [trigger_match] 动作：update_field - 将订单状态更新为已完成\n  8. [trigger_match] 动作：update_field - 更新库存数量，并通知仓库进行拣货",
           "latency_ms": 0.1,
           "available": true,
           "error": "",
           "scores": {
             "accuracy": 0.438,
             "completeness": 0.444,
-            "hallucination": 0.728,
+            "hallucination": 0.755,
             "hallucinated_terms": [
-              "后系",
-              "货动",
-              "家发",
-              "付支",
-              "未确",
-              "更新",
-              "量订",
-              "48",
+              "成库",
+              "付完",
+              "消超",
+              "库存",
+              "量支",
+              "完成",
               "确认",
-              "完成"
+              "系统",
+              "新库",
+              "态为"
             ],
             "covered_terms": [
-              "小时",
-              "取消",
-              "动取",
-              "将自",
               "超时",
-              "付动",
               "动作",
-              "未支",
+              "取消",
               "自动",
+              "将自",
+              "小时",
+              "单将",
               "24",
-              "订单",
-              "作取",
-              "支付",
+              "时取",
+              "付动",
+              "未支",
               "消订",
-              "单将"
+              "支付",
+              "作取",
+              "动取"
             ],
             "missing_terms": [
               "eca",
-              "超过",
+              "发规",
+              "的事",
+              "消这",
               "由触",
-              "事件",
-              "件超",
-              "规则",
               "条件",
-              "驱动",
+              "事件",
+              "触发",
               "这是",
-              "触发"
+              "消驱"
             ]
           }
         }
@@ -626,78 +627,78 @@
       ],
       "conditions": {
         "bare_llm": {
-          "answer": "订单总金额通常是通过将商品的单价乘以数量，再加上相关的费用（如运费、税费等）来计算的。具体计算公式为：\n\n订单总金额 = (商品单价 × 商品数量) + 运费 + 税费 - 优惠券/折扣\n\n其中，优惠券或折扣可以在总金额中减去。不同电商平台可能会有细微的差别，但基本计算方式大致相同。",
-          "latency_ms": 3094.9,
+          "answer": "订单总金额通常是通过以下几个步骤计算的：\n\n1. **商品价格**：计算所购商品的单价乘以数量。\n2. **运费**：根据配送方式和地区计算的运费。\n3. **优惠折扣**：如果有使用优惠券或折扣，需从总金额中减去相应的金额。\n4. **税费**：根据当地税率计算的增值税或其他相关税费。\n\n最终的订单总金额 = （商品价格 × 数量） + 运费 - 优惠折扣 + 税费。",
+          "latency_ms": 2279.8,
           "available": true,
           "error": "",
           "scores": {
             "accuracy": 0.0,
             "completeness": 0.0,
-            "hallucination": 0.989,
+            "hallucination": 1.0,
             "hallucinated_terms": [
-              "用如",
-              "的具",
-              "的差",
-              "算方",
-              "金额",
-              "微的",
-              "通过",
-              "单价",
-              "惠券",
-              "是通"
+              "的金",
+              "价格",
+              "地区",
+              "中减",
+              "折扣",
+              "通常",
+              "当地",
+              "他相",
+              "减去",
+              "扣如"
             ],
             "covered_terms": [],
             "missing_terms": [
               "total_amount",
-              "price",
               "stock",
+              "price",
               "sum",
-              "生属",
-              "是一",
               "派生",
-              "这是",
+              "性为",
+              "个聚",
               "聚合",
-              "性为"
+              "类型",
+              "赖源"
             ]
           }
         },
         "ontology_llm": {
-          "answer": "订单总金额是通过以下公式计算的：SUM(price * stock)，即将每个商品的价格乘以其购买数量，然后对所有商品的金额进行求和。",
-          "latency_ms": 2244.1,
+          "answer": "订单总金额是通过聚合计算得出的，公式为：SUM(price * quantity)，即将每个商品的单价乘以购买数量，然后求和。",
+          "latency_ms": 1831.3,
           "available": true,
           "error": "",
           "scores": {
-            "accuracy": 0.216,
+            "accuracy": 0.176,
             "completeness": 0.136,
-            "hallucination": 0.932,
+            "hallucination": 0.923,
             "hallucinated_terms": [
-              "额是",
-              "量然",
-              "以下",
-              "数量",
-              "过以",
-              "式计",
               "单总",
+              "的公",
+              "求和",
+              "通过",
               "买数",
-              "后对",
-              "即将"
+              "过聚",
+              "的单",
+              "价乘",
+              "为即",
+              "后求"
             ],
             "covered_terms": [
               "price",
-              "stock",
-              "sum"
+              "sum",
+              "聚合"
             ],
             "missing_terms": [
               "total_amount",
-              "生属",
-              "是一",
+              "stock",
               "派生",
-              "这是",
-              "聚合",
               "性为",
+              "个聚",
+              "类型",
+              "赖源",
+              "这是",
               "性依",
-              "属性",
-              "源属"
+              "是一"
             ]
           }
         },
@@ -712,23 +713,23 @@
             "hallucination": 0.75,
             "hallucinated_terms": [
               "性未",
-              "未找",
-              "找到"
+              "找到",
+              "未找"
             ],
             "covered_terms": [
               "属性"
             ],
             "missing_terms": [
               "total_amount",
-              "price",
               "stock",
+              "price",
               "sum",
-              "生属",
-              "是一",
               "派生",
-              "这是",
+              "性为",
+              "个聚",
               "聚合",
-              "性为"
+              "类型",
+              "赖源"
             ]
           }
         }
@@ -746,7 +747,7 @@
       "conditions": {
         "bare_llm": {
           "answer": "客户的年消费额为12万元，通常可以将其视为中高消费客户。具体类型可能还需要结合客户的购买频率、忠诚度和消费品类等因素进行综合判断。一般来说，年消费额在10万元以上的客户通常被认为是重要客户或优质客户。",
-          "latency_ms": 4285.2,
+          "latency_ms": 2208.0,
           "available": true,
           "error": "",
           "scores": {
@@ -754,16 +755,16 @@
             "completeness": 0.083,
             "hallucination": 0.962,
             "hallucinated_terms": [
+              "或优",
+              "度和",
               "其视",
-              "年消",
-              "常被",
               "常可",
-              "体类",
-              "综合",
-              "重要",
-              "户具",
-              "消费",
-              "额在"
+              "通常",
+              "高消",
+              "优质",
+              "中高",
+              "忠诚",
+              "合判"
             ],
             "covered_terms": [
               "客户",
@@ -775,58 +776,61 @@
               "120000",
               "100000",
               "vip",
-              "生属",
-              "式为",
               "户为",
-              "公式",
-              "条件"
+              "派生",
+              "条件",
+              "if",
+              "为满"
             ]
           }
         },
         "ontology_llm": {
-          "answer": "根据本体中的规则，如果客户的年消费额（annual_spend）大于10万元，则该客户类型为\"VIP\"。因此，如果客户的年消费额是12万元，该客户的类型是\"VIP客户\"。",
-          "latency_ms": 2670.9,
+          "answer": "根据本体中的派生规则，如果客户的年消费额（annual_spend）大于10万元，则该客户的类型为\"VIP客户\"。因此，如果客户的年消费额是12万元，该客户的类型是\"VIP客户\"。",
+          "latency_ms": 2271.7,
           "available": true,
           "error": "",
           "scores": {
-            "accuracy": 0.193,
-            "completeness": 0.167,
-            "hallucination": 0.897,
+            "accuracy": 0.298,
+            "completeness": 0.292,
+            "hallucination": 0.829,
             "hallucinated_terms": [
-              "额是",
-              "因此",
               "型为",
-              "则如",
+              "生规",
+              "型是",
               "年消",
-              "本体",
-              "规则",
-              "为因",
-              "的年",
-              "大于"
+              "12",
+              "费额",
+              "根据",
+              "果客",
+              "类型",
+              "的年"
             ],
             "covered_terms": [
               "annual_spend",
               "vip",
               "客户",
-              "该客"
+              "派生",
+              "为客",
+              "该客",
+              "户因"
             ],
             "missing_terms": [
               "customer_type",
               "120000",
               "100000",
-              "生属",
-              "式为",
               "户为",
-              "公式",
               "条件",
-              "派生",
-              "if"
+              "if",
+              "为满",
+              "满足",
+              "为是",
+              "因为"
             ]
           }
         },
         "symbolic": {
           "answer": "customer_type=个人客户\n推理链：\n  1. [instance_anchor] 候选子类：['企业客户', 'VIP客户']\n  2. [derived_rule_candidate] 检查公式中的条件是否被特征满足\n  3. [conditional_evaluation] 结果：customer_type=个人客户",
-          "latency_ms": 0.7,
+          "latency_ms": 0.9,
           "available": true,
           "error": "",
           "scores": {
@@ -834,36 +838,36 @@
             "completeness": 0.25,
             "hallucination": 0.838,
             "hallucinated_terms": [
-              "子类",
-              "户检",
-              "被特",
-              "conditional_evaluation",
-              "业客",
-              "个人",
-              "候选",
+              "derived_rule_candidate",
+              "人客",
               "的条",
+              "件是",
+              "户检",
+              "类企",
               "征满",
-              "是否"
+              "否被",
+              "被特",
+              "特征"
             ],
             "covered_terms": [
               "customer_type",
               "vip",
               "客户",
-              "公式",
               "条件",
-              "满足"
+              "满足",
+              "公式"
             ],
             "missing_terms": [
               "annual_spend",
               "120000",
               "100000",
-              "生属",
-              "式为",
               "户为",
               "派生",
               "if",
-              "是派",
-              "户因"
+              "为满",
+              "为是",
+              "为客",
+              "该客"
             ]
           }
         }
@@ -880,89 +884,89 @@
       ],
       "conditions": {
         "bare_llm": {
-          "answer": "从客户到物流状态的可达路径通常包括以下几个环节：\n\n1. **下单**：客户在电商平台上选择商品并完成订单。\n2. **订单处理**：商家接收到订单后进行处理，包括确认库存、生成发货单等。\n3. **打包**：商家将商品进行打包，准备发货。\n4. **发货**：商品交给物流公司，开始运输。\n5. **运输**：物流公司将商品从发货地运输到目的地，可能经过多个中转站。\n6. **派送**：物流公司将商品送到客户指定的地址。\n7. **签收**：客户收到商品并确认签收。\n\n在这个过程中，客户可以通过电商平台或物流公司的系统查询订单状态和物流信息，了解每个环节的进展情况。",
-          "latency_ms": 4267.0,
+          "answer": "从客户到物流状态的可达路径通常包括以下几个环节：\n\n1. **下单**：客户在电商平台上选择商品并完成订单。\n2. **订单处理**：商家接收到订单后进行处理，包括确认库存、付款等。\n3. **拣货**：仓库工作人员根据订单拣选商品。\n4. **打包**：将拣选的商品进行打包，准备发货。\n5. **发货**：将包裹交给物流公司，开始运输。\n6. **运输**：物流公司负责将包裹从发货地运输到目的地。\n7. **派送**：物流公司将包裹送到客户指定的地址。\n8. **签收**：客户收到包裹并确认签收。\n\n在这个过程中，客户可以通过电商平台或物流公司的追踪系统查看订单和物流状态。",
+          "latency_ms": 3385.6,
           "available": true,
           "error": "",
           "scores": {
-            "accuracy": 0.462,
-            "completeness": 0.529,
-            "hallucination": 0.936,
+            "accuracy": 0.359,
+            "completeness": 0.412,
+            "hallucination": 0.949,
             "hallucinated_terms": [
-              "行处",
-              "行打",
-              "以下",
-              "包商",
-              "环节",
-              "过多",
-              "通过",
-              "单处",
-              "在电",
-              "运输"
+              "裹并",
+              "单拣",
+              "定的",
+              "交给",
+              "开始",
+              "包准",
+              "以通",
+              "库存",
+              "人员",
+              "括确"
             ],
             "covered_terms": [
-              "下单",
-              "订单",
-              "状态",
-              "单订",
-              "客户",
-              "单状",
-              "查询",
               "流状",
+              "客户",
+              "下单",
+              "单订",
+              "状态",
+              "订单",
               "物流"
             ],
             "missing_terms": [
               "canplaceorder",
               "cancheck",
               "can",
+              "询物",
               "态客",
               "户查",
-              "询物",
-              "态物",
-              "户下"
+              "单状",
+              "户下",
+              "查询",
+              "态物"
             ]
           }
         },
         "ontology_llm": {
-          "answer": "从客户到物流状态的可达路径如下：\n\n1. 客户 --[查询(1:N)]--> 物流状态\n2. 客户 --[canCheck(1:N)]--> 物流状态\n\n这两条路径都可以让客户获取物流状态的信息。",
-          "latency_ms": 2444.7,
+          "answer": "根据本体信息，从客户到物流状态的可达路径如下：\n\n1. 客户 --[canCheck(1:N)]--> 物流状态\n2. 客户 --[查询(1:N)]--> 订单 --[状态(1:N)]--> 物流状态\n\n这两条路径可以让客户获取到物流状态的信息。",
+          "latency_ms": 2531.7,
           "available": true,
           "error": "",
           "scores": {
-            "accuracy": 0.513,
-            "completeness": 0.529,
-            "hallucination": 0.686,
+            "accuracy": 0.615,
+            "completeness": 0.647,
+            "hallucination": 0.69,
             "hallucinated_terms": [
-              "取物",
+              "息从",
+              "可达",
+              "条路",
+              "户获",
               "的信",
-              "路径",
-              "都可",
+              "获取",
               "以让",
               "这两",
-              "两条",
-              "如下",
-              "径都",
-              "户获"
+              "根据",
+              "询订"
             ],
             "covered_terms": [
               "cancheck",
+              "流状",
+              "客户",
               "态客",
               "户查",
               "状态",
-              "客户",
-              "询物",
+              "单状",
+              "订单",
+              "物流",
               "查询",
-              "流状",
-              "物流"
+              "态物"
             ],
             "missing_terms": [
               "canplaceorder",
               "can",
+              "询物",
               "下单",
-              "订单",
               "单订",
-              "单状",
-              "态物",
               "户下"
             ]
           }
@@ -978,22 +982,22 @@
             "hallucination": 1.0,
             "hallucinated_terms": [
               "找到",
-              "未找",
               "到路",
-              "路径"
+              "路径",
+              "未找"
             ],
             "covered_terms": [],
             "missing_terms": [
               "canplaceorder",
               "cancheck",
               "can",
-              "态客",
+              "流状",
+              "客户",
+              "询物",
               "下单",
-              "订单",
-              "户查",
-              "状态",
               "单订",
-              "客户"
+              "态客",
+              "户查"
             ]
           }
         }
@@ -1011,7 +1015,7 @@
       "conditions": {
         "bare_llm": {
           "answer": "客户手机号的格式要求通常包括以下几点：\n\n1. **国家代码**：国际手机号通常以“+”开头，后面跟随国家代码，例如中国是“+86”。\n2. **号码长度**：不同国家的手机号长度不同，中国的手机号一般为11位数字。\n3. **数字格式**：手机号应仅包含数字，不能包含字母或特殊字符。\n4. **前缀要求**：某些国家或地区的手机号可能有特定的前缀要求，例如中国的手机号通常以13、14、15、17、18等开头。\n\n具体要求可能因电商平台或地区而异，建议参考相关平台的具体规定。",
-          "latency_ms": 3244.1,
+          "latency_ms": 3121.8,
           "available": true,
           "error": "",
           "scores": {
@@ -1019,46 +1023,46 @@
             "completeness": 0.4,
             "hallucination": 0.919,
             "hallucinated_terms": [
-              "号的",
-              "不能",
-              "家代",
-              "区的",
-              "以下",
-              "异建",
-              "缀要",
               "客户",
-              "的具",
-              "能包"
+              "号长",
+              "定的",
+              "后面",
+              "字不",
+              "15",
+              "地区",
+              "通常",
+              "能因",
+              "的具"
             ],
             "covered_terms": [
-              "位数",
-              "格式",
-              "数字",
-              "字格",
-              "为位",
-              "开头",
-              "手机",
               "11",
+              "为位",
+              "格式",
               "长度",
-              "机号"
+              "位数",
+              "字格",
+              "手机",
+              "机号",
+              "数字",
+              "开头"
             ],
             "missing_terms": [
-              "头正",
-              "式为",
-              "表达",
-              "为最",
-              "正则",
-              "必须",
-              "大长",
-              "达式",
               "度位",
-              "为开"
+              "为最",
+              "达式",
+              "为开",
+              "须为",
+              "头正",
+              "最大",
+              "表达",
+              "式为",
+              "必须"
             ]
           }
         },
         "ontology_llm": {
-          "answer": "客户手机号的格式要求是：正则表达式为^1\\d{10}$，最大长度为11。",
-          "latency_ms": 2117.9,
+          "answer": "客户手机号的格式要求是：正则表达式为 ^[1][0-9]{10}$，最大长度为11。",
+          "latency_ms": 2313.5,
           "available": true,
           "error": "",
           "scores": {
@@ -1066,43 +1070,43 @@
             "completeness": 0.56,
             "hallucination": 0.391,
             "hallucinated_terms": [
-              "号的",
-              "式要",
               "客户",
+              "式要",
+              "的格",
               "度为",
               "户手",
-              "求是",
               "是正",
-              "的格",
-              "要求"
+              "要求",
+              "求是",
+              "号的"
             ],
             "covered_terms": [
-              "格式",
-              "式为",
-              "表达",
-              "为最",
-              "正则",
-              "大长",
-              "手机",
               "11",
-              "长度",
+              "为最",
               "达式",
+              "格式",
+              "长度",
+              "最大",
+              "手机",
+              "表达",
+              "式为",
               "机号",
               "10",
               "则表",
-              "最大"
+              "大长",
+              "正则"
             ],
             "missing_terms": [
-              "位数",
+              "度位",
+              "为位",
+              "为开",
+              "须为",
               "头正",
+              "位数",
+              "字格",
               "数字",
               "必须",
-              "字格",
-              "为位",
-              "开头",
-              "度位",
-              "为开",
-              "须为"
+              "号必"
             ]
           }
         },
@@ -1116,16 +1120,16 @@
             "completeness": 0.12,
             "hallucination": 0.929,
             "hallucinated_terms": [
-              "号层",
-              "代无",
-              "名客",
-              "祖先",
-              "层来",
+              "text",
               "客户",
-              "号描",
-              "性含",
-              "式关",
-              "链名"
+              "源祖",
+              "链名",
+              "含继",
+              "关系",
+              "无推",
+              "次来",
+              "继承",
+              "concept_lookup"
             ],
             "covered_terms": [
               "格式",
@@ -1133,16 +1137,16 @@
               "机号"
             ],
             "missing_terms": [
-              "位数",
-              "头正",
-              "数字",
-              "式为",
-              "表达",
+              "11",
+              "度位",
+              "为位",
               "为最",
-              "正则",
-              "必须",
-              "字格",
-              "为位"
+              "达式",
+              "为开",
+              "须为",
+              "头正",
+              "长度",
+              "位数"
             ]
           }
         }
@@ -1160,53 +1164,54 @@
       ],
       "conditions": {
         "bare_llm": {
-          "answer": "VIP客户通常可以享受以下特权：\n\n1. **专属折扣**：VIP客户常常能够获得更高的折扣或优惠券。\n2. **优先服务**：在客服、发货等方面享有优先处理的权利。\n3. **定制化服务**：根据客户需求提供个性化的产品推荐或服务。\n4. **提前购买**：可以提前购买新产品或限量商品。\n5. **积分奖励**：消费时可获得更多积分，积分兑换更有价值的礼品。\n6. **专属活动**：参加VIP专属的促销活动或线下活动。\n7. **生日礼遇**：在生日时提供特别的优惠或礼品。\n\n具体特权可能因电商平台或品牌而异。",
-          "latency_ms": 4650.3,
+          "answer": "VIP客户通常可以享受以下特权：\n\n1. **专属折扣**：VIP客户常常能够获得更高的折扣或优惠券。\n2. **优先服务**：在客服、发货等方面享有优先处理的权利。\n3. **定制化服务**：根据客户的需求提供个性化的产品推荐或服务。\n4. **提前购买**：可以提前购买新产品或限量商品。\n5. **积分奖励**：消费时可获得更多积分，积分可用于兑换礼品或优惠。\n6. **专属活动**：参加VIP专属的促销活动或线下活动。\n7. **生日礼遇**：在生日时提供特别的优惠或礼品。\n\n具体特权可能因电商平台或品牌而异。",
+          "latency_ms": 7798.2,
           "available": true,
           "error": "",
           "scores": {
-            "accuracy": 0.2,
-            "completeness": 0.2,
-            "hallucination": 0.94,
+            "accuracy": 0.224,
+            "completeness": 0.225,
+            "hallucination": 0.932,
             "hallucinated_terms": [
-              "量商",
-              "以下",
-              "值的",
-              "属的",
-              "扣客",
-              "权利",
-              "更多",
-              "加专",
-              "供特",
-              "常可"
+              "分积",
+              "在客",
+              "下活",
+              "或优",
+              "或礼",
+              "体特",
+              "或品",
+              "品积",
+              "常可",
+              "通常"
             ],
             "covered_terms": [
               "vip",
               "客户",
+              "享有",
+              "折扣",
               "专属",
               "客服",
-              "折扣",
               "商品",
-              "享有",
-              "优惠"
+              "优惠",
+              "户的"
             ],
             "missing_terms": [
               "hasspecialservice",
               "hasdiscount",
-              "查看",
-              "册账",
               "承还",
-              "品查",
-              "物流",
-              "通过",
-              "扣优",
-              "户等"
+              "惠通",
+              "看物",
+              "户直",
+              "户等",
+              "服和",
+              "有客",
+              "通过"
             ]
           }
         },
         "ontology_llm": {
           "answer": "VIP客户能享受以下特权：\n\n1. 专属客服\n2. 折扣优惠\n3. 查看专属商品目录\n4. 查看历史消费记录",
-          "latency_ms": 2404.3,
+          "latency_ms": 1290.2,
           "available": true,
           "error": "",
           "scores": {
@@ -1214,92 +1219,92 @@
             "completeness": 0.25,
             "hallucination": 0.677,
             "hallucinated_terms": [
-              "史消",
-              "享受",
+              "惠查",
+              "特权",
+              "下特",
+              "目录",
               "以下",
-              "看历",
-              "能享",
-              "户能",
+              "录查",
               "看专",
-              "记录",
-              "品目",
-              "惠查"
+              "受以",
+              "权专",
+              "费记"
             ],
             "covered_terms": [
               "vip",
-              "查看",
               "客户",
+              "折扣",
+              "扣优",
               "专属",
               "客服",
-              "扣优",
-              "折扣",
-              "商品",
               "属客",
+              "查看",
+              "商品",
               "优惠"
             ],
             "missing_terms": [
               "hasspecialservice",
               "hasdiscount",
-              "册账",
               "承还",
-              "品查",
-              "物流",
-              "通过",
+              "惠通",
+              "看物",
+              "户直",
+              "享有",
               "户等",
-              "浏览",
-              "接享"
+              "服和",
+              "有客"
             ]
           }
         },
         "symbolic": {
-          "answer": "VIP客户 --[hasSpecialService]--> 专属客服\nVIP客户 --[hasDiscount]--> 折扣优惠\n客户 --[isType]--> CustomerType\n客户 --[registerWith]--> 手机号\n客户 --[registerWith]--> 邮箱\n客户 --[hasAccount]--> 账户\n客户 --[canBrowse]--> 商品\n客户 --[canPlaceOrder]--> 订单\n客户 --[canCheck]--> 物流状态\n客户 --[下单]--> 订单\n客户 --[查询]--> 物流状态\n客户 --[查看和修改]--> 订单\n客户 --[查看]--> 订单\n客户 --[查看]--> 专属商品目录\n客户 --[查看]--> 历史消费记录\n客户 --[不能删除]--> 已完成的订单记录\n客户 --[提交]--> 订单\n推理链：\n  1. [direct_relation] VIP客户 --[hasSpecialService]--> 专属客服\n  2. [direct_relation] VIP客户 --[hasDiscount]--> 折扣优惠\n  3. [relation_inheritance] VIP客户 通过继承获得关系：isType → CustomerType\n  4. [relation_inheritance] VIP客户 通过继承获得关系：registerWith → 手机号\n  5. [relation_inheritance] VIP客户 通过继承获得关系：registerWith → 邮箱\n  6. [relation_inheritance] VIP客户 通过继承获得关系：hasAccount → 账户\n  7. [relation_inheritance] VIP客户 通过继承获得关系：canBrowse → 商品\n  8. [relation_inheritance] VIP客户 通过继承获得关系：canPlaceOrder → 订单\n  9. [relation_inheritance] VIP客户 通过继承获得关系：canCheck → 物流状态\n  10. [relation_inheritance] VIP客户 通过继承获得关系：下单 → 订单\n  11. [relation_inheritance] VIP客户 通过继承获得关系：查询 → 物流状态\n  12. [relation_inheritance] VIP客户 通过继承获得关系：查看和修改 → 订单\n  13. [relation_inheritance] VIP客户 通过继承获得关系：查看 → 订单\n  14. [relation_inheritance] VIP客户 通过继承获得关系：查看 → 专属商品目录\n  15. [relation_inheritance] VIP客户 通过继承获得关系：查看 → 历史消费记录\n  16. [relation_inheritance] VIP客户 通过继承获得关系：不能删除 → 已完成的订单记录\n  17. [relation_inheritance] VIP客户 通过继承获得关系：提交 → 订单",
-          "latency_ms": 0.1,
+          "answer": "VIP客户 --[isType]--> 客户\nVIP客户 --[hasSpecialService]--> 专属客服\nVIP客户 --[hasDiscount]--> 折扣优惠\n客户 --[isType]--> CustomerType\n客户 --[registerWith]--> 手机号\n客户 --[registerWith]--> 邮箱\n客户 --[hasAccount]--> 账户\n客户 --[canBrowse]--> 商品\n客户 --[canPlaceOrder]--> 订单\n客户 --[canCheck]--> 物流状态\n客户 --[下单]--> 订单\n客户 --[未支付]--> 订单\n客户 --[查询]--> 订单\n客户 --[查看和修改]--> 订单\n客户 --[查看]--> 订单\n客户 --[查看]--> 专属商品目录\n客户 --[查看]--> 历史消费记录\n客户 --[不能删除]--> 已完成的订单记录\n客户 --[提交]--> 订单\n推理链：\n  1. [direct_relation] VIP客户 --[isType]--> 客户\n  2. [direct_relation] VIP客户 --[hasSpecialService]--> 专属客服\n  3. [direct_relation] VIP客户 --[hasDiscount]--> 折扣优惠\n  4. [relation_inheritance] VIP客户 通过继承获得关系：isType → CustomerType\n  5. [relation_inheritance] VIP客户 通过继承获得关系：registerWith → 手机号\n  6. [relation_inheritance] VIP客户 通过继承获得关系：registerWith → 邮箱\n  7. [relation_inheritance] VIP客户 通过继承获得关系：hasAccount → 账户\n  8. [relation_inheritance] VIP客户 通过继承获得关系：canBrowse → 商品\n  9. [relation_inheritance] VIP客户 通过继承获得关系：canPlaceOrder → 订单\n  10. [relation_inheritance] VIP客户 通过继承获得关系：canCheck → 物流状态\n  11. [relation_inheritance] VIP客户 通过继承获得关系：下单 → 订单\n  12. [relation_inheritance] VIP客户 通过继承获得关系：未支付 → 订单\n  13. [relation_inheritance] VIP客户 通过继承获得关系：查询 → 订单\n  14. [relation_inheritance] VIP客户 通过继承获得关系：查看和修改 → 订单\n  15. [relation_inheritance] VIP客户 通过继承获得关系：查看 → 订单\n  16. [relation_inheritance] VIP客户 通过继承获得关系：查看 → 专属商品目录\n  17. [relation_inheritance] VIP客户 通过继承获得关系：查看 → 历史消费记录\n  18. [relation_inheritance] VIP客户 通过继承获得关系：不能删除 → 已完成的订单记录\n  19. [relation_inheritance] VIP客户 通过继承获得关系：提交 → 订单",
+          "latency_ms": 0.2,
           "available": true,
           "error": "",
           "scores": {
             "accuracy": 0.482,
             "completeness": 0.45,
-            "hallucination": 0.82,
+            "hallucination": 0.831,
             "hallucinated_terms": [
-              "号客",
-              "不能",
-              "istype",
-              "户账",
-              "户手",
-              "系客",
-              "看专",
-              "品目",
-              "得关",
-              "完成"
+              "customertype",
+              "11",
+              "关系",
+              "15",
+              "邮箱",
+              "录客",
+              "目录",
+              "完成",
+              "态客",
+              "未支"
             ],
             "covered_terms": [
               "hasspecialservice",
               "hasdiscount",
               "vip",
-              "查看",
               "客户",
-              "专属",
-              "客服",
-              "物流",
+              "折扣",
               "通过",
               "扣优",
-              "折扣",
-              "商品",
-              "过继",
+              "物流",
               "继承",
-              "下单"
+              "账户",
+              "专属",
+              "客服",
+              "属客",
+              "下单",
+              "过继"
             ],
             "missing_terms": [
-              "册账",
               "承还",
-              "品查",
-              "户等",
-              "浏览",
-              "接享",
-              "服和",
-              "流注",
+              "惠通",
               "看物",
-              "户直"
+              "户直",
+              "享有",
+              "户等",
+              "服和",
+              "有客",
+              "单浏",
+              "有专"
             ]
           }
         }
@@ -1316,54 +1321,54 @@
       ],
       "conditions": {
         "bare_llm": {
-          "answer": "是的，企业客户可以使用对公转账。对公转账是指企业之间或企业与银行之间的资金转移，通常用于支付货款、服务费用等。企业在进行对公转账时，需要提供相关的银行账户信息和转账凭证。",
-          "latency_ms": 2160.2,
+          "answer": "是的，企业客户可以使用对公转账。对公转账是指企业之间或企业与银行之间的资金转移，通常用于支付货款、服务费等商业交易。企业在进行对公转账时，需要提供相关的银行账户信息和转账凭证。",
+          "latency_ms": 2063.1,
           "available": true,
           "error": "",
           "scores": {
             "accuracy": 0.265,
             "completeness": 0.265,
-            "hallucination": 0.846,
+            "hallucination": 0.853,
             "hallucinated_terms": [
-              "账是",
-              "间或",
-              "息和",
-              "时需",
-              "户信",
-              "的企",
+              "的银",
+              "业交",
+              "用对",
+              "指企",
+              "账时",
+              "业在",
+              "账对",
+              "交易",
               "相关",
-              "户可",
-              "行之",
-              "常用"
+              "是指"
             ],
             "covered_terms": [
               "客户",
-              "业客",
-              "对公",
-              "企业",
-              "使用",
-              "转账",
-              "支付",
               "公转",
+              "对公",
+              "转账",
+              "业客",
+              "企业",
+              "支付",
+              "使用",
               "可以"
             ],
             "missing_terms": [
-              "子类",
-              "账待",
-              "类本",
-              "向对",
-              "本体",
-              "待支",
-              "以企",
               "中有",
-              "户是",
-              "付方"
+              "关系",
+              "指向",
+              "以企",
+              "从企",
+              "付状",
+              "类本",
+              "是客",
+              "有关",
+              "本体"
             ]
           }
         },
         "ontology_llm": {
           "answer": "是的，企业客户可以使用对公转账。",
-          "latency_ms": 1359.0,
+          "latency_ms": 1181.1,
           "available": true,
           "error": "",
           "scores": {
@@ -1371,61 +1376,74 @@
             "completeness": 0.235,
             "hallucination": 0.308,
             "hallucinated_terms": [
-              "以使",
               "用对",
+              "以使",
               "的企",
               "户可"
             ],
             "covered_terms": [
               "客户",
-              "业客",
+              "公转",
               "对公",
+              "转账",
+              "业客",
               "企业",
               "使用",
-              "转账",
-              "公转",
               "可以"
             ],
             "missing_terms": [
-              "子类",
-              "账待",
-              "类本",
-              "向对",
-              "本体",
-              "待支",
-              "以企",
               "中有",
-              "户是",
-              "付方"
+              "关系",
+              "指向",
+              "以企",
+              "从企",
+              "付状",
+              "类本",
+              "是客",
+              "有关",
+              "本体"
             ]
           }
         },
         "symbolic": {
-          "answer": "无关系",
-          "latency_ms": 0.0,
+          "answer": "订单 --[hasCustomer]--> 客户\n订单 --[包含]--> 商品\n订单 --[记录]--> 购买数量\n订单 --[状态]--> 订单\n订单 --[自动取消]--> 订单\n推理链：\n  1. [relation_inheritance] 待支付 通过继承获得关系：hasCustomer → 客户\n  2. [relation_inheritance] 待支付 通过继承获得关系：包含 → 商品\n  3. [relation_inheritance] 待支付 通过继承获得关系：记录 → 购买数量\n  4. [relation_inheritance] 待支付 通过继承获得关系：状态 → 订单\n  5. [relation_inheritance] 待支付 通过继承获得关系：自动取消 → 订单",
+          "latency_ms": 0.1,
           "available": true,
           "error": "",
           "scores": {
-            "accuracy": 0.029,
-            "completeness": 0.029,
-            "hallucination": 0.5,
+            "accuracy": 0.147,
+            "completeness": 0.147,
+            "hallucination": 0.9,
             "hallucinated_terms": [
-              "无关"
+              "承获",
+              "系状",
+              "取消",
+              "单订",
+              "含商",
+              "录购",
+              "自动",
+              "hascustomer",
+              "品待",
+              "通过"
             ],
             "covered_terms": [
-              "关系"
+              "客户",
+              "关系",
+              "待支",
+              "状态",
+              "支付"
             ],
             "missing_terms": [
-              "子类",
-              "客户",
-              "账待",
-              "业客",
-              "类本",
-              "向对",
-              "本体",
-              "待支",
+              "中有",
+              "公转",
+              "指向",
+              "对公",
               "以企",
-              "中有"
+              "从企",
+              "付状",
+              "类本",
+              "是客",
+              "转账"
             ]
           }
         }
@@ -1442,8 +1460,8 @@
       ],
       "conditions": {
         "bare_llm": {
-          "answer": "订单状态通常有以下几种可能的取值：\n\n1. 待付款：订单已生成，但尚未支付。\n2. 待发货：订单已支付，等待商家发货。\n3. 已发货：商家已发货，订单在运输中。\n4. 已完成：订单已成功送达，交易完成。\n5. 已取消：订单被用户或商家取消。\n6. 退款中：用户申请退款，正在处理。\n7. 已退款：退款申请已处理完成，款项已退回。\n\n不同电商平台可能会有不同的状态分类，但大致上会包含以上几种。",
-          "latency_ms": 4702.6,
+          "answer": "订单状态通常有以下几种可能的取值：\n\n1. 待付款：订单已生成，但尚未支付。\n2. 待发货：订单已支付，等待商家发货。\n3. 已发货：商家已发货，订单在运输中。\n4. 待收货：订单已发货，等待买家确认收货。\n5. 已完成：买家已确认收货，订单交易完成。\n6. 已取消：订单被买家或商家取消。\n7. 退款中：订单申请退款，正在处理。\n8. 已退款：订单退款已完成。\n\n不同电商平台可能会有不同的状态名称和数量，但大致上会包含以上几种。",
+          "latency_ms": 3500.2,
           "available": true,
           "error": "",
           "scores": {
@@ -1451,31 +1469,31 @@
             "completeness": 0.5,
             "hallucination": 0.884,
             "hallucinated_terms": [
-              "成但",
-              "已成",
-              "消退",
-              "以下",
+              "会有",
+              "常有",
+              "称和",
+              "上几",
+              "的状",
+              "通常",
+              "易完",
+              "单在",
               "但尚",
-              "交易",
-              "类但",
-              "家发",
-              "运输",
-              "会有"
+              "请退"
             ],
             "covered_terms": [
               "取消",
-              "已支",
-              "已完",
-              "已取",
               "完成",
-              "成已",
+              "已发",
               "货已",
-              "单状",
-              "发货",
-              "订单",
+              "已支",
+              "成已",
               "状态",
+              "已完",
               "支付",
-              "已发"
+              "已取",
+              "发货",
+              "单状",
+              "订单"
             ],
             "missing_terms": [
               "completed",
@@ -1483,30 +1501,34 @@
               "shipped",
               "pending",
               "paid",
-              "枚举",
+              "的枚",
+              "付已",
               "值为",
-              "待支",
-              "举值",
-              "为待"
+              "为待",
+              "待支"
             ]
           }
         },
         "ontology_llm": {
-          "answer": "订单状态的可能取值有：\n- 待支付 (pending)\n- 已支付 (paid)\n- 已发货 (shipped)\n- 已完成 (completed)\n- 已取消 (cancelled)",
-          "latency_ms": 1902.8,
+          "answer": "订单状态的可能取值有以下几种：\n- pending（待支付）\n- paid（已支付）\n- shipped（已发货）\n- completed（已完成）\n- cancelled（已取消）",
+          "latency_ms": 2213.8,
           "available": true,
           "error": "",
           "scores": {
             "accuracy": 0.839,
             "completeness": 0.808,
-            "hallucination": 0.222,
+            "hallucination": 0.323,
             "hallucinated_terms": [
-              "取值",
-              "可能",
+              "种待",
               "能取",
-              "有待",
               "值有",
-              "的可"
+              "以下",
+              "有以",
+              "几种",
+              "下几",
+              "取值",
+              "的可",
+              "可能"
             ],
             "covered_terms": [
               "completed",
@@ -1515,52 +1537,61 @@
               "pending",
               "paid",
               "取消",
-              "已支",
-              "已完",
-              "待支",
-              "已取",
-              "完成",
-              "成已",
-              "货已",
               "付已",
-              "单状"
+              "完成",
+              "已发",
+              "货已",
+              "已支",
+              "成已",
+              "待支",
+              "状态",
+              "已完"
             ],
             "missing_terms": [
-              "枚举",
+              "的枚",
               "值为",
-              "举值",
               "为待",
-              "的枚"
+              "举值",
+              "枚举"
             ]
           }
         },
         "symbolic": {
-          "answer": "名称：订单（order）\n别名：order, 订单项, 订单详情, 订单状态, OrderItem, 订单信息, 订单号, 订单支付, 订单金额, 订单明细, Order\n描述：订单表\n层次：data　来源：rdb\n祖先：无\n后代：无\n属性（含继承）：order_time, total_amount, status, 最小值, 最大值\n关系（含继承）：hasCustomer, 包含, 记录, 状态, 自动取消, 到账\n推理链：\n  1. [concept_lookup] 名称=订单 层=data 来源=rdb",
+          "answer": "名称：订单（order）\n别名：订单明细, 订单详情, 确认订单, 订单项, 订单金额, order, 订单信息, Order, 订单状态, OrderItem, 订单号\n描述：订单表\n层次：data　来源：rdb\n祖先：无\n后代：待支付, 已发货, 已完成, 已取消\n属性（含继承）：order_time, total_amount, status, 时效标准, 最小值, 最大值\n关系（含继承）：hasCustomer, 包含, 记录, 状态, 自动取消\n推理链：\n  1. [concept_lookup] 名称=订单 层=data 来源=rdb\n  2. [descendant_closure] 后代：['待支付', '已发货', '已完成', '已取消']",
           "latency_ms": 0.1,
           "available": true,
           "error": "",
           "scores": {
-            "accuracy": 0.161,
-            "completeness": 0.192,
-            "hallucination": 0.926,
+            "accuracy": 0.452,
+            "completeness": 0.538,
+            "hallucination": 0.842,
             "hallucinated_terms": [
-              "细描",
-              "情订",
-              "金额",
-              "单支",
-              "单别",
-              "单号",
-              "自动",
-              "data",
-              "单明",
-              "值最"
+              "值关",
+              "关系",
+              "次来",
+              "concept_lookup",
+              "表层",
+              "rdb",
+              "后代",
+              "源后",
+              "确认",
+              "层来"
             ],
             "covered_terms": [
               "取消",
-              "单状",
-              "订单",
+              "付已",
+              "完成",
+              "已发",
+              "货已",
+              "成已",
+              "待支",
               "状态",
-              "支付"
+              "已完",
+              "支付",
+              "已取",
+              "发货",
+              "单状",
+              "订单"
             ],
             "missing_terms": [
               "completed",
@@ -1568,11 +1599,11 @@
               "shipped",
               "pending",
               "paid",
-              "枚举",
+              "的枚",
               "值为",
               "已支",
-              "已完",
-              "待支"
+              "为待",
+              "举值"
             ]
           }
         }
@@ -1590,7 +1621,7 @@
       "conditions": {
         "bare_llm": {
           "answer": "是的，男装是服装类商品的一个子类。它主要包括男性穿着的各种服饰，如衬衫、裤子、外套等。",
-          "latency_ms": 1715.3,
+          "latency_ms": 2342.3,
           "available": true,
           "error": "",
           "scores": {
@@ -1598,42 +1629,42 @@
             "completeness": 0.286,
             "hallucination": 0.806,
             "hallucinated_terms": [
-              "饰如",
-              "是服",
-              "包括",
-              "服饰",
-              "它主",
-              "类商",
-              "装类",
+              "套等",
+              "男性",
+              "着的",
               "要包",
               "的一",
-              "括男"
+              "饰如",
+              "的男",
+              "服饰",
+              "各种",
+              "穿着"
             ],
             "covered_terms": [
-              "子类",
-              "男装",
-              "商品",
               "装是",
+              "男装",
+              "品的",
               "服装",
-              "品的"
+              "商品",
+              "子类"
             ],
             "missing_terms": [
-              "出男",
-              "闭包",
-              "可推",
-              "通过",
-              "是男",
               "装商",
+              "传递",
+              "是男",
+              "通过",
               "是商",
+              "出男",
               "包可",
-              "品通",
-              "递闭"
+              "装服",
+              "过传",
+              "闭包"
             ]
           }
         },
         "ontology_llm": {
           "answer": "是的，男装是商品的子类。",
-          "latency_ms": 1312.4,
+          "latency_ms": 1363.5,
           "available": true,
           "error": "",
           "scores": {
@@ -1644,25 +1675,25 @@
               "的男"
             ],
             "covered_terms": [
-              "子类",
-              "男装",
-              "是商",
-              "商品",
               "装是",
+              "是商",
+              "男装",
+              "品的",
               "的子",
-              "品的"
+              "商品",
+              "子类"
             ],
             "missing_terms": [
-              "出男",
-              "闭包",
-              "可推",
-              "通过",
-              "是男",
               "装商",
+              "传递",
+              "是男",
+              "通过",
+              "出男",
               "包可",
-              "品通",
-              "递闭",
-              "服装"
+              "装服",
+              "过传",
+              "闭包",
+              "可推"
             ]
           }
         },
@@ -1676,37 +1707,37 @@
             "completeness": 0.333,
             "hallucination": 0.619,
             "hallucinated_terms": [
-              "是服",
-              "由公",
               "是推",
-              "公理",
+              "链由",
+              "装的",
+              "结论",
               "类结",
               "理链",
-              "链由",
               "推理",
-              "论男",
-              "transitive_closure"
+              "是服",
+              "transitive_closure",
+              "理推"
             ],
             "covered_terms": [
-              "子类",
+              "装是",
               "出男",
               "男装",
-              "装是",
-              "服装",
               "推出",
-              "的子"
+              "服装",
+              "的子",
+              "子类"
             ],
             "missing_terms": [
-              "闭包",
-              "可推",
-              "通过",
-              "是男",
               "装商",
+              "传递",
+              "是男",
+              "通过",
               "是商",
-              "商品",
               "包可",
-              "品通",
-              "递闭"
+              "装服",
+              "过传",
+              "品的",
+              "闭包"
             ]
           }
         }
@@ -1724,7 +1755,7 @@
       "conditions": {
         "bare_llm": {
           "answer": "如果客户在48小时内未确认收货，系统通常会自动将订单状态更新为“已完成”或“交易成功”。具体操作可能因电商平台而异，有些平台可能会发送提醒通知客户确认收货。建议查看具体平台的相关政策以获取准确的信息。",
-          "latency_ms": 2477.4,
+          "latency_ms": 2381.4,
           "available": true,
           "error": "",
           "scores": {
@@ -1732,41 +1763,41 @@
             "completeness": 0.227,
             "hallucination": 0.901,
             "hallucinated_terms": [
-              "有些",
-              "交易",
-              "查看",
               "客户",
-              "统通",
-              "策以",
-              "更新",
-              "货建",
-              "体操",
-              "完成"
+              "异有",
+              "提醒",
+              "时内",
+              "体平",
+              "完成",
+              "通常",
+              "能因",
+              "确的",
+              "体操"
             ],
             "covered_terms": [
-              "确认",
-              "收货",
               "自动",
+              "认收",
+              "确认",
               "系统",
-              "认收"
+              "收货"
             ],
             "missing_terms": [
               "eca",
-              "由触",
-              "动确",
-              "规则",
-              "将自",
+              "发规",
               "超时",
-              "驱动",
-              "这是",
+              "时确",
+              "货驱",
+              "将自",
+              "由触",
               "触发",
-              "是由"
+              "这是",
+              "动的"
             ]
           }
         },
         "ontology_llm": {
           "answer": "如果客户在48小时内未确认收货，系统将自动确认收货。",
-          "latency_ms": 2051.3,
+          "latency_ms": 1160.0,
           "available": true,
           "error": "",
           "scores": {
@@ -1774,83 +1805,83 @@
             "completeness": 0.364,
             "hallucination": 0.421,
             "hallucinated_terms": [
-              "在小",
               "内未",
               "客户",
-              "户在",
-              "如果",
-              "果客",
               "时内",
+              "果客",
+              "户在",
+              "在小",
+              "如果",
               "货系"
             ],
             "covered_terms": [
-              "动确",
-              "将自",
-              "确认",
-              "统将",
-              "收货",
               "自动",
+              "将自",
+              "认收",
+              "确认",
               "系统",
-              "认收"
+              "收货",
+              "动确",
+              "统将"
             ],
             "missing_terms": [
               "eca",
-              "由触",
-              "规则",
+              "发规",
               "超时",
-              "驱动",
-              "这是",
-              "触发",
-              "是由",
+              "时确",
               "货驱",
-              "时确"
+              "由触",
+              "触发",
+              "这是",
+              "动的",
+              "驱动"
             ]
           }
         },
         "symbolic": {
-          "answer": "• 超时取消：如果客户在24小时内未支付，订单将自动取消\n  → 动作：update_field - 取消\n• 超时确认收货：如果客户在48小时内未确认收货，系统将自动确认收货\n  → 动作：update_field - 确认收货\n• 支付后更新订单状态为已支付：支付完成后，系统会自动更新订单状态为已支付\n  → 动作：invoke_service - 更新订单状态为已支付\n• 支付后更新库存数量：支付成功后，系统会自动更新库存数量\n  → 动作：invoke_service - 更新库存数量\n• 订单自动取消：如果客户在24小时内未支付，订单将自动取消。\n  → 动作：update_field - 将订单状态更新为已取消\n• 订单状态更新：支付完成后，系统会自动更新订单状态为已支付，并通知商家发货。\n  → 动作：update_field - 将订单状态更新为已支付并通知商家发货\n• 自动确认收货：如果客户在48小时内未确认收货，系统将自动确认收货。\n  → 动作：update_field - 将订单状态更新为已完成\n推理链：\n  1. [trigger_match] 动作：update_field - 取消\n  2. [trigger_match] 动作：update_field - 确认收货\n  3. [trigger_match] 动作：invoke_service - 更新订单状态为已支付\n  4. [trigger_match] 动作：invoke_service - 更新库存数量\n  5. [trigger_match] 动作：update_field - 将订单状态更新为已取消\n  6. [trigger_match] 动作：update_field - 将订单状态更新为已支付并通知商家发货\n  7. [trigger_match] 动作：update_field - 将订单状态更新为已完成",
+          "answer": "• 超时取消：如果客户在24小时内未支付，订单将自动取消\n  → 动作：update_field - 取消\n• 超时确认收货：如果客户在48小时内未确认收货，系统将自动确认收货\n  → 动作：update_field - 确认收货\n• 支付后更新订单状态为已支付：支付完成后，系统会自动更新订单状态为已支付\n  → 动作：invoke_service - 更新订单状态为已支付\n• 支付后更新库存数量：支付成功后，系统会自动更新库存数量\n  → 动作：invoke_service - 更新库存数量\n• 订单自动取消：如果客户在24小时内未支付，订单将自动取消。\n  → 动作：update_field - 将订单状态更新为已取消\n• 订单状态更新：支付完成后，系统会自动更新订单状态为已支付，并通知商家发货。\n  → 动作：update_field - 将订单状态更新为已支付，并通知商家发货\n• 自动确认收货：如果客户在48小时内未确认收货，系统将自动确认收货。\n  → 动作：update_field - 将订单状态更新为已完成\n• 库存更新：支付成功后，系统会自动更新库存数量，并通知仓库进行拣货。\n  → 动作：update_field - 更新库存数量，并通知仓库进行拣货\n推理链：\n  1. [trigger_match] 动作：update_field - 取消\n  2. [trigger_match] 动作：update_field - 确认收货\n  3. [trigger_match] 动作：invoke_service - 更新订单状态为已支付\n  4. [trigger_match] 动作：invoke_service - 更新库存数量\n  5. [trigger_match] 动作：update_field - 将订单状态更新为已取消\n  6. [trigger_match] 动作：update_field - 将订单状态更新为已支付，并通知商家发货\n  7. [trigger_match] 动作：update_field - 将订单状态更新为已完成\n  8. [trigger_match] 动作：update_field - 更新库存数量，并通知仓库进行拣货",
           "latency_ms": 0.1,
           "available": true,
           "error": "",
           "scores": {
             "accuracy": 0.444,
             "completeness": 0.455,
-            "hallucination": 0.859,
+            "hallucination": 0.873,
             "hallucinated_terms": [
-              "后系",
               "客户",
-              "货动",
-              "家发",
-              "付支",
-              "更新",
-              "量订",
+              "时内",
+              "成库",
+              "付完",
+              "消超",
+              "库存",
+              "量支",
               "完成",
-              "单状",
-              "消超"
+              "时取",
+              "未支"
             ],
             "covered_terms": [
-              "动确",
-              "将自",
               "超时",
               "时确",
-              "确认",
-              "统将",
-              "收货",
               "自动",
+              "将自",
+              "认收",
+              "确认",
               "系统",
-              "认收"
+              "收货",
+              "动确",
+              "统将"
             ],
             "missing_terms": [
               "eca",
-              "由触",
-              "规则",
-              "驱动",
-              "这是",
-              "触发",
-              "是由",
+              "发规",
               "货驱",
+              "由触",
+              "触发",
+              "这是",
               "动的",
-              "发规"
+              "驱动",
+              "是由",
+              "则超"
             ]
           }
         }
@@ -1867,48 +1898,49 @@
       ],
       "conditions": {
         "bare_llm": {
-          "answer": "从订单到商品的关系路径通常包括以下几个步骤：\n\n1. **下单**：消费者在电商平台上选择商品并提交订单。\n2. **订单处理**：系统接收到订单后，进行验证（如库存、支付等）。\n3. **库存管理**：确认订单后，系统从库存中扣减相应商品数量。\n4. **拣货**：仓库工作人员根据订单信息拣选商品。\n5. **包装**：拣选完成后，对商品进行包装，以确保运输安全。\n6. **发货**：将包装好的商品交给物流公司进行配送。\n7. **配送**：物流公司将商品送到消费者指定的地址。\n8. **确认收货**：消费者收到商品后确认收货，订单完成。\n\n这个路径展示了从消费者下单到最终收到商品的整个流程。",
-          "latency_ms": 3790.4,
+          "answer": "从订单到商品的关系路径通常包括以下几个步骤：\n\n1. **下单**：消费者在电商平台上选择商品并提交订单。\n2. **订单处理**：电商平台接收到订单后，进行订单确认、支付处理等。\n3. **库存管理**：系统检查商品库存，确认商品是否可用。\n4. **拣货**：仓库工作人员根据订单信息拣选相应的商品。\n5. **包装**：拣选完成后，商品进行包装，准备发货。\n6. **发货**：商品通过物流公司发往消费者指定的地址。\n7. **配送**：物流公司负责将商品送达消费者手中。\n8. **确认收货**：消费者收到商品后确认收货，订单完成。\n\n这个路径展示了从消费者下单到最终收到商品的整个流程。",
+          "latency_ms": 3584.0,
           "available": true,
           "error": "",
           "scores": {
-            "accuracy": 0.188,
-            "completeness": 0.188,
-            "hallucination": 0.981,
+            "accuracy": 0.25,
+            "completeness": 0.25,
+            "hallucination": 0.975,
             "hallucinated_terms": [
-              "整个",
-              "址确",
-              "后系",
-              "认订",
-              "以下",
-              "仓库",
-              "到消",
-              "单处",
-              "员根",
-              "在电"
+              "定的",
+              "者收",
+              "品是",
+              "品送",
+              "库存",
+              "后确",
+              "单确",
+              "人员",
+              "通常",
+              "等库"
             ],
             "covered_terms": [
-              "订单",
+              "商品",
               "关系",
-              "商品"
+              "通过",
+              "订单"
             ],
             "missing_terms": [
-              "含关",
-              "联商",
-              "单通",
-              "系直",
-              "接关",
               "关联",
+              "接关",
+              "系直",
+              "品订",
+              "直接",
               "包含",
-              "单包",
               "含商",
-              "直接"
+              "过包",
+              "单包",
+              "含关"
             ]
           }
         },
         "ontology_llm": {
           "answer": "从订单到商品的关系路径如下：\n\n1. 订单 --[包含(1:N)]--> 商品\n\n这表示一个订单可以包含多个商品。",
-          "latency_ms": 2471.8,
+          "latency_ms": 2677.0,
           "available": true,
           "error": "",
           "scores": {
@@ -1916,36 +1948,36 @@
             "completeness": 0.375,
             "hallucination": 0.75,
             "hallucinated_terms": [
-              "个订",
-              "路径",
+              "含多",
+              "单到",
+              "这表",
               "品这",
-              "如下",
-              "表示",
+              "单可",
               "以包",
-              "从订",
-              "系路",
-              "到商",
-              "含多"
+              "品的",
+              "多个",
+              "如下",
+              "表示"
             ],
             "covered_terms": [
-              "订单",
-              "关系",
-              "商品",
               "包含",
+              "含商",
+              "商品",
+              "关系",
               "单包",
-              "含商"
+              "订单"
             ],
             "missing_terms": [
-              "含关",
-              "联商",
-              "单通",
-              "系直",
-              "接关",
               "关联",
-              "直接",
+              "接关",
+              "系直",
               "品订",
+              "直接",
               "过包",
-              "通过"
+              "含关",
+              "通过",
+              "单通",
+              "联商"
             ]
           }
         },
@@ -1959,36 +1991,36 @@
             "completeness": 0.375,
             "hallucination": 0.793,
             "hallucinated_terms": [
+              "流状",
               "客户",
-              "围商",
-              "canbrowse",
-              "物流",
-              "送范",
               "到达",
               "path_search",
-              "理链",
-              "cancheck",
-              "配送"
+              "hascustomer",
+              "物流",
+              "品到",
+              "户物",
+              "户商",
+              "品推"
             ],
             "covered_terms": [
-              "订单",
-              "商品",
+              "品订",
               "包含",
-              "单包",
               "含商",
-              "品订"
+              "商品",
+              "单包",
+              "订单"
             ],
             "missing_terms": [
-              "含关",
-              "关系",
-              "联商",
-              "单通",
-              "系直",
-              "接关",
               "关联",
+              "接关",
+              "系直",
               "直接",
               "过包",
-              "通过"
+              "关系",
+              "含关",
+              "通过",
+              "单通",
+              "联商"
             ]
           }
         }
@@ -2005,48 +2037,48 @@
       ],
       "conditions": {
         "bare_llm": {
-          "answer": "订单金额的有效范围通常取决于电商平台的具体规定和支付方式。一般来说，最低订单金额可能是几元，而最高订单金额可能会限制在几千元到几万元不等，具体数值因平台而异。此外，某些支付方式可能会有额外的限制。建议查看具体电商平台的相关政策以获取准确的信息。",
-          "latency_ms": 2063.8,
+          "answer": "订单金额的有效范围通常取决于电商平台的具体规定和支付方式。一般来说，最低订单金额可能是几元，而最高订单金额可能会限制在几千元到几万元不等，具体数值因平台而异。此外，某些支付方式可能会有单笔交易的上限。建议查看具体电商平台的相关政策以获取准确的信息。",
+          "latency_ms": 1874.0,
           "available": true,
           "error": "",
           "scores": {
             "accuracy": 0.176,
             "completeness": 0.2,
-            "hallucination": 0.967,
+            "hallucination": 0.968,
             "hallucinated_terms": [
-              "查看",
-              "的具",
-              "策以",
-              "体规",
-              "因平",
-              "体电",
               "会有",
-              "平台",
-              "决于",
-              "电商"
+              "限建",
+              "上限",
+              "通常",
+              "的具",
+              "确的",
+              "几千",
+              "数值",
+              "来说",
+              "的上"
             ],
             "covered_terms": [
-              "订单",
+              "单金",
               "金额",
-              "单金"
+              "订单"
             ],
             "missing_terms": [
               "total_amount",
               "999999",
-              "01",
-              "值为",
-              "元最",
-              "小值",
               "最大",
-              "最小",
+              "大值",
               "99",
-              "额最"
+              "01",
+              "额最",
+              "元最",
+              "值为",
+              "小值"
             ]
           }
         },
         "ontology_llm": {
           "answer": "订单金额的有效范围是[0.01, 999999.99]。",
-          "latency_ms": 2106.9,
+          "latency_ms": 1982.3,
           "available": true,
           "error": "",
           "scores": {
@@ -2054,31 +2086,31 @@
             "completeness": 0.4,
             "hallucination": 0.5,
             "hallucinated_terms": [
-              "效范",
-              "范围",
               "额的",
-              "围是",
+              "范围",
+              "的有",
+              "效范",
               "有效",
-              "的有"
+              "围是"
             ],
             "covered_terms": [
               "999999",
-              "01",
-              "订单",
               "99",
+              "单金",
+              "01",
               "金额",
-              "单金"
+              "订单"
             ],
             "missing_terms": [
               "total_amount",
-              "值为",
-              "元最",
-              "小值",
               "最大",
-              "最小",
-              "额最",
               "大值",
-              "为元"
+              "额最",
+              "元最",
+              "值为",
+              "小值",
+              "为元",
+              "最小"
             ]
           }
         },
@@ -2092,16 +2124,16 @@
             "completeness": 0.133,
             "hallucination": 0.947,
             "hallucinated_terms": [
-              "祖先",
-              "代无",
-              "称元",
-              "层来",
-              "性含",
-              "链名",
-              "无层",
               "text",
-              "承无",
-              "层次"
+              "称元",
+              "源祖",
+              "无关",
+              "链名",
+              "含继",
+              "关系",
+              "无推",
+              "元别",
+              "名无"
             ],
             "covered_terms": [
               "999999",
@@ -2109,15 +2141,15 @@
             ],
             "missing_terms": [
               "total_amount",
-              "01",
-              "值为",
-              "元最",
-              "订单",
-              "小值",
               "最大",
-              "最小",
+              "大值",
+              "单金",
+              "01",
               "额最",
-              "大值"
+              "元最",
+              "值为",
+              "金额",
+              "小值"
             ]
           }
         }
@@ -2136,7 +2168,7 @@
       "conditions": {
         "bare_llm": {
           "answer": "在电商领域，关系hasOrder通常用于描述用户与订单之间的关系。其domain和range可以定义如下：\n\n- **Domain（定义域）**：用户（User）\n- **Range（值域）**：订单（Order）\n\n这意味着一个用户可以有多个订单，而每个订单是由一个特定的用户所拥有。",
-          "latency_ms": 3085.0,
+          "latency_ms": 1662.0,
           "available": true,
           "error": "",
           "scores": {
@@ -2144,73 +2176,73 @@
             "completeness": 0.263,
             "hallucination": 0.908,
             "hallucinated_terms": [
+              "述用",
+              "用户",
+              "定的",
+              "个特",
+              "单而",
+              "关系",
+              "味着",
+              "户所",
               "领域",
-              "个订",
-              "所拥",
-              "域关",
-              "户可",
-              "常用",
-              "户与",
-              "有多",
-              "用于",
-              "用户"
+              "与订"
             ],
             "covered_terms": [
               "hasorder",
               "domain",
               "range",
-              "单是",
-              "订单"
+              "订单",
+              "单是"
             ],
             "missing_terms": [
-              "才能",
               "客户",
-              "只有",
               "有订",
+              "单订",
+              "有客",
+              "只有",
+              "才能",
               "即只",
-              "单即",
-              "户才",
-              "户订",
               "是客",
-              "有客"
+              "户才",
+              "单即"
             ]
           }
         },
         "ontology_llm": {
-          "answer": "关系hasOrder的domain是客户，range是订单。",
-          "latency_ms": 2185.5,
+          "answer": "关系hasOrder的domain是订单，range是客户。",
+          "latency_ms": 2123.1,
           "available": true,
           "error": "",
           "scores": {
-            "accuracy": 0.409,
-            "completeness": 0.316,
-            "hallucination": 0.455,
+            "accuracy": 0.455,
+            "completeness": 0.368,
+            "hallucination": 0.364,
             "hallucinated_terms": [
-              "关系",
               "的是",
+              "关系",
               "系的",
-              "是订",
-              "户是"
+              "是订"
             ],
             "covered_terms": [
               "hasorder",
               "domain",
               "range",
               "客户",
+              "订单",
               "是客",
-              "订单"
+              "单是"
             ],
             "missing_terms": [
-              "才能",
-              "只有",
               "有订",
-              "即只",
-              "单即",
-              "户才",
-              "户订",
-              "单是",
+              "单订",
               "有客",
-              "的订"
+              "只有",
+              "才能",
+              "即只",
+              "户才",
+              "单即",
+              "的订",
+              "户的"
             ]
           }
         },
@@ -2224,23 +2256,23 @@
             "completeness": 0.0,
             "hallucination": 1.0,
             "hallucinated_terms": [
-              "未找",
-              "念未",
               "找到",
-              "概念"
+              "概念",
+              "念未",
+              "未找"
             ],
             "covered_terms": [],
             "missing_terms": [
               "hasorder",
               "domain",
               "range",
-              "才能",
               "客户",
-              "只有",
               "有订",
-              "即只",
-              "单即",
-              "户才"
+              "单订",
+              "有客",
+              "订单",
+              "只有",
+              "才能"
             ]
           }
         }
@@ -2257,55 +2289,55 @@
       ],
       "conditions": {
         "bare_llm": {
-          "answer": "一般情况下，企业客户在电商平台上无法删除已完成的订单。已完成的订单通常被视为交易记录，无法被删除。不过，企业客户可以联系平台客服进行咨询，了解是否有特殊情况或其他处理方式。",
-          "latency_ms": 2522.0,
+          "answer": "一般情况下，企业客户无法删除已完成的订单。已完成的订单通常被视为交易记录，系统会保留这些信息以便于后续的查询和对账。不过，企业客户可以联系电商平台的客服，询问是否有特殊情况可以处理订单的相关问题。",
+          "latency_ms": 1531.0,
           "available": true,
           "error": "",
           "scores": {
             "accuracy": 0.263,
             "completeness": 0.263,
-            "hallucination": 0.803,
+            "hallucination": 0.835,
             "hallucinated_terms": [
-              "情况",
-              "不过",
-              "商平",
-              "单通",
-              "交易",
-              "服进",
-              "户可",
+              "会保",
               "否有",
-              "况下",
-              "视为"
+              "通常",
+              "关问",
+              "系统",
+              "联系",
+              "以联",
+              "于后",
+              "平台",
+              "问题"
             ],
             "covered_terms": [
+              "成的",
               "客户",
+              "订单",
+              "完成",
+              "企业",
               "业客",
               "已完",
-              "记录",
-              "完成",
-              "成的",
-              "企业",
-              "订单",
               "的订",
+              "记录",
               "删除"
             ],
             "missing_terms": [
-              "子类",
-              "单记",
-              "不能",
-              "本体",
+              "能删",
+              "关系",
+              "能本",
               "中存",
-              "录企",
-              "系不",
-              "存在",
+              "指向",
+              "向已",
               "作为",
-              "类也"
+              "户的",
+              "户作",
+              "录企"
             ]
           }
         },
         "ontology_llm": {
           "answer": "企业客户不能删除已完成的订单记录。",
-          "latency_ms": 2127.6,
+          "latency_ms": 2088.8,
           "available": true,
           "error": "",
           "scores": {
@@ -2314,31 +2346,31 @@
             "hallucination": 0.0,
             "hallucinated_terms": [],
             "covered_terms": [
-              "单记",
-              "不能",
+              "成的",
+              "能删",
               "客户",
+              "订单",
+              "完成",
+              "单记",
+              "企业",
               "业客",
               "已完",
-              "记录",
-              "完成",
-              "成的",
-              "企业",
-              "订单",
+              "不能",
               "的订",
-              "删除",
-              "能删"
+              "记录",
+              "删除"
             ],
             "missing_terms": [
-              "子类",
-              "本体",
+              "关系",
+              "能本",
               "中存",
-              "录企",
-              "系不",
-              "存在",
+              "指向",
+              "向已",
               "作为",
-              "类也",
-              "受此",
-              "约束"
+              "户的",
+              "户作",
+              "录企",
+              "为客"
             ]
           }
         },
@@ -2358,16 +2390,16 @@
               "关系"
             ],
             "missing_terms": [
-              "子类",
-              "单记",
-              "不能",
+              "成的",
+              "能删",
               "客户",
-              "业客",
-              "本体",
+              "订单",
+              "能本",
               "中存",
-              "录企",
-              "系不",
-              "已完"
+              "指向",
+              "向已",
+              "完成",
+              "作为"
             ]
           }
         }
@@ -2385,53 +2417,53 @@
       ],
       "conditions": {
         "bare_llm": {
-          "answer": "VIP客户通常可以查看以下专属信息：\n\n1. **专属折扣和优惠**：VIP客户可能会获得特别的折扣、优惠券或促销活动信息。\n2. **新品预览**：VIP客户可能会提前获得新品发布的信息或优先购买权。\n3. **个性化推荐**：根据购买历史和偏好，提供个性化的产品推荐。\n4. **专属客服**：VIP客户通常可以享受更高效的客服支持，可能有专属客服人员。\n5. **活动邀请**：VIP客户可能会收到参加专属活动、线下活动或线上直播的邀请。\n6. **积分和奖励信息**：查看积分余额、兑换规则及奖励信息。\n\n具体内容可能因电商平台而异。",
-          "latency_ms": 3632.1,
+          "answer": "VIP客户通常可以查看以下专属信息：\n\n1. **专属折扣和优惠**：VIP客户可能会获得特别的折扣、优惠券或促销活动信息。\n2. **新品预览**：VIP客户可能会提前获得新品发布的信息或试用机会。\n3. **个性化推荐**：根据购买历史和偏好，提供个性化的产品推荐。\n4. **专属客服**：VIP客户通常可以享受更优质的客服服务，包括快速响应和专属客服人员。\n5. **活动邀请**：VIP客户可能会收到参加专属活动、线下活动或线上直播的邀请。\n6. **积分和奖励信息**：查看积分余额、兑换规则及奖励信息。\n\n具体内容可能因电商平台而异。",
+          "latency_ms": 3254.5,
           "available": true,
           "error": "",
           "scores": {
             "accuracy": 0.436,
             "completeness": 0.421,
-            "hallucination": 0.944,
+            "hallucination": 0.946,
             "hallucinated_terms": [
-              "息或",
-              "以下",
-              "动邀",
-              "得新",
-              "或促",
-              "加专",
-              "体内",
+              "下活",
+              "折扣",
+              "速响",
+              "息查",
+              "人员",
               "常可",
-              "会获",
-              "得特"
+              "通常",
+              "到参",
+              "服人",
+              "能因"
             ],
             "covered_terms": [
               "vip",
-              "查看",
-              "户可",
               "客户",
               "专属",
               "以查",
+              "查看",
               "历史",
+              "户可",
               "可以"
             ],
             "missing_terms": [
-              "史消",
-              "商品",
-              "看专",
-              "记录",
-              "品目",
-              "录和",
               "目录",
+              "看专",
+              "录和",
               "费记",
-              "和历",
-              "消费"
+              "史消",
+              "消费",
+              "属商",
+              "商品",
+              "品目",
+              "记录"
             ]
           }
         },
         "ontology_llm": {
           "answer": "VIP客户可以查看专属商品目录和历史消费记录。",
-          "latency_ms": 1744.9,
+          "latency_ms": 2260.3,
           "available": true,
           "error": "",
           "scores": {
@@ -2441,20 +2473,20 @@
             "hallucinated_terms": [],
             "covered_terms": [
               "vip",
-              "史消",
-              "查看",
-              "户可",
               "客户",
+              "目录",
+              "看专",
+              "录和",
               "专属",
               "以查",
-              "商品",
-              "看专",
-              "记录",
-              "品目",
-              "录和",
-              "目录",
               "费记",
-              "和历"
+              "史消",
+              "消费",
+              "属商",
+              "查看",
+              "历史",
+              "商品",
+              "品目"
             ],
             "missing_terms": []
           }
@@ -2475,15 +2507,631 @@
             "covered_terms": [],
             "missing_terms": [
               "vip",
-              "史消",
-              "查看",
-              "户可",
               "客户",
+              "目录",
+              "看专",
+              "录和",
               "专属",
               "以查",
+              "费记",
+              "史消",
+              "消费"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "q19",
+      "question": "如果VIP客户不是客户的子类，VIP客户会失去哪些继承来的关系？",
+      "category": "counterfactual",
+      "difficulty": "hard",
+      "ground_truth": "VIP客户将失去从客户继承的所有关系，包括canBrowse、canPlaceOrder、canCheck、hasAccount、isType、registerWith、下单、查询、查看和修改、查看、不能删除、提交等12个关系。同时失去继承的属性：customer_name、customer_type、phone、email、register_time、annual_spend。",
+      "ontology_evidence": [
+        "subClassOf: VIP客户 ⊑ 客户",
+        "VIP客户通过继承获得客户的全部关系和属性"
+      ],
+      "conditions": {
+        "bare_llm": {
+          "answer": "如果VIP客户不是客户的子类，那么VIP客户将失去以下继承来的关系：\n\n1. **客户属性**：VIP客户将无法继承客户类中的基本属性，如客户ID、姓名、联系方式等。\n\n2. **客户方法**：VIP客户无法使用客户类中定义的方法，例如下单、查询订单等。\n\n3. **客户行为**：VIP客户无法享受客户类中定义的行为或特权，例如积分累积、优惠活动等。\n\n4. **多态性**：如果客户类有多态性，VIP客户将无法表现出客户类的多态行为。\n\n总之，VIP客户将无法享有客户类所提供的所有功能和特性。",
+          "latency_ms": 3458.7,
+          "available": true,
+          "error": "",
+          "scores": {
+            "accuracy": 0.203,
+            "completeness": 0.241,
+            "hallucination": 0.863,
+            "hallucinated_terms": [
+              "系方",
+              "特性",
+              "的行",
+              "性如",
+              "有客",
+              "所提",
+              "为总",
+              "户行",
+              "为或",
+              "类那"
+            ],
+            "covered_terms": [
+              "vip",
+              "客户",
+              "关系",
+              "将失",
+              "继承",
+              "单查",
+              "失去",
+              "下单",
+              "查询",
+              "属性",
+              "所有",
+              "户将",
+              "的所"
+            ],
+            "missing_terms": [
+              "customer_name",
+              "register_time",
+              "canplaceorder",
+              "customer_type",
+              "annual_spend",
+              "registerwith",
+              "hasaccount",
+              "canbrowse",
+              "cancheck",
+              "istype"
+            ]
+          }
+        },
+        "ontology_llm": {
+          "answer": "如果VIP客户不是客户的子类，VIP客户将失去以下继承来的关系：\n\n1. VIP客户 --[isType(1:N)]--> 客户\n2. VIP客户 --[hasSpecialService(1:N)]--> 专属客服\n3. VIP客户 --[hasDiscount(1:N)]--> 折扣优惠\n4. 客户 --[canBrowse(1:N)]--> 商品\n5. 客户 --[canPlaceOrder(1:N)]--> 订单\n6. 客户 --[canCheck(1:N)]--> 物流状态\n7. 客户 --[查询(1:N)]--> 订单\n8. 客户 --[查看(1:N)]--> 专属商品目录\n9. 客户 --[查看(1:N)]--> 历史消费记录\n\n这些关系是VIP客户作为客户的子类所特有的，若VIP客户不再是客户的子类，则无法享有这些关系。",
+          "latency_ms": 3095.7,
+          "available": true,
+          "error": "",
+          "scores": {
+            "accuracy": 0.263,
+            "completeness": 0.241,
+            "hallucination": 0.805,
+            "hallucinated_terms": [
+              "录客",
+              "折扣",
+              "目录",
+              "若客",
+              "作为",
+              "态客",
+              "有的",
+              "专属",
+              "户折",
+              "户商"
+            ],
+            "covered_terms": [
+              "canplaceorder",
+              "canbrowse",
+              "cancheck",
+              "istype",
+              "vip",
+              "客户",
+              "关系",
+              "将失",
+              "继承",
+              "失去",
+              "查询",
+              "查看",
+              "户将"
+            ],
+            "missing_terms": [
+              "customer_name",
+              "register_time",
+              "customer_type",
+              "annual_spend",
+              "registerwith",
+              "hasaccount",
+              "email",
+              "phone",
+              "看和",
+              "能删"
+            ]
+          }
+        },
+        "symbolic": {
+          "answer": "## 反事实分析：移除 VIP客户 ⊑ 客户\n\n**影响概要**：\n- 失去祖先：1 个 (客户)\n- 失去继承关系：12 个 (canBrowse, canCheck, canPlaceOrder, hasAccount, registerWith, 下单, 不能删除, 提交, 未支付, 查看, 查看和修改, 查询)\n- 失去继承属性：7 个 (annual_spend, customer_name, customer_type, email, phone, register_time, 确认收货时间)\n- 级联影响后代：0 个 (无)\n推理链：\n  1. [counterfactual_hypothesis] 构建反事实本体（deep copy + 移除公理 + 重建索引）\n  2. [lost_ancestors] 失去祖先关系：客户\n  3. [lost_relations] 失去继承关系：canBrowse, canCheck, canPlaceOrder, hasAccount, registerWith, 下单, 不能删除, 提交, 未支付, 查看, 查看和修改, 查询\n  4. [lost_properties] 失去继承属性：annual_spend, customer_name, customer_type, email, phone, register_time, 确认收货时间",
+          "latency_ms": 4.9,
+          "available": true,
+          "error": "",
+          "scores": {
+            "accuracy": 0.639,
+            "completeness": 0.574,
+            "hallucination": 0.68,
+            "hallucinated_terms": [
+              "析移",
+              "链构",
+              "lost_relations",
+              "构建",
+              "先个",
+              "联影",
+              "货时",
+              "后代",
+              "确认",
+              "未支"
+            ],
+            "covered_terms": [
+              "customer_name",
+              "register_time",
+              "canplaceorder",
+              "customer_type",
+              "annual_spend",
+              "registerwith",
+              "hasaccount",
+              "canbrowse",
+              "cancheck",
+              "email",
+              "phone",
+              "vip",
+              "看和",
+              "客户",
+              "能删"
+            ],
+            "missing_terms": [
+              "istype",
+              "交等",
+              "去从",
+              "括下",
+              "将失",
+              "单查",
+              "看不",
+              "的属",
+              "包括",
+              "有关"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "q20",
+      "question": "如果移除canPlaceOrder关系，哪些概念会受到影响？",
+      "category": "counterfactual",
+      "difficulty": "hard",
+      "ground_truth": "客户、企业客户、VIP客户3个概念会受到影响。客户直接失去canPlaceOrder关系，企业客户和VIP客户作为客户的子类通过继承也会失去该关系。移除后客户剩余14个关系。",
+      "ontology_evidence": [
+        "relation: canPlaceOrder domain=客户 range=订单",
+        "subClassOf: 企业客户 ⊑ 客户",
+        "subClassOf: VIP客户 ⊑ 客户"
+      ],
+      "conditions": {
+        "bare_llm": {
+          "answer": "如果移除canPlaceOrder关系，以下几个概念可能会受到影响：\n\n1. **用户权限**：用户将无法下订单，影响用户的购物体验。\n2. **订单管理**：商家无法接收到新的订单，影响库存管理和销售。\n3. **支付流程**：支付环节将无法触发，影响交易的完成。\n4. **客户服务**：客户服务团队可能会收到更多关于无法下单的咨询，增加工作负担。\n5. **数据分析**：销售数据和用户行为分析将受到影响，无法准确评估市场需求。\n\n总之，移除canPlaceOrder关系会对整个电商流程产生连锁反应。",
+          "latency_ms": 3701.7,
+          "available": true,
+          "error": "",
+          "scores": {
+            "accuracy": 0.238,
+            "completeness": 0.224,
+            "hallucination": 0.902,
+            "hallucinated_terms": [
+              "和销",
+              "购物",
+              "响无",
+              "库存",
+              "念可",
+              "完成",
+              "法接",
+              "付环",
+              "触发",
+              "户行"
+            ],
+            "covered_terms": [
+              "canplaceorder",
+              "客户",
+              "会受",
+              "关系",
+              "概念",
+              "个概",
+              "到影",
+              "户的",
+              "移除",
+              "影响",
+              "受到"
+            ],
+            "missing_terms": [
+              "vip",
+              "户和",
+              "户直",
+              "14",
+              "系移",
+              "念会",
+              "通过",
+              "继承",
+              "失去",
+              "也会"
+            ]
+          }
+        },
+        "ontology_llm": {
+          "answer": "如果移除canPlaceOrder关系，以下概念会受到影响：\n\n- 客户：因为该关系描述了客户可以下单的能力，移除后客户将无法与订单建立下单的关系。\n- 订单：因为该关系是订单与客户之间的一个重要连接，移除后订单将失去与客户的下单关联。\n\n因此，客户和订单这两个概念都会受到影响。",
+          "latency_ms": 2541.6,
+          "available": true,
+          "error": "",
+          "scores": {
+            "accuracy": 0.376,
+            "completeness": 0.367,
+            "hallucination": 0.738,
+            "hallucinated_terms": [
+              "之间",
+              "述了",
+              "的下",
+              "单因",
+              "将无",
+              "系是",
+              "系描",
+              "是订",
+              "的关",
+              "要连"
+            ],
+            "covered_terms": [
+              "canplaceorder",
+              "客户",
+              "户和",
+              "会受",
+              "关系",
+              "念会",
+              "失去",
+              "除后",
+              "概念",
+              "个概",
+              "响客",
+              "该关",
+              "到影",
+              "后客",
+              "户的"
+            ],
+            "missing_terms": [
+              "vip",
+              "户直",
+              "14",
+              "系移",
+              "通过",
+              "继承",
+              "也会",
+              "和客",
+              "承也",
+              "作为"
+            ]
+          }
+        },
+        "symbolic": {
+          "answer": "## 反事实分析：移除关系 canPlaceOrder\n\n**原始定义**：客户 --[canPlaceOrder]--> 订单\n**受影响概念**（含继承）：3 个\n  - 客户\n  - 企业客户\n  - VIP客户\n推理链：\n  1. [counterfactual_hypothesis] 构建反事实本体\n  2. [impact_analysis] 受影响概念：客户, 企业客户, VIP客户\n  3. [remaining_relations] 移除后剩余 15 个关系：isType, registerWith, registerWith, hasAccount, canBrowse, canCheck, 下单, 未支付, 查询, 查看和修改, 查看, 查看, 查看, 不能删除, 提交",
+          "latency_ms": 0.2,
+          "available": true,
+          "error": "",
+          "scores": {
+            "accuracy": 0.347,
+            "completeness": 0.327,
+            "hallucination": 0.766,
+            "hallucinated_terms": [
+              "析移",
+              "链构",
+              "15",
+              "念含",
+              "构建",
+              "承个",
+              "未支",
+              "体受",
+              "始定",
+              "付查"
+            ],
+            "covered_terms": [
+              "canplaceorder",
+              "vip",
+              "客户",
+              "关系",
+              "继承",
+              "除后",
+              "户客",
+              "户企",
+              "剩余",
+              "概念",
+              "个关",
+              "业客",
+              "企业",
+              "余个",
+              "移除"
+            ],
+            "missing_terms": [
+              "户和",
+              "户直",
+              "会受",
+              "14",
+              "系移",
+              "念会",
+              "通过",
+              "失去",
+              "也会",
+              "和客"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "q21",
+      "question": "如果订单成为商品的子类，订单会获得哪些新的关系和属性？",
+      "category": "counterfactual",
+      "difficulty": "hard",
+      "ground_truth": "订单将获得商品的祖先（商品），新增继承关系3个（分为、属于、是），新增继承属性5个（category_id、description、price、product_name、stock）。这是一个荒谬的假设，但可以通过符号推理验证其级联影响。",
+      "ontology_evidence": [
+        "商品拥有关系: 分为, 属于, 是",
+        "商品拥有属性: category_id, description, price, product_name, stock"
+      ],
+      "conditions": {
+        "bare_llm": {
+          "answer": "如果订单成为商品的子类，订单可能会获得以下新的关系和属性：\n\n1. **属性**：\n   - **订单编号**：唯一标识每个订单。\n   - **订单状态**：如待付款、已付款、已发货、已完成、已取消等。\n   - **下单时间**：记录订单创建的时间。\n   - **支付方式**：如信用卡、支付宝、微信支付等。\n   - **配送信息**：包括收货地址、配送方式、快递公司等。\n   - **商品列表**：包含订单中所购买的商品及其数量、价格等信息。\n   - **总金额**：订单的总费用，包括商品价格、运费、优惠等。\n\n2. **关系**：\n   - **与用户的关系**：订单与下单用户之间的关联，记录用户信息。\n   - **与商品的关系**：订单与所购买商品之间的关联，记录商品详情。\n   - **与支付记录的关系**：订单与支付信息之间的关联，记录支付状态和信息。\n   - **与物流的关系**：订单与物流信息之间的关联，跟踪配送状态。\n\n通过这些新的属性和关系，订单作为商品的子类可以更好地管理和追踪交易过程。",
+          "latency_ms": 3752.9,
+          "available": true,
+          "error": "",
+          "scores": {
+            "accuracy": 0.131,
+            "completeness": 0.143,
+            "hallucination": 0.96,
+            "hallucinated_terms": [
+              "跟踪",
+              "与商",
+              "快递",
+              "消等",
+              "价格",
+              "情与",
+              "踪交",
+              "的总",
+              "息总",
+              "为商"
+            ],
+            "covered_terms": [
+              "关系",
+              "通过",
+              "品的",
+              "属性",
               "商品",
-              "看专",
-              "记录"
+              "获得",
+              "可以",
+              "订单"
+            ],
+            "missing_terms": [
+              "product_name",
+              "category_id",
+              "description",
+              "stock",
+              "price",
+              "验证",
+              "得商",
+              "谬的",
+              "新增",
+              "增继"
+            ]
+          }
+        },
+        "ontology_llm": {
+          "answer": "本体中未定义。",
+          "latency_ms": 1201.6,
+          "available": true,
+          "error": "",
+          "scores": {
+            "accuracy": 0.0,
+            "completeness": 0.0,
+            "hallucination": 1.0,
+            "hallucinated_terms": [
+              "本体",
+              "体中",
+              "未定",
+              "中未",
+              "定义"
+            ],
+            "covered_terms": [],
+            "missing_terms": [
+              "product_name",
+              "category_id",
+              "description",
+              "stock",
+              "price",
+              "验证",
+              "得商",
+              "谬的",
+              "新增",
+              "关系"
+            ]
+          }
+        },
+        "symbolic": {
+          "answer": "## 反事实分析：添加 订单 ⊑ 商品\n\n**新增祖先**：1 个 (商品)\n**新增继承关系**：3 个 (分为, 属于, 是)\n**新增继承属性**：5 个 (category_id, description, price, product_name, stock)\n推理链：\n  1. [counterfactual_hypothesis] 构建反事实本体（deep copy + 添加公理 + 重建索引）\n  2. [gained_ancestors] 新增祖先：商品\n  3. [gained_relations] 新增继承关系：分为, 属于, 是\n  4. [gained_properties] 新增继承属性：category_id, description, price, product_name, stock",
+          "latency_ms": 5.1,
+          "available": true,
+          "error": "",
+          "scores": {
+            "accuracy": 0.508,
+            "completeness": 0.464,
+            "hallucination": 0.542,
+            "hallucinated_terms": [
+              "deep",
+              "个推",
+              "析添",
+              "counterfactual_hypothesis",
+              "链构",
+              "实本",
+              "重建",
+              "先个",
+              "构建",
+              "加订"
+            ],
+            "covered_terms": [
+              "product_name",
+              "category_id",
+              "description",
+              "stock",
+              "price",
+              "新增",
+              "关系",
+              "增继",
+              "系个",
+              "属于",
+              "为属",
+              "继承",
+              "于是",
+              "品新",
+              "个分"
+            ],
+            "missing_terms": [
+              "验证",
+              "得商",
+              "谬的",
+              "以通",
+              "通过",
+              "联影",
+              "单将",
+              "符号",
+              "理验",
+              "的假"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "q22",
+      "question": "如果完全移除客户概念，会对本体产生什么级联影响？",
+      "category": "counterfactual",
+      "difficulty": "hard",
+      "ground_truth": "移除客户概念将导致：2个子类（企业客户、VIP客户）变为孤立；17条关系断裂（包括客户作为domain的15条和作为range的2条）；6个属性丢失（customer_name、customer_type、phone、email、register_time、annual_spend）；7条公理被移除；2个后代概念失去所有继承的关系和属性。",
+      "ontology_evidence": [
+        "客户有子类: 企业客户, VIP客户",
+        "客户定义了15+条关系",
+        "客户定义了6个属性",
+        "7条公理引用客户"
+      ],
+      "conditions": {
+        "bare_llm": {
+          "answer": "如果完全移除客户概念，会对本体产生以下级联影响：\n\n1. **业务模式变化**：企业的运营模式将受到影响，无法以客户需求为导向进行产品开发和服务提供。\n\n2. **市场定位模糊**：缺乏客户概念，企业难以明确目标市场和受众，导致市场策略失效。\n\n3. **产品和服务创新受限**：客户反馈和需求是创新的重要驱动力，移除客户概念可能导致产品和服务的停滞不前。\n\n4. **销售和营销策略失效**：传统的销售和营销策略依赖于客户洞察，缺乏客户概念将使这些策略失去依据。\n\n5. **客户关系管理崩溃**：客户关系管理系统将失去意义，企业难以维护与客户的长期关系。\n\n6. **财务表现下降**：客户是收入的来源，移除客户概念可能导致销售额下降，影响企业的财务健康。\n\n7. **品牌价值受损**：品牌的建立和维护往往依赖于客户的认同和忠诚，缺乏客户概念可能导致品牌价值下降。\n\n总之，客户概念是商业运作的核心，移除它将对企业的各个方面产生深远的负面影响。",
+          "latency_ms": 4918.9,
+          "available": true,
+          "error": "",
+          "scores": {
+            "accuracy": 0.131,
+            "completeness": 0.147,
+            "hallucination": 0.953,
+            "hallucinated_terms": [
+              "定位",
+              "法以",
+              "是收",
+              "响无",
+              "品和",
+              "源移",
+              "供市",
+              "的核",
+              "受众",
+              "响企"
+            ],
+            "covered_terms": [
+              "客户",
+              "关系",
+              "念将",
+              "失去",
+              "户概",
+              "概念",
+              "企业",
+              "除客",
+              "移除",
+              "导致"
+            ],
+            "missing_terms": [
+              "customer_name",
+              "register_time",
+              "customer_type",
+              "annual_spend",
+              "domain",
+              "range",
+              "email",
+              "phone",
+              "vip",
+              "为孤"
+            ]
+          }
+        },
+        "ontology_llm": {
+          "answer": "本体中未定义。",
+          "latency_ms": 987.4,
+          "available": true,
+          "error": "",
+          "scores": {
+            "accuracy": 0.0,
+            "completeness": 0.0,
+            "hallucination": 0.8,
+            "hallucinated_terms": [
+              "本体",
+              "体中",
+              "未定",
+              "中未"
+            ],
+            "covered_terms": [],
+            "missing_terms": [
+              "customer_name",
+              "register_time",
+              "customer_type",
+              "annual_spend",
+              "domain",
+              "range",
+              "email",
+              "phone",
+              "vip",
+              "为孤"
+            ]
+          }
+        },
+        "symbolic": {
+          "answer": "## 反事实分析：移除概念 客户\n\n**直接影响**：\n- 孤立子类：2 个 (企业客户, VIP客户)\n- 断裂关系：18 条\n  - 客户 --[isType]--> CustomerType\n  - 客户 --[registerWith]--> 手机号\n  - 客户 --[registerWith]--> 邮箱\n  - 客户 --[hasAccount]--> 账户\n  - 客户 --[canBrowse]--> 商品\n  - 客户 --[canPlaceOrder]--> 订单\n  - 客户 --[canCheck]--> 物流状态\n  - 客户 --[下单]--> 订单\n  - 客户 --[未支付]--> 订单\n  - 客户 --[查询]--> 订单\n  - 客户 --[查看和修改]--> 订单\n  - 客户 --[查看]--> 订单\n  - 客户 --[查看]--> 专属商品目录\n  - 客户 --[查看]--> 历史消费记录\n  - 客户 --[不能删除]--> 已完成的订单记录\n  - 客户 --[提交]--> 订单\n  - 订单 --[hasCustomer]--> 客户\n  - VIP客户 --[isType]--> 客户\n- 丢失属性：7 个\n- 受影响公理：6 条\n**级联影响**：\n- 受影响后代：2 个\n- 失去继承的后代：2 个\n推理链：\n  1. [counterfactual_hypothesis] 分析级联影响\n  2. [orphaned_children] 子类将失去父类：企业客户, VIP客户\n  3. [broken_relations] 将断裂的关系：客户 --[isType]--> CustomerType；客户 --[registerWith]--> 手机号；客户 --[registerWith]--> 邮箱；客户 --[hasAccount]--> 账户；客户 --[canBrowse]--> 商品；客户 --[canPlaceOrder]--> 订单；客户 --[canCheck]--> 物流状态；客户 --[下单]--> 订单；客户 --[未支付]--> 订单；客户 --[查询]--> 订单；客户 --[查看和修改]--> 订单；客户 --[查看]--> 订单；客户 --[查看]--> 专属商品目录；客户 --[查看]--> 历史消费记录；客户 --[不能删除]--> 已完成的订单记录；客户 --[提交]--> 订单；订单 --[hasCustomer]--> 客户；VIP客户 --[isType]--> 客户\n  4. [lost_properties] 将丢失的属性：customer_name, customer_type, phone, email, register_time, annual_spend, 确认收货时间\n  5. [broken_axioms] 这些公理将被移除\n  6. [inheritance_cascade] 这些概念也将失去继承来的关系",
+          "latency_ms": 0.1,
+          "available": true,
+          "error": "",
+          "scores": {
+            "accuracy": 0.438,
+            "completeness": 0.397,
+            "hallucination": 0.843,
+            "hallucinated_terms": [
+              "析移",
+              "customertype",
+              "个推",
+              "念也",
+              "录客",
+              "邮箱",
+              "户断",
+              "目录",
+              "联影",
+              "完成"
+            ],
+            "covered_terms": [
+              "customer_name",
+              "register_time",
+              "customer_type",
+              "annual_spend",
+              "email",
+              "phone",
+              "vip",
+              "客户",
+              "关系",
+              "类企",
+              "继承",
+              "失去",
+              "后代",
+              "户客",
+              "孤立"
+            ],
+            "missing_terms": [
+              "domain",
+              "range",
+              "为孤",
+              "变为",
+              "的条",
+              "系断",
+              "15",
+              "括客",
+              "念失",
+              "念将"
             ]
           }
         }

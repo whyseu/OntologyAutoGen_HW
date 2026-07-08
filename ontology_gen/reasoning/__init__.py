@@ -14,6 +14,9 @@ and provides:
 from .ontology_loader import OntologyIndex, load_ontology
 from .symbolic_reasoner import SymbolicReasoner, InferenceResult
 from .context_builder import OntologyContextBuilder
+from .ontology_editor import OntologyEditor, ChangeRecord
+from .ontology_agent import OntologyAgent, AgentTeam, MessageBoard
+from .multi_step_pipeline import run_multistep_pipeline, PipelineReport
 
 __all__ = [
     "OntologyIndex",
@@ -21,4 +24,11 @@ __all__ = [
     "SymbolicReasoner",
     "InferenceResult",
     "OntologyContextBuilder",
+    "OntologyEditor",
+    "ChangeRecord",
+    "OntologyAgent",
+    "AgentTeam",
+    "MessageBoard",
+    "run_multistep_pipeline",
+    "PipelineReport",
 ]

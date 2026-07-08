@@ -5,12 +5,12 @@
     {
       "check": "domain_range_consistency",
       "severity": "warning",
-      "message": "Domain axiom says 'hasDiscount' domain is '客户', but relation defines domain as 'VIP客户'"
+      "message": "Domain axiom says 'hasSpecialService' domain is '客户', but relation defines domain as 'VIP客户'"
     },
     {
       "check": "domain_range_consistency",
       "severity": "warning",
-      "message": "Domain axiom says 'hasSpecialService' domain is '客户', but relation defines domain as 'VIP客户'"
+      "message": "Domain axiom says 'hasDiscount' domain is '商品', but relation defines domain as 'VIP客户'"
     }
   ],
   "checks_run": [
