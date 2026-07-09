@@ -2,7 +2,7 @@
 
 从异构数据源（RDB DDL、文本文档、对话日志）自动构建领域本体的 Python 项目。
 
-原版作者：刘焕勇，https://liuhuanyong.github.io
+原版作者：刘焕勇，https://liuhuanyong.github.io，仓库地址：https://github.com/whyseu/OntologyAutoGen_HW/tree/main
 修改版作者：whyseu
 
 ## 架构概览
